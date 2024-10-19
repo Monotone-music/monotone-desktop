@@ -8,10 +8,10 @@ const Home = () => {
 
   return (
     <>
-    <ColorBtn/>
-    <Box bg={bg} color={color} p={4}>
-      This box adjusts its background and text color based on the color mode.
-    </Box>
+      <ColorBtn />
+      <Box bg={bg} color={color} p={4}>
+        This box adjusts its background and text color based on the color mode.
+      </Box>
     </>
   );
 };

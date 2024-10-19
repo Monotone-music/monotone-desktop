@@ -3,16 +3,27 @@ import ReactDOM from "react-dom/client";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 import './index.scss'
 import theme from "./styles/theme";
 import Home from "./pages/home/Home";
+import Root from "./layout/rootLayout/Root";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>,
+    element: <Root />,
+    children: [
+      {
+        path: "",
+        element: <Navigate to="/home" replace />,
+      },     {
+        path: "home",
+        element: <Home />,
+      }
+    ]
   },
 ]);
 
