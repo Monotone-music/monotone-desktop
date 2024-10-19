@@ -12,9 +12,13 @@
   "app": {
     "windows": [
       {
-        "title": "monotone-desktop-app",
+        "fullscreen": false,
+        "height": 600,
+        "resizable": true,
+        "title": "Monotone",
         "width": 800,
-        "height": 600
+        "minWidth": 800,
+        "minHeight": 600
       }
     ],
     "security": {
