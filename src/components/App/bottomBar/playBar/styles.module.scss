@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 12px;
+    width: 300px;
+    padding-top: 10px;
+
+    @media screen and (min-width: 1024px) {
+        width: 500px;
+    }
+}
+
+.btn-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 24px;
+}
+
+.progress-bar-wrapper{
+    width: 100%;
+    padding: 0 16px;
+}

@@ -1,4 +1,9 @@
 .container{
     grid-area: sideBar;
-    background-color: black; // Darker background for the top nav
+    padding: 0px 8px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+      
+
 }

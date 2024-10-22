@@ -1,0 +1,9 @@
+.container{
+    width: 200px;
+    height: auto;    
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    max-width: 200px;
+    column-gap: 6px;
+}

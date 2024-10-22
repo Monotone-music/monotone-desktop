@@ -1,10 +1,23 @@
-import React from 'react'
-import styles from './styles.module.scss'
+import React from "react";
+import styles from "./styles.module.scss";
+import { useUIStore } from "../../../store/useUIStore";
+import AlbumActionBar from "./albumActionBar/AlbumActionBar";
+import ThumbnailTrack from "./thumbnailTrack/ThumbnailTrack";
+import AboutArtist from "./aboutArtist/AboutArtist";
 
 const RightBar = () => {
-  return (
-    <section className={styles.container}>RightBar</section>
-  )
-}
+  const { toggleRightBar, isRightBarOpen } = useUIStore();
 
-export default RightBar
+  return (
+    <section
+      className={styles.container}
+      style={isRightBarOpen ? { display: "block" } : { display: "none" }}
+    >
+      <AlbumActionBar/>
+      <ThumbnailTrack/>
+      <AboutArtist/>
+    </section>
+  );
+};
+
+export default RightBar;

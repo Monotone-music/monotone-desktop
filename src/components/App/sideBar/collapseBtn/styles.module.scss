@@ -1,0 +1,20 @@
+.container{
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
+    align-items: center;   
+    cursor: pointer; 
+    transition: all 0.3s ease;   
+    .text{
+        font-size: 14px;
+        font-weight: 600;
+    }
+    
+    &:hover{
+        background-color: gray;
+    }
+    
+}

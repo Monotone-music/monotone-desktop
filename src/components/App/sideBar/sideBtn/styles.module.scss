@@ -1,0 +1,27 @@
+.container{
+    padding: 12px;
+    border: transparent solid 1px; 
+    border-radius: 10px;
+    display: flex;
+    column-gap: 10px;
+    justify-content: flex-start;
+    align-items: center;   
+    cursor: pointer; 
+    transition: all 0.3s ease;   
+    
+    
+    .text{
+        font-size: 14px;
+        font-weight: 400;
+    }
+    
+    &:hover{
+        background-color: gray;
+    }
+
+    .img-logo{
+        width: 24px;
+        height: 24px;
+        object-fit: cover;
+    }
+}

@@ -1,6 +1,9 @@
 .container{
     grid-area: bottomBar;
     background-color: black;
-    border: white solid 1px;
     width: 100%;
+    padding: 8px 8px 16px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, auto));
+    justify-content: space-between;
 }

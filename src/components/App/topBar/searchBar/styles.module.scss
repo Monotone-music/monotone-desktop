@@ -1,0 +1,18 @@
+.container{
+    width: 400px;
+    height: 50px;
+    background-color: #212121;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    column-gap: 12px;
+    
+}
+
+.search-bar{
+    outline: none;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+}

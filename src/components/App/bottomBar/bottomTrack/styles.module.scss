@@ -1,0 +1,53 @@
+.container{
+    display: flex;
+    align-items: center;
+    column-gap: 14px;
+    max-width: 200px;
+    
+}
+
+.img-wrapper{
+    width: 35%;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    background-color: transparent;
+
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+}
+
+.info-wrapper{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    transition: transform 0.5s ease;
+
+    .title{
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+
+    .authors{
+        font-size: 10px;
+        font-weight: 400;
+        cursor: pointer;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}

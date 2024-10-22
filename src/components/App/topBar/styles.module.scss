@@ -1,4 +1,30 @@
 .container{
     grid-area: topBar;
     background-color: black; // Darker background for the top nav
+    height: auto;
+    display: grid;
+    padding: 8px;
+    column-gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, auto));
+    width: 100%;
+}
+
+.nav-container{
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.avatar-container{
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.home-search-container{
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 12px;
 }
