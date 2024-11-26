@@ -17,7 +17,18 @@ grid-template-columns: auto 1fr auto;
   margin: 0 auto;
   border: #202020 solid 1px;
   border-top-left-radius: 10px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   scroll-behavior: smooth;
   box-sizing: border-box;
+
+
+  &::-webkit-scrollbar{
+    width: 4px;
+    background-color: black;
+  }
+
+  &::-webkit-scrollbar-thumb{
+    background-color: rgba(white, 0.2);
+  }
 }

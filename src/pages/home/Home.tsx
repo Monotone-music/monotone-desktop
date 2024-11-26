@@ -1,18 +1,22 @@
-import React from "react";
 import styles from "./styles.module.scss";
-import { Box, useColorModeValue } from "@chakra-ui/react";
-import ColorBtn from "../../components/Setting/colorBtn/ColorBtn";
+import { Box } from "@chakra-ui/react";
+import TabSection from "../../components/Home/TabSection/TabSection";
+import AllTab from "../../components/Home/TabSection/AllTab/AllTab";
+import AlbumTab from "../../components/Home/TabSection/AlbumTab/AlbumTab";
+import CompilationTab from "../../components/Home/TabSection/CompilationTab/CompilationTab";
+import { ITabArr } from "../../interface/UI";
+
 const Home = () => {
-  const bg = useColorModeValue("gray.100", "gray.700");
-  const color = useColorModeValue("black", "white");
+  const tabArr: ITabArr[] = [
+    { title: "All", component: <AllTab /> },
+    { title: "Album", component: <AlbumTab /> },
+    { title: "Compilation", component: <CompilationTab /> },
+  ];
 
   return (
-    <>
-      <ColorBtn />
-      <Box bg={bg} color={color} p={4}>
-        This box adjusts its background and text color based on the color mode.
-      </Box>
-    </>
+    <Box className={styles.container}>
+      <TabSection dataTab={tabArr} />
+    </Box>
   );
 };
 

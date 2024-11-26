@@ -6,7 +6,7 @@ import ThumbnailTrack from "./thumbnailTrack/ThumbnailTrack";
 import AboutArtist from "./aboutArtist/AboutArtist";
 
 const RightBar = () => {
-  const { toggleRightBar, isRightBarOpen } = useUIStore();
+  const { isRightBarOpen } = useUIStore();
 
   return (
     <section

@@ -1,0 +1,37 @@
+.container{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.top{
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+.title{
+    padding: 0 12px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.seeMore{
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.row{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}

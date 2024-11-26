@@ -4,8 +4,14 @@ export interface IUI {
     isModalOpen?: boolean; 
     currentView?: string; 
   
-    toggleSidebar: () => void;
-    toggleRightBar: () => void;
+    toggleSidebar: (isSidebarOpen:boolean) => void;
+    toggleRightBar: (isRightBarOpen: boolean) => void;
     toggleModal?: () => void; 
     setView?: (view: string) => void; 
-  }
+}
+
+
+export interface ITabArr {
+  title: string;
+  component: React.ReactNode
+}

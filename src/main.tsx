@@ -6,10 +6,17 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import './index.scss'
+import "./index.scss";
 import theme from "./styles/theme";
 import Home from "./pages/home/Home";
 import Root from "./layout/rootLayout/Root";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -19,20 +26,24 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Navigate to="/home" replace />,
-      },     {
+      },
+      {
         path: "home",
         element: <Home />,
-      }
-    ]
+      },
+    ],
   },
 ]);
 
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <ChakraProvider>
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <RouterProvider router={router} />
-    </ChakraProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <RouterProvider router={router} />
+        </ChakraProvider>
+      </QueryClientProvider>
   </React.StrictMode>
 );
