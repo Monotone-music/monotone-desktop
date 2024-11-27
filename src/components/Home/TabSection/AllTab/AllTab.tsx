@@ -14,7 +14,6 @@ const AllTab = () => {
     queryFn: () => getAlbum(),
   });
 
-  console.log(data?.data.releaseGroup)
 
   // Tracking Width of Content
   useEffect(() => {
