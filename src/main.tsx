@@ -17,6 +17,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import Album from "./pages/album/Album";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "home",
         element: <Home />,
+      },
+       {
+        path: "album/:albumId",
+        element: <Album />,
       },
     ],
   },

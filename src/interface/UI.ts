@@ -15,3 +15,19 @@ export interface ITabArr {
   title: string;
   component: React.ReactNode
 }
+
+export interface IImageAlbum {
+  dimensions: {
+    height: number;
+    width: number;
+  } ;
+
+  filename: string;
+  hash: string;
+  mimeType: string;
+  size: number;
+  type: string;
+  _id: string;
+}
+
+

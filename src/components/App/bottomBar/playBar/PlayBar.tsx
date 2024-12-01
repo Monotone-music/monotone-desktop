@@ -13,7 +13,6 @@ import useAudioStore from "../../../../store/useAudioStore";
 
 const PlayBar = () => {
   const audioSrc = useFetchAudio('6740a2506357c3ed99dedfc4');
-  console.log(audioSrc)
   const audioRef = useRef<HTMLAudioElement>(null);
   const { isPlaying, togglePlayPause } = useAudioStore();
 

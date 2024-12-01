@@ -13,7 +13,6 @@ const useFetchAudio = (trackId: string) => {
       queryFn: () => getTrackStream(trackId),
     });
   
-    console.log("Data: ", data?.data)
     useEffect(() => {
       if (data?.data) {
         const processAudio = async () => {

@@ -1,0 +1,30 @@
+.container{
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .heading{
+        margin-top: 10px;
+        font-size: 24px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .desc{
+        margin-top: 10px;
+        max-width: 400px;
+        width: 100%;
+        font-size: 16px;
+        text-align: center;
+        line-height: 24px;
+    }
+}

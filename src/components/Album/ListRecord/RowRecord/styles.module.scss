@@ -1,0 +1,57 @@
+.tableRow {
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .index {
+      font-size: 14px;
+      color: #616161;
+      padding: 0 !important;
+      text-align: center;
+    }
+  
+    .title-col {
+      padding: 16px 0 16px 10px !important;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  
+    .title-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .title {
+      font-size: 14px;
+      color: white;
+  
+      text-align: start;
+    }
+  
+    .img-album{
+      background-color: pink;
+      border-radius: 10px;
+      width: 50px;
+      height: 50px;
+    }
+  
+    .artist {
+      font-size: 12px;
+      color: #757575;
+      font-weight: 600;
+      padding: 0 !important;
+      text-align: start;
+    }
+  
+    .duration {
+      font-size: 12px;
+      color: #757575;
+      font-weight: 600;
+      padding: 0 !important;
+      text-align: start;
+    }
+  }

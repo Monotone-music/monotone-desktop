@@ -55,11 +55,21 @@
 .info-wrapper {
   width: 100%;
   padding-right: 10px;
+
+  .title{
+    font-size: 18px;
+    font-weight: 600;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
   .des {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     color: #989898;
     font-size: 12px;
     font-weight: 600;
