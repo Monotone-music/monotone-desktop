@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { Box, Icon, Text } from "@chakra-ui/react";
+import { Box, Icon, Spinner, Stack, Text } from "@chakra-ui/react";
 import { FaPlay } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getAlbumImageByFileName } from "../../../service/album.api";
 import { useNavigate } from "react-router-dom";
 import ErrorWarning from "../../Error/ErrorWarning/ErrorWarning";
+import noImage from "../../../assets/img/no-image-1.png";
 
 interface MusicCardProps {
-  itemData: any;
+  itemData: {
+    _id: string;
+    title: string;
+    albumArtist: string;
+    image: { filename: string };
+  };
 }
 
 const MusicCard: React.FC<MusicCardProps> = ({ itemData }) => {
-  console.log(itemData);
   const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({
     queryKey: ["cardImg", itemData.image.filename],
@@ -21,7 +26,6 @@ const MusicCard: React.FC<MusicCardProps> = ({ itemData }) => {
   const [isHover, setIsHover] = useState<boolean>(false);
 
   useEffect(() => {
-    // Clean up the object URL when the component unmounts
     return () => {
       if (data) {
         URL.revokeObjectURL(data);
@@ -48,15 +52,22 @@ const MusicCard: React.FC<MusicCardProps> = ({ itemData }) => {
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <Box className={styles["img-wrapper"]}>
-        <img src={data} alt="" />
+      {isLoading ? (
+        <Box className={styles.loadingContainer}>
+          <Spinner />
+        </Box>
+      ) : (
+        <Box className={styles["img-wrapper"]} border="none">
+          <img src={data || noImage} alt={itemData.title} />
 
-        {isHover && (
-          <Box className={`${styles.playBtn} ${styles.slideIn}`}>
-            <Icon as={FaPlay} boxSize={3} />
-          </Box>
-        )}
-      </Box>
+          {isHover && (
+            <Box className={`${styles.playBtn} ${styles.slideIn}`}>
+              <Icon as={FaPlay} boxSize={3} />
+            </Box>
+          )}
+        </Box>
+      )}
+
       <Box className={styles["info-wrapper"]}>
         <Text className={styles.title}>{itemData.title}</Text>
         <Text className={styles.des}>{itemData.albumArtist}</Text>
@@ -65,4 +76,4 @@ const MusicCard: React.FC<MusicCardProps> = ({ itemData }) => {
   );
 };
 
-export default MusicCard;
+export default React.memo(MusicCard);

@@ -7,7 +7,6 @@ export const fetchData = async () => {
     const response = await apiClient.get("/album", {
       method: "GET",
     });
-    // console.log(response)
   } catch (error) {
     console.error("Error fetching data:", error);
   }
