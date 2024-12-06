@@ -7,15 +7,17 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAlbumDetailById } from "../../service/album.api";
 import ListRecord from "../../components/Album/ListRecord/ListRecord";
 import ErrorWarning from "../../components/Error/ErrorWarning/ErrorWarning";
+import { useAuthStore } from "../../store/useAuthStore";
 
 const Album = () => {
+  const {token} = useAuthStore();
   const { albumId } = useParams<{ albumId: string }>();
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['albumDetail', albumId],
-    queryFn: () => getAlbumDetailById(albumId!),
-    enabled: !!albumId
+    queryKey: ['albumDetail', albumId, token],
+    queryFn: () => getAlbumDetailById(albumId!, token!),
+    enabled: !!albumId && !!token
   });
 
   useEffect(() => {

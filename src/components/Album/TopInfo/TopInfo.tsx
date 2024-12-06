@@ -6,6 +6,7 @@ import { IImageAlbum } from "../../../interface/UI";
 import { useQuery } from "@tanstack/react-query";
 import { getAlbumImageByFileName } from "../../../service/album.api";
 import { IRelease } from "../../../interface/Music";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 interface TopInfoProps {
   title?: string;
@@ -24,12 +25,13 @@ const TopInfo: React.FC<TopInfoProps> = ({
   releaseType = "Unknown Type",
   release = [{ trackCount: 0 }],
 }) => {
+  const {token} = useAuthStore()
   const totalSong = release[0]?.trackCount || 0;
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["albumDetailImg"],
-    queryFn: () => getAlbumImageByFileName(image?.filename),
-    enabled: !!image?.filename,
+    queryFn: () => getAlbumImageByFileName(image?.filename, token!),
+    enabled: !!image?.filename && !!token
   });
 
   if (isLoading) {

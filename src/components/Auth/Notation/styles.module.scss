@@ -1,0 +1,21 @@
+.container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.text{
+    font-size: 14px !important;
+    color: #616161 !important;
+    font-weight: 500 !important;
+}
+
+.btn{
+    color: white !important;
+    font-weight: 400 !important;
+    padding: 16px;
+    font-size: 12px !important;
+}

@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAlbumImageByFileName } from "../../../service/album.api";
 import RowRecord from "./RowRecord/RowRecord";
 import { IRelease } from "../../../interface/Music";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 const ActionBar = () => {
   return (
@@ -39,7 +40,7 @@ interface ListRecordProps {
 }
 
 const ListRecord: React.FC<ListRecordProps> = ({ release }) => {
-  
+    const {token} = useAuthStore();
   const sortedRecordings = useMemo(
     () =>
       [...release[0].recording].sort((a, b) => a.position.no - b.position.no),
@@ -55,10 +56,10 @@ const ListRecord: React.FC<ListRecordProps> = ({ release }) => {
     queryFn: () =>
       Promise.all(
         sortedRecordings.map((record) =>
-          getAlbumImageByFileName(record.image.filename)
+          getAlbumImageByFileName(record.image.filename, token!)
         )
       ),
-    enabled: sortedRecordings.length > 0,
+    enabled: sortedRecordings.length > 0 && !!token
   });
 
 

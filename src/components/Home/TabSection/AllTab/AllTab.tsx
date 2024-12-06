@@ -5,14 +5,18 @@ import RowCard from "../../../Shared/RowCard/RowCard";
 import { getAlbum } from "../../../../service/album.api";
 import { useQuery } from "@tanstack/react-query";
 import ErrorWarning from "../../../Error/ErrorWarning/ErrorWarning";
+import { useAuthStore } from "../../../../store/useAuthStore";
 
 const AllTab = () => {
+  const {token} = useAuthStore()
   const [contentWidth, setContentWidth] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
+ 
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["card"],
-    queryFn: () => getAlbum(),
+    queryKey: ["card", token],
+    queryFn: () => getAlbum(token!),
+    enabled: !!token,
   });
 
   // Tracking Width of Content

@@ -1,0 +1,29 @@
+.container{
+    // border: white solid 1px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+}
+
+.submit-wrapper{
+    width: 100%;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.submitBtn{
+    background-color: white !important;
+    color: black !important;
+    transition: all 0.3s ease;
+    border: transparent 1px solid;
+    height: 54px !important;
+
+    &:hover{
+        background-color: black !important;
+        color: white !important;
+        border: white 1px solid;
+    }
+}

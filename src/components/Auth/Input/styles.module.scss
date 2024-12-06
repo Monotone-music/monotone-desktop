@@ -1,0 +1,9 @@
+.container{
+    border-radius: 10px;
+    background-color: #090a0a;
+    height: 55px !important;
+
+    @media screen and (min-width: 1024px) {
+        height: 60px !important;
+    }
+}

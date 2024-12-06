@@ -7,6 +7,7 @@ import { getAlbumImageByFileName } from "../../../service/album.api";
 import { useNavigate } from "react-router-dom";
 import ErrorWarning from "../../Error/ErrorWarning/ErrorWarning";
 import noImage from "../../../assets/img/no-image-1.png";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 interface MusicCardProps {
   itemData: {
@@ -18,10 +19,12 @@ interface MusicCardProps {
 }
 
 const MusicCard: React.FC<MusicCardProps> = ({ itemData }) => {
+  const {token} = useAuthStore()
   const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({
     queryKey: ["cardImg", itemData.image.filename],
-    queryFn: () => getAlbumImageByFileName(itemData.image.filename),
+    queryFn: () => getAlbumImageByFileName(itemData.image.filename, token!),
+    enabled: !!token
   });
   const [isHover, setIsHover] = useState<boolean>(false);
 
@@ -34,7 +37,7 @@ const MusicCard: React.FC<MusicCardProps> = ({ itemData }) => {
   }, [data]);
 
   const handleRedirectToDetailPage = (albumId: string) => {
-    navigate(`/album/${albumId}`);
+    navigate(`/home/album/${albumId}`);
   };
 
   if (error) {

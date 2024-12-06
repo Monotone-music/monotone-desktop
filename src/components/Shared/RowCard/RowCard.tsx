@@ -11,7 +11,6 @@ interface RowCardProps {
 
 const RowCard: React.FC<RowCardProps> = ({ contentWidth, rowTitle, cardData }) => {
   const [numberCard, setNumberCard] = useState(4);
-  console.log("CardData:", cardData)
   useEffect(() => {
     const calculateNumberOfCards = () => {
       const cardWidth = 175; // Example card width
