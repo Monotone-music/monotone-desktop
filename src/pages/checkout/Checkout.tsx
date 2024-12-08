@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./styles.module.scss";
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import { loadStripe } from "@stripe/stripe-js";
 import { paymentStripe } from "../../service/payment.api";
 import { useAuthStore } from "../../store/useAuthStore";
@@ -32,8 +32,16 @@ const Checkout = () => {
     fetchClientSecret();
   }, []);
 
+  const LoadingScreen = () => {
+    return (
+        <Box className={styles.loadingScreen}>
+            <Spinner size="lg" />
+        </Box>
+    );
+};
+
   if (!stripePromise || !clientSecret) {
-    return <div>Loading...</div>;
+    return <LoadingScreen/>;
   }
 
   return (
