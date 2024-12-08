@@ -6,6 +6,7 @@ import { getAlbum } from "../../../../service/album.api";
 import { useQuery } from "@tanstack/react-query";
 import ErrorWarning from "../../../Error/ErrorWarning/ErrorWarning";
 import { useAuthStore } from "../../../../store/useAuthStore";
+import StripePaymentButton from "../../../Payment/StripePaymentButton/StripePaymentButton";
 
 const AllTab = () => {
   const {token} = useAuthStore()
@@ -69,6 +70,7 @@ const AllTab = () => {
 
   return (
     <Box className={styles.container} ref={contentRef}>
+      {/* <StripePaymentButton/> */}
       {albums && (
         <Skeleton isLoaded={!isLoading}>
           <RowCard

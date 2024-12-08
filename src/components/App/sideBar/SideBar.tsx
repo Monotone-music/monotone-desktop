@@ -7,7 +7,7 @@ import CollapseBtn from './collapseBtn/CollapseBtn';
 import { RiPlayList2Fill } from "react-icons/ri";
 import { FaRegFolderOpen  } from "react-icons/fa";
 import { HiOutlineUser } from "react-icons/hi";
-import { MdOutlinePodcasts } from "react-icons/md";
+import { MdOutlinePayments, MdOutlinePodcasts } from "react-icons/md";
 const SideBar = () => {
   const bg = useColorModeValue("white", "black");
   const color = useColorModeValue("black", "white");
@@ -20,6 +20,7 @@ const SideBar = () => {
       <SideBtn icon={MdOutlinePodcasts} title='Podcasts' toUrl='/'/>
       <SideBtn icon={HiOutlineUser} title='Artists' toUrl='/'/>
       <SideBtn icon={FaRegFolderOpen} title='Local music' toUrl='/'/>
+      <SideBtn icon={MdOutlinePayments } title='Payment' toUrl='/payment'/>
     </Box>
   )
 }
