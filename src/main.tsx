@@ -19,6 +19,7 @@ import { useAuthStore } from "./store/useAuthStore";
 import { keepAlive, refreshTokenAPI } from "./service/auth.api";
 import Payment from "./pages/payment/Payment";
 import Checkout from "./pages/checkout/Checkout";
+import Error from "./pages/error/Error";
 
 const queryClient = new QueryClient();
 
@@ -130,7 +131,12 @@ const router = createBrowserRouter([
       },
       {
         path: "album/:albumId",
-        element: <Album />,
+        element: (
+          <>
+            <AuthCheck />
+            <Album />
+          </>
+        ),
       },
     ],
   },
@@ -142,15 +148,21 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-            {/* <AuthCheck /> Add AuthCheck here to handle token checks */}
+            <AuthCheck />
             <Payment />
           </>
         ),
       },
       {
         path: "checkout",
-        element: <Checkout />,
+        element: (
+          <>
+            <AuthCheck />
+            <Checkout />
+          </>
+        ),
       },
     ],
   },
+  { path: "/error", element: <Error /> },
 ]);

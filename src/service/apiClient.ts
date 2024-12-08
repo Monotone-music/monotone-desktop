@@ -10,14 +10,12 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     const { token } = useAuthStore.getState();
-    console.log("Interceptor Token", token);
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
   (error) => {
-    console.log(error);
     return Promise.reject(error);
   }
 );
@@ -39,19 +37,21 @@ apiClient.interceptors.response.use(
 
     // If the token is expired (or other authentication error)
     if (response?.status === 401) {
-      console.log("Response Interceptor status", response?.status);
-
       if (!token || !refreshToken) {
         // If there's no token or refresh token, log out and redirect to login
         clearAuthState();
-        navigate("/auth/sign-in"); // Use react-router navigation instead of window.location.href
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        navigate("/error", {
+          state: { message: "Session expired. Please log in again." },
+        });
+
         return Promise.reject(error);
       }
 
       try {
         // Try refreshing the token
         const refreshResponse = await refreshTokenAPI(refreshToken, token);
-        console.log("Response Interceptor refreshResponse", refreshResponse);
         // On success, store the new token and set auth state
         setToken(refreshResponse.data.accessToken);
         setRefreshToken(refreshResponse.data.refreshToken);
@@ -64,9 +64,15 @@ apiClient.interceptors.response.use(
         return axios(error.config); // Retry the failed request
       } catch (refreshError) {
         // If refresh token fails, log the user out and redirect to login page
-        console.error("Token refresh failed:", refreshError);
         clearAuthState();
-        navigate("/auth/sign-in"); // Redirect to login page
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        navigate("/error", {
+          state: {
+            message: "Unable to refresh your session. Please log in again.",
+          },
+        });
+
         return Promise.reject(refreshError);
       }
     }
