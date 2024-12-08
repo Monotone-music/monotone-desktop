@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { ChakraProvider } from "@chakra-ui/react";
+
 import {
   createBrowserRouter,
   Navigate,
@@ -10,28 +11,34 @@ import {
 import "./index.scss";
 import Home from "./pages/home/Home";
 import Root from "./layout/rootLayout/Root";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Album from "./pages/album/Album";
 import AuthLayout from "./layout/authLayout/AuthLayout";
 import SignIn from "./pages/auth/SignIn/SignIn";
 import { useAuthStore } from "./store/useAuthStore";
 import { keepAlive, refreshTokenAPI } from "./service/auth.api";
+import Payment from "./pages/payment/Payment";
+import Checkout from "./pages/checkout/Checkout";
 
 const queryClient = new QueryClient();
 
 const AuthCheck = () => {
-  const { setIsAuthenticated, setRefreshToken, setToken, clearAuthState, token, refreshToken } = useAuthStore();
-  const [isLoading, setIsLoading] = useState(false); 
+  const {
+    setIsAuthenticated,
+    setRefreshToken,
+    setToken,
+    clearAuthState,
+    token,
+    refreshToken,
+  } = useAuthStore();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkToken = async () => {
       if (!token || !refreshToken) {
-        clearAuthState(); 
-        navigate("/auth/sign-in"); 
+        clearAuthState();
+        navigate("/auth/sign-in");
         return;
       }
 
@@ -43,7 +50,6 @@ const AuthCheck = () => {
           setToken(token);
         }
       } catch (error) {
-      
         if (refreshToken) {
           try {
             const refreshResponse = await refreshTokenAPI(refreshToken, token);
@@ -51,22 +57,27 @@ const AuthCheck = () => {
             setRefreshToken(refreshResponse.data.refreshToken);
             setIsAuthenticated(true);
           } catch (refreshError) {
-            
             clearAuthState();
-            navigate("/auth/sign-in"); 
+            navigate("/auth/sign-in");
           }
         } else {
           clearAuthState();
-          navigate("/auth/sign-in"); 
+          navigate("/auth/sign-in");
         }
       } finally {
         setIsLoading(false);
       }
     };
 
-    checkToken(); 
-  }, [clearAuthState, setIsAuthenticated, setToken, navigate, token, refreshToken]);
-
+    checkToken();
+  }, [
+    clearAuthState,
+    setIsAuthenticated,
+    setToken,
+    navigate,
+    token,
+    refreshToken,
+  ]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -120,8 +131,26 @@ const router = createBrowserRouter([
       {
         path: "album/:albumId",
         element: <Album />,
-      }
-     
+      },
+    ],
+  },
+  {
+    path: "/payment",
+    element: <Root />,
+    children: [
+      {
+        path: "",
+        element: (
+          <>
+            {/* <AuthCheck /> Add AuthCheck here to handle token checks */}
+            <Payment />
+          </>
+        ),
+      },
+      {
+        path: "checkout",
+        element: <Checkout />,
+      },
     ],
   },
 ]);

@@ -31,3 +31,10 @@ export interface IImageAlbum {
 }
 
 
+export interface IPaymentUI{
+  isOpenPopup: boolean;
+  clientSecret: string | null;
+  toggleOpenPopup: (isOpenPopup:boolean) => void;
+  setClientSecret: (clientSecret:string) => void;
+}
+
