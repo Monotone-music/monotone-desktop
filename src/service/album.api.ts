@@ -21,7 +21,6 @@ export const getAlbumImageByFileName = async (fileName: string, token: string): 
 
 
 export const getAlbumDetailById = async (albumId: string, token: string): Promise<AxiosResponse> => {
-  console.log("getAlbumDetail token: ", token)
   const response = await apiClient.get(`/album/id/${albumId}`, {
     headers: { Authorization: `Bearer ${token}` } 
   });

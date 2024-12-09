@@ -38,3 +38,17 @@ export interface IPaymentUI{
   setClientSecret: (clientSecret:string) => void;
 }
 
+
+export interface ISearchUI{
+  isOpenModal: boolean;
+  toggleOpenModal: (isOpenModal: boolean) => void
+}
+
+export interface SearchState {
+  query: string
+  setQuery: (query: string) => void
+  results: any | null
+  setResults: (results: any) => void
+  loading: boolean
+  setLoading: (loading: boolean) => void
+}

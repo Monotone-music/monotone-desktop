@@ -7,6 +7,20 @@ const apiClient = axios.create({
   baseURL: import.meta.env.VITE_SERVER_DEV_URL,
 });
 
+let isRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token: string | null) => {
+  failedQueue.forEach((promise) => {
+    if (token) {
+      promise.resolve(token);
+    } else {
+      promise.reject(error);
+    }
+  });
+  failedQueue = [];
+};
+
 apiClient.interceptors.request.use(
   (config) => {
     const { token } = useAuthStore.getState();
@@ -21,59 +35,56 @@ apiClient.interceptors.request.use(
 );
 
 apiClient.interceptors.response.use(
-  (response) => response, // If response is valid, return it as is
+  (response) => response, // Return successful response
   async (error) => {
     const { response } = error;
-    console.log("Response Interceptor", response);
-    const {
-      setIsAuthenticated,
-      clearAuthState,
-      refreshToken,
-      token,
-      setToken,
-      setRefreshToken,
-    } = useAuthStore();
+    const { token, refreshToken, setToken, setRefreshToken, clearAuthState } = useAuthStore();
     const navigate = useNavigate();
 
-    // If the token is expired (or other authentication error)
+    // Handle token expiry (401)
     if (response?.status === 401) {
       if (!token || !refreshToken) {
-        // If there's no token or refresh token, log out and redirect to login
         clearAuthState();
         localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
-        navigate("/error", {
-          state: { message: "Session expired. Please log in again." },
-        });
-
+        navigate("/error", { state: { message: "Session expired. Please log in again." } });
         return Promise.reject(error);
       }
 
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        });
+      }
+
+      isRefreshing = true;
+
       try {
-        // Try refreshing the token
         const refreshResponse = await refreshTokenAPI(refreshToken, token);
-        // On success, store the new token and set auth state
-        setToken(refreshResponse.data.accessToken);
-        setRefreshToken(refreshResponse.data.refreshToken);
-        setIsAuthenticated(true);
+        const newAccessToken = refreshResponse.data.accessToken;
+        const newRefreshToken = refreshResponse.data.refreshToken;
+
+        setToken(newAccessToken);
+        setRefreshToken(newRefreshToken);
+
+        localStorage.setItem("token", newAccessToken);
+        localStorage.setItem("refreshToken", newRefreshToken);
+
+        processQueue(null, newAccessToken);
 
         // Retry the original request with the new token
-        error.config.headers[
-          "Authorization"
-        ] = `Bearer ${refreshResponse.data.accessToken}`;
-        return axios(error.config); // Retry the failed request
+        error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        return axios(error.config);
       } catch (refreshError) {
-        // If refresh token fails, log the user out and redirect to login page
         clearAuthState();
         localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
-        navigate("/error", {
-          state: {
-            message: "Unable to refresh your session. Please log in again.",
-          },
-        });
+        navigate("/error", { state: { message: "Unable to refresh your session. Please log in again." } });
 
+        processQueue(refreshError, null);
         return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
       }
     }
 

@@ -1,0 +1,81 @@
+.album-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    gap: 10px;
+    padding: 16px 0;
+}
+
+.title{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+
+
+.row{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+
+// Card
+.card-container{
+    width: 200px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover{
+        background-color: rgba($color: #CACACA, $alpha: 0.2);
+    }
+}
+
+.img-wrapper{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 9999px;
+    }
+}
+
+.info-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+
+
+    .name{
+        font-size: 20px;
+        font-weight: 600;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    }
+
+    .release{
+        font-size: 14px;
+        font-weight: 500;
+        color: #757575;
+    }
+}
+

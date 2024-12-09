@@ -4,14 +4,22 @@ import TopBar from '../../components/App/topBar/TopBar'
 import { Outlet } from 'react-router-dom'
 import BottomBar from '../../components/App/bottomBar/BottomBar'
 import RightBar from '../../components/App/rightBar/RightBar'
+import {useUISearch } from '../../store/useUIStore'
+import SearchModal from '../../components/Search/Modal/SearchModal/SearchModal'
+
 
 const Root = () => {
+  const {isOpenModal} = useUISearch()
+
   return (
     <section className={styles.container}>
         <SideBar/>
         <TopBar/>
         <section  className={styles.main}>
-            <Outlet/>
+          {isOpenModal ? (
+            <SearchModal/>
+          ) : (<Outlet/>)}
+            
         </section>
         <RightBar/>
         <BottomBar/>

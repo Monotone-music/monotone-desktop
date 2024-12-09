@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  z-index: 30;
+  background-color: black !important;
+  top: -50vh; // Initially off-screen at the top
+  left: 0;
+  transition: top 0.7s ease-in-out;
+  padding: 16px;
+}
+
+// When the modal is visible, slide it down
+.slideDown {
+  top: 0; // Slide to visible position
+}
+
+// When the modal is not visible, slide it up
+.slideUp {
+  top: -100vh; // Slide it back out of the view
+}
+
+.loading{
+  width: 100%;
+  height: 80vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

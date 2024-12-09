@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { IPaymentUI, IUI } from "../interface/UI";
+import { IPaymentUI, ISearchUI, IUI, SearchState } from "../interface/UI";
 
 export const useUIStore = create<IUI>((set) => ({
   isSidebarOpen: false,
@@ -13,4 +13,20 @@ export const useUIPayment = create<IPaymentUI>((set) => ({
   clientSecret: null,
   toggleOpenPopup: (isOpenPopup) => set({ isOpenPopup }),
   setClientSecret: (clientSecret) => set({ clientSecret })
+}));
+
+
+export const useUISearch = create<ISearchUI>((set) => ({
+  isOpenModal: false,
+  toggleOpenModal: (isOpenModal) => set({isOpenModal})
+}))
+
+
+export const useSearchStore = create<SearchState>((set) => ({
+  query: "",
+  setQuery: (query) => set({ query }),
+  results: null,
+  setResults: (results) => set({ results }),
+  loading: false,
+  setLoading: (loading) => set({ loading }),
 }));

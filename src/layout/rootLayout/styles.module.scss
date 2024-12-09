@@ -21,6 +21,7 @@ grid-template-columns: auto 1fr auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
   box-sizing: border-box;
+  position: relative;
 
 
   &::-webkit-scrollbar{
