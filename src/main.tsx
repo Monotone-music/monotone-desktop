@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { ChakraProvider } from "@chakra-ui/react";
+import {ChakraProvider } from "@chakra-ui/react";
 
 import {
   createBrowserRouter,
@@ -80,9 +80,6 @@ const AuthCheck = () => {
     refreshToken,
   ]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return null;
 };

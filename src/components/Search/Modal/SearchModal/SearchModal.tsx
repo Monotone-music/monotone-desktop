@@ -10,7 +10,7 @@ import AlbumSearchTab from '../../Tabs/AlbumSearchTab/AlbumSearchTab';
 import { useAuthStore } from '../../../../store/useAuthStore';
 
 const SearchModal = () => {
-    const { isOpenModal } = useUISearch();
+    const { isOpenModal, toggleOpenModal } = useUISearch();
     const {token} = useAuthStore()
     const [showModal, setShowModal] = useState(false);
     const { results, loading, query } = useSearchStore()
@@ -24,9 +24,11 @@ const SearchModal = () => {
 
       useEffect(() => {
         if (isOpenModal && results !== null && query !== "") {
-          setShowModal(true); // Slide down when results are available and search is active
+          setShowModal(true);
+          toggleOpenModal(true) // Slide down when results are available and search is active
         } else {
-          setShowModal(false); // Slide up when no results or search query is empty
+          setShowModal(false);
+          toggleOpenModal(false) // Slide up when no results or search query is empty
         }
       }, [isOpenModal, results, query]);
 

@@ -9,8 +9,7 @@ import SearchModal from '../../components/Search/Modal/SearchModal/SearchModal'
 
 
 const Root = () => {
-  const {isOpenModal} = useUISearch()
-
+  const {isOpenModal} = useUISearch();
   return (
     <section className={styles.container}>
         <SideBar/>
