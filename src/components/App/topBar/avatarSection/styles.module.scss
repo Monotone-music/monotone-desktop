@@ -6,4 +6,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.popover{
+    position: absolute;
+    left: -280px;
+    bottom: 0;
 }

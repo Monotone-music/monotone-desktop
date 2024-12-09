@@ -1,8 +1,7 @@
-import React from 'react'
 import styles from './styles.module.scss'
 import { useUIStore } from '../../../../store/useUIStore';
-import { Box, Button, Icon, Text } from '@chakra-ui/react';
-import { LuLibrary } from "react-icons/lu";
+import { Box, Icon, Text } from '@chakra-ui/react';
+import { IoChevronDownOutline, IoChevronForwardOutline } from 'react-icons/io5';
 const CollapseBtn = () => {
   const {isSidebarOpen, toggleSidebar, toggleRightBar} = useUIStore();
 
@@ -13,7 +12,7 @@ const CollapseBtn = () => {
 
   return (
         <Box className={styles.container} onClick={handleToggleSidebar}>
-            <Icon as={LuLibrary} boxSize={7}/>
+            {isSidebarOpen ? <Icon as={IoChevronForwardOutline } boxSize={7}/> : <Icon as={IoChevronDownOutline } boxSize={7}/>}
             {isSidebarOpen && <Text className={styles.text}>Your Library</Text>}
         </Box>
   )

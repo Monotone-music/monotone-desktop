@@ -20,6 +20,7 @@ import { keepAlive, refreshTokenAPI } from "./service/auth.api";
 import Payment from "./pages/payment/Payment";
 import Checkout from "./pages/checkout/Checkout";
 import Error from "./pages/error/Error";
+import Profile from "./pages/profile/Profile";
 
 const queryClient = new QueryClient();
 
@@ -159,6 +160,21 @@ const router = createBrowserRouter([
           </>
         ),
       },
+    ],
+  },
+  {
+    path: "/profile",
+    element: <Root />,
+    children: [
+      {
+        path: "",
+        element: (
+          <>
+            <AuthCheck />
+            <Profile />
+          </>
+        ),
+      }
     ],
   },
   { path: "/error", element: <Error /> },
