@@ -5,7 +5,8 @@ const useAudioStore = create<AudioState>((set) => ({
   audioBuffer: null,
   isPlaying: false,
   setAudioBuffer: (buffer) => set({ audioBuffer: buffer }),
-  togglePlayPause: () => set((state) => ({ isPlaying: !state.isPlaying })),
+  togglePlayPause: (isPlaying) => set({isPlaying}),
+  setIsPlaying: (isPlaying) => set({isPlaying})
 }));
 
 export default useAudioStore;

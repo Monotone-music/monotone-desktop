@@ -8,20 +8,20 @@ interface ThumbnailTrackProps {
     author?: string;
 }
 
-const ThumbnailTrack:React.FC<ThumbnailTrackProps> = ({imgUrl}) => {
+const ThumbnailTrack:React.FC<ThumbnailTrackProps> = ({imgUrl, title, author}) => {
   return (
     <Box className={styles.container}>
         <Box className={styles['img-wrapper']}>
-            {imgUrl && <img src="" alt="" />}
+            {imgUrl && <img src={imgUrl} alt="" />}
         </Box>
 
         <Box className={styles['info-wrapper']}>
             <Box className={styles['name-author-wrapper']}>
                 <Text className={styles.title}>
-                    Less Than Zero
+                    {title}
                 </Text>
                 <Text className={styles.author}>
-                    The Weeknd
+                    {author}
                 </Text>
             </Box>
         </Box>

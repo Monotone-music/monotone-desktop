@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import { Box } from "@chakra-ui/react";
 import SongContainer from "../../Container/SongContainer/SongContainer";
@@ -13,14 +13,20 @@ interface AllSearchTabProps {
   token: string;
 }
 
-const AllSearchTab:React.FC<AllSearchTabProps> = ({artist, recording, album, token}) => {
+const AllSearchTab: React.FC<AllSearchTabProps> = ({ artist, recording, album, token }) => {
+  const noData = !artist?.length && !recording?.length && !album?.length;
+
   return (
     <Box className={styles.container}>
-      {recording && ( <SongContainer token={token} songs={recording}/>)}
-     
-      {artist && <ArtistContainer token={token} artist={artist}/>}
-      {album &&  <AlbumContainer token={token} album={album}/>}
-     
+      {noData ? (
+        <Box className={styles.notFound}>No Results Found</Box>
+      ) : (
+        <>
+          {recording.length > 0 && <SongContainer token={token} songs={recording} />}
+          {artist.length > 0 && <ArtistContainer token={token} artist={artist} />}
+          {album.length > 0 && <AlbumContainer token={token} album={album} />}
+        </>
+      )}
     </Box>
   );
 };

@@ -3,6 +3,9 @@
     background-color: black; // Darker background for the top nav
     width: 280px;
     overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media screen and (min-width: 1024px) {
         width: 320px;

@@ -8,6 +8,13 @@ export const getAlbum = async (token: string): Promise<AxiosResponse> => {
   return response.data;
 };
 
+export const getTopAlbum = async (token: string, limit:number): Promise<AxiosResponse> => {
+  const response = await apiClient.get(`/album/top?limit=${limit}`, 
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
+}
+
 export const getAlbumImageByFileName = async (fileName: string, token: string): Promise<string> => {
     const response = await apiClient.get(`/image/${fileName}`, {
         responseType: 'blob',

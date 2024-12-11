@@ -5,6 +5,7 @@ import PlayBar from './playBar/PlayBar'
 import OptionBar from './optionBar/OptionBar'
 
 const BottomBar = () => {
+
   return (
     <section className={styles.container}>
       <BottomTrack/>

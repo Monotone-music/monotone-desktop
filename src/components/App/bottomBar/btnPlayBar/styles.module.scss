@@ -2,15 +2,32 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    transition: all 0.3s ease;
+
+    svg{
+        transition: all 0.3s ease;
+    }   
+
+    &:hover{
+        svg{
+            fill: white;
+        }    
+    
+    }
 }
 
 .play-pause-btn{
     display: flex;
     align-items: center;
     cursor: pointer;
-    background: white;
+    background: #96ED89;
     justify-content: center;
     width: 40px;
     height: 40px;
     border-radius: 9999px;
+    transition: all 0.3s ease;
+
+    &:hover{
+        background: white;
+    }
 }

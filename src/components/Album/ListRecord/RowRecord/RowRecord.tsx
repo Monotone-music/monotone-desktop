@@ -4,15 +4,24 @@ import React, { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import formatDuration from "../../../../util/formatDuration";
 import { IRecord } from "../../../../interface/Music";
+import { usePlayerStore } from "../../../../store/usePlayerStore";
 
 interface RowRecordProps {
   record: IRecord;
   item: number;
   albumImages: string[];
+  albumTrackIds: string[];
 }
 
-const RowRecord: React.FC<RowRecordProps> = ({ record, item, albumImages }) => {
+const RowRecord: React.FC<RowRecordProps> = ({ record, item, albumImages, albumTrackIds }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { setCurrentTrack , addAlbumToQueue} = usePlayerStore();
+
+  const handleSetCurrentTrack = (record: IRecord) => {
+    addAlbumToQueue(albumTrackIds, record._id)
+    setCurrentTrack(record);
+  };
+
   const handleMouseEnter = () => {
     setHoveredIndex(item);
   };
@@ -25,6 +34,7 @@ const RowRecord: React.FC<RowRecordProps> = ({ record, item, albumImages }) => {
       className={styles.tableRow}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => handleSetCurrentTrack(record)}
     >
       <Td className={styles.index}>
         {hoveredIndex === item ? (

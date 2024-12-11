@@ -4,33 +4,35 @@ import { getTrackStream } from '../service/track.api';
 import useAudioStore from '../store/useAudioStore';
 
 const useFetchAudio = (trackId: string) => {
-    const { setAudioBuffer, togglePlayPause } = useAudioStore();
+
+    const { setAudioBuffer } = useAudioStore();
     const currentUrlRef = useRef<string | null>(null);
     const [audioSrc, setAudioSrc] = useState<string | null>(null);
   
     const { data, isLoading, error } = useQuery({
       queryKey: ['trackUrl', trackId],
       queryFn: () => getTrackStream(trackId),
+      enabled: !!trackId,
     });
+
+    const processAudio = async () => {
+      try {
+        const blob = new Blob([data?.data], { type: 'audio/x-flac' });
+        const url = URL.createObjectURL(blob);
+       
+        if (currentUrlRef.current) {
+          URL.revokeObjectURL(currentUrlRef.current);
+        }
+
+        currentUrlRef.current = url;
+        setAudioSrc(url);
+      } catch (error) {
+        console.error('Error processing audio:', error);
+      }
+    };
   
     useEffect(() => {
       if (data?.data) {
-        const processAudio = async () => {
-          try {
-            const blob = new Blob([data?.data], { type: 'audio/x-flac' });
-            const url = URL.createObjectURL(blob);
-            if (currentUrlRef.current) {
-              URL.revokeObjectURL(currentUrlRef.current);
-            }
-  
-            currentUrlRef.current = url;
-            setAudioSrc(url);
-            togglePlayPause();
-          } catch (error) {
-            console.error('Error processing audio:', error);
-          }
-        };
-  
         processAudio();
       }
   
@@ -40,7 +42,7 @@ const useFetchAudio = (trackId: string) => {
           currentUrlRef.current = null;
         }
       };
-    }, [data, setAudioBuffer, togglePlayPause]);
+    }, [data, trackId, setAudioBuffer]);
   
     return currentUrlRef.current;
   };

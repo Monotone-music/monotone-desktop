@@ -41,6 +41,8 @@ interface ListRecordProps {
 
 const ListRecord: React.FC<ListRecordProps> = ({ release }) => {
     const {token} = useAuthStore();
+
+
   const sortedRecordings = useMemo(
     () =>
       [...release[0].recording].sort((a, b) => a.position.no - b.position.no),
@@ -96,7 +98,9 @@ const ListRecord: React.FC<ListRecordProps> = ({ release }) => {
           </Thead>
           <Tbody>
             {sortedRecordings.map((record, item: number) => (
-             <RowRecord record={record} item={item} key={item} albumImages={albumImages || []}/>
+             <RowRecord
+             albumTrackIds={sortedRecordings.map((rec) => rec._id)}
+             record={record} item={item} key={item} albumImages={albumImages || []}/>
             ))}
           </Tbody>
         </Table>

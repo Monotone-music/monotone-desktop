@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import { Box, Skeleton, Stack } from "@chakra-ui/react";
 import RowCard from "../../../Shared/RowCard/RowCard";
-import { getAlbum } from "../../../../service/album.api";
+import { getAlbum, getTopAlbum } from "../../../../service/album.api";
 import { useQuery } from "@tanstack/react-query";
 import ErrorWarning from "../../../Error/ErrorWarning/ErrorWarning";
 import { useAuthStore } from "../../../../store/useAuthStore";
@@ -13,6 +13,11 @@ const AllTab = () => {
   const [contentWidth, setContentWidth] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
  
+  const {data: topAlbums, isPending, isError } = useQuery({
+    queryKey: ["cardTopAlbum", token],
+    queryFn: () => getTopAlbum(token!, 10),
+    enabled: !!token,
+  })
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["card", token],
@@ -70,7 +75,17 @@ const AllTab = () => {
 
   return (
     <Box className={styles.container} ref={contentRef}>
-      {/* <StripePaymentButton/> */}
+
+      {topAlbums && (
+        <Skeleton isLoaded={!isLoading}>
+          <RowCard
+            rowTitle="Top Album"
+            contentWidth={contentWidth}
+            cardData={topAlbums.data.releaseGroup}
+          />
+        </Skeleton>
+      )}
+
       {albums && (
         <Skeleton isLoaded={!isLoading}>
           <RowCard

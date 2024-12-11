@@ -12,28 +12,25 @@ import { useAuthStore } from '../../../../store/useAuthStore';
 const SearchModal = () => {
     const { isOpenModal, toggleOpenModal } = useUISearch();
     const {token} = useAuthStore()
-    const [showModal, setShowModal] = useState(false);
     const { results, loading, query } = useSearchStore()
     const { recording, artist, album } = results?.data || {};
    
     const tabArr: ITabArr[] = [
-        { title: "All", component: <AllSearchTab token={token} album={album} recording={recording} artist={artist} /> },
-        { title: "Songs", component: <SongSearchTab /> },
-        { title: "Album", component: <AlbumSearchTab /> }
+        { title: "All", component: <AllSearchTab token={token!} album={album} recording={recording} artist={artist} /> },
+        { title: "Songs", component: <SongSearchTab token={token!} recording={recording}/> },
+        { title: "Album", component: <AlbumSearchTab token={token!} album={album}/> }
       ];
 
       useEffect(() => {
         if (isOpenModal && results !== null && query !== "") {
-          setShowModal(true);
           toggleOpenModal(true) // Slide down when results are available and search is active
         } else {
-          setShowModal(false);
           toggleOpenModal(false) // Slide up when no results or search query is empty
         }
       }, [isOpenModal, results, query]);
 
   return (
-    <Box className={`${styles.container} ${showModal ? styles.slideDown : styles.slideUp}`}>
+    <Box className={`${styles.container} ${isOpenModal ? styles.slideDown : styles.slideUp}`}>
        {loading ? (
         <Box className={styles['loading']}>
           <Spinner size="lg" color="white" />

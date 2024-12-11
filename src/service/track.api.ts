@@ -6,3 +6,11 @@ export const getTrackStream = async (trackId: string): Promise<any> => {
     })
     return response;
   };
+
+  export const getTrackInfoById = async (trackId: string, token: string) => {
+    const response = await apiClient.get(`/tracks/info/${trackId}`, 
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+
+    return response.data.data;
+  }

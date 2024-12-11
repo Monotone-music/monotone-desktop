@@ -3,19 +3,23 @@ import styles from "./styles.module.scss";
 import { Box, Text } from "@chakra-ui/react";
 import cardImg from "../../../../assets/img/aboutCard-img.jpg";
 
-const AboutCard = () => {
-  return (
-    <Box className={styles.container}>
+interface AboutCardProp {
+  dataAboutCard: any[];
+}
+
+const AboutCard: React.FC<AboutCardProp> = ({ dataAboutCard }) => {
+  return dataAboutCard.map((item, index) => (
+    <Box className={styles.container} key={index}>
       <Box className={styles["img-wrapper"]}>
         <img src={cardImg} alt="" />
         <div className={styles.mask}>
-            <Text className={styles['mask-title']}>About the artist</Text>
+          <Text className={styles["mask-title"]}>About the artist</Text>
         </div>
       </Box>
       <Box className={styles["info-wrapper"]}>
         <Box className={styles.top}>
-          <Box className={styles.name}> 
-            <Text>Thirty Seconds to Mars</Text>
+          <Box className={styles.name}>
+            <Text>{item.name}</Text>
           </Box>
           <Box className={styles["follow-btn"]}>Follow</Box>
         </Box>
@@ -29,7 +33,7 @@ const AboutCard = () => {
         </Box>
       </Box>
     </Box>
-  );
+  ));
 };
 
 export default AboutCard;

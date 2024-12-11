@@ -12,18 +12,18 @@ export const useUIPayment = create<IPaymentUI>((set) => ({
   isOpenPopup: false,
   clientSecret: null,
   toggleOpenPopup: (isOpenPopup) => set({ isOpenPopup }),
-  setClientSecret: (clientSecret) => set({ clientSecret })
+  setClientSecret: (clientSecret) => set({ clientSecret }),
 }));
-
 
 export const useUISearch = create<ISearchUI>((set) => ({
   isOpenModal: false,
-  toggleOpenModal: (isOpenModal) => set({isOpenModal})
-}))
-
+  toggleOpenModal: (isOpen: boolean) => {
+    set({ isOpenModal: isOpen });
+  },
+}));
 
 export const useSearchStore = create<SearchState>((set) => ({
-  query: "",
+  query: null,
   setQuery: (query) => set({ query }),
   results: null,
   setResults: (results) => set({ results }),

@@ -2,15 +2,19 @@
     display: flex;
     align-items: center;
     column-gap: 14px;
-    max-width: 200px;
+    max-width: 250px;
     
 }
 
 .img-wrapper{
-    width: 35%;
+    width: 25%;
     aspect-ratio: 1 / 1;
     border-radius: 10px;
     background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 
 
     img{
@@ -36,8 +40,10 @@
         font-size: 14px;
         font-weight: 600;
         cursor: pointer;
+    
         &:hover{
             text-decoration: underline;
+            animation: scroll-to-end 15s linear infinite;
         }
     }
 
@@ -51,3 +57,12 @@
         }
     }
 }
+
+@keyframes scroll-to-end {
+    0% {
+      transform: translateX(0); /* Start from the beginning */
+    }
+    50% {
+      transform: translateX(-100%); /* Scroll to the end */
+    }
+  }
