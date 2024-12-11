@@ -19,31 +19,40 @@ import { usePlayerStore } from "../../../../store/usePlayerStore";
 import playingGif from "../../../../assets/img/disc-unscreen.gif";
 import { SlOptions } from "react-icons/sl";
 import PlaylistModal from "../../../Playlist/PlaylistModal/PlaylistModal";
+import DelelteDialog from "../../DeleteDialog/DelelteDialog";
 
 interface RowRecordProps {
   record: IRecord;
   item: number;
+  index: any;
   albumImages: string[];
   albumTrackIds: string[];
 }
 
 const RowRecord: React.FC<RowRecordProps> = ({
   record,
+  index,
   item,
   albumImages,
   albumTrackIds,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenDeleteModal,
+    onOpen: onOpenDeleteModal,
+    onClose: onCloseDeleteModal,
+  } = useDisclosure();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { setCurrentTrack, addAlbumToQueue, currentTrackId } = usePlayerStore();
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
+  const [selectedRecordIndex, setSelectedRecordIndex] = useState<string | null>(
+    null
+  );
 
   const handleSetCurrentTrack = (record: IRecord) => {
     addAlbumToQueue(albumTrackIds, record._id);
     setCurrentTrack(record);
   };
-
- 
 
   const handleMouseEnter = () => {
     setHoveredIndex(item);
@@ -56,6 +65,11 @@ const RowRecord: React.FC<RowRecordProps> = ({
   const handleOpenModal = (recordId: string) => {
     setSelectedRecordId(recordId);
     onOpen();
+  };
+
+  const handleOpenDeleteModal = (recordId: string) => {
+    setSelectedRecordIndex(recordId);
+    onOpenDeleteModal();
   };
 
   return (
@@ -97,12 +111,37 @@ const RowRecord: React.FC<RowRecordProps> = ({
             <Icon as={SlOptions} />
           </MenuButton>
           <MenuList p={0}>
-            <MenuItem bg="gray.700" _hover={{bg:"gray.500"}} p={4}   onClick={() => handleOpenModal(record._id)}>Adding to Playlist</MenuItem>
+            <MenuItem
+              bg="gray.700"
+              _hover={{ bg: "gray.500" }}
+              p={4}
+              onClick={() => handleOpenModal(record._id)}
+            >
+              Adding to Playlist
+            </MenuItem>
+            <MenuItem
+              bg="gray.700"
+              _hover={{ bg: "gray.500" }}
+              p={4}
+              onClick={() => handleOpenDeleteModal(index)}
+            >
+              Remove Track
+            </MenuItem>
           </MenuList>
         </Menu>
       </Td>
 
-      <PlaylistModal isOpen={isOpen} onClose={onClose} recordingId={selectedRecordId}/>
+      <PlaylistModal
+        isOpen={isOpen}
+        onClose={onClose}
+        recordingId={selectedRecordId}
+      />
+
+      <DelelteDialog
+        isOpen={isOpenDeleteModal}
+        onClose={onCloseDeleteModal}
+        recordIndex={selectedRecordIndex}
+      />
     </Tr>
   );
 };

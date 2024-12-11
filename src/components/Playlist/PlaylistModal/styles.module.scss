@@ -1,0 +1,76 @@
+.modal-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.create-playlist-row{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 10px;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: white;
+    border-radius: 5px;
+
+    &:hover{
+        background-color: black;
+        color: white !important;
+        
+    }
+}
+
+
+.divider{
+    height: 1px;
+    width: 100%;
+    background-color: black;
+}
+
+.playlist-row{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 10px;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: white;
+    border-radius: 5px;
+
+    &:hover{
+        background-color: black;
+        color: white !important;
+        
+    }
+}
+
+.playlist-list{
+    height:150px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+
+.playlist-list::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: black;
+}
+
+.playlist-list::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: black;
+}
+
+.playlist-list::-webkit-scrollbar-thumb
+{
+	background-color: gray;
+}

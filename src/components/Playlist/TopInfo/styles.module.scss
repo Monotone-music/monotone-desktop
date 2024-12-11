@@ -1,0 +1,90 @@
+.container {
+  width: 100%;
+  padding: 16px;
+  gap: 24px;
+  display: flex;
+  align-items: flex-start;
+  background: linear-gradient(to top, rgba(0,0,0,0.2) 10%, rgba(255, 255, 255, 0.3) 90%);
+  @media screen and (min-width: 1024px) {
+    padding: 32px;
+    align-items: flex-end;
+  }
+}
+
+.img-wrapper {
+  max-width: 250px;
+  max-height: 250px;
+  width: 30%;
+  aspect-ratio: 1 / 1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+
+.info-wrapper {
+  width: 70%;
+  flex-grow: 1;
+}
+
+.title-wrapper {
+  width: 100%;
+  max-width: 800px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  .title {
+    font-size: 64px;
+    font-weight: 700;
+    color: white;
+
+    @media screen and (min-width: 1024px) {
+      font-size: 80px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    max-width: 1200px;
+  }
+}
+
+.artists-wrapper {
+  width: 100%;
+  margin-top: 8px;
+  max-width: 600px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  .artists {
+    color: #757575;
+    font-weight: 600;
+    font-size: 14px;
+
+    @media screen and (min-width: 1024px) {
+      font-size: 18px;
+    }
+  }
+}
+
+.others-wrapper {
+  width: 100%;
+  max-width: 400px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  .others {
+    color: #757575;
+    font-weight: 600;
+    font-size: 14px;
+
+    @media screen and (min-width: 1024px) {
+      font-size: 18px;
+    }
+  }
+}

@@ -21,6 +21,7 @@ import Payment from "./pages/payment/Payment";
 import Checkout from "./pages/checkout/Checkout";
 import Error from "./pages/error/Error";
 import Profile from "./pages/profile/Profile";
+import Playlist from "./pages/playlist/Playlist";
 
 const queryClient = new QueryClient();
 
@@ -133,6 +134,14 @@ const router = createBrowserRouter([
           <>
             <AuthCheck />
             <Album />
+          </>
+        ),
+      }, {
+        path: "playlist/:playlistId",
+        element: (
+          <>
+            <AuthCheck />
+            <Playlist />
           </>
         ),
       },
