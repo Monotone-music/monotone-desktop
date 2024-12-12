@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './styles.module.scss'
 import VolumeBar from '../volumeBar/VolumeBar'
 import { HiMiniQueueList } from "react-icons/hi2";

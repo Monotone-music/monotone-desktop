@@ -1,5 +1,4 @@
 import { Box, Button, Icon } from '@chakra-ui/react'
-import React from 'react'
 import styles from './styles.module.scss'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { MdErrorOutline } from 'react-icons/md';

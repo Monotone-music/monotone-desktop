@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./styles.module.scss";
 import NavigationBar from "./navigationBar/NavigationBar";
 import HomeBtn from "./homeBtn/HomeBtn";

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import  { useEffect } from 'react'
 import styles from './styles.module.scss'
 import { Box, Center, Spinner, Text } from '@chakra-ui/react'
 import { useAuthStore } from '../../store/useAuthStore';

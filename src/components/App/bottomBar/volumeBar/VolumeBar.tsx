@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './styles.module.scss'
 import { Box, Icon, Progress } from '@chakra-ui/react'
 import { CiVolumeHigh } from "react-icons/ci";

@@ -1,4 +1,4 @@
-import { Box, Icon, Text } from '@chakra-ui/react'
+import { Box, Icon } from '@chakra-ui/react'
 import styles from './styles.module.scss'
 import { PiHouse } from "react-icons/pi";
 import { useLocation, useNavigate } from 'react-router-dom';

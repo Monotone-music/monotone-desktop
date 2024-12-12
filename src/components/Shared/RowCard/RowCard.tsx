@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import { Box, Text } from "@chakra-ui/react";
 import MusicCard from "../MusicCard/MusicCard";
@@ -9,17 +9,7 @@ interface RowCardProps {
   cardData: any[]
 }
 
-const RowCard: React.FC<RowCardProps> = ({ contentWidth, rowTitle, cardData }) => {
-  const [numberCard, setNumberCard] = useState(4);
-  useEffect(() => {
-    const calculateNumberOfCards = () => {
-      const cardWidth = 175; // Example card width
-      const newNumberCard = Math.floor(contentWidth / cardWidth);
-      setNumberCard(newNumberCard);
-    };
-
-    calculateNumberOfCards();
-  }, [contentWidth]);
+const RowCard: React.FC<RowCardProps> = ({rowTitle, cardData }) => {
 
   return (
     <Box className={styles.container}>

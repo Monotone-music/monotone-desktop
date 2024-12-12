@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import styles from './styles.module.scss'
 import { Box, Spinner } from '@chakra-ui/react'
 import { useSearchStore, useUISearch } from '../../../../store/useUIStore';

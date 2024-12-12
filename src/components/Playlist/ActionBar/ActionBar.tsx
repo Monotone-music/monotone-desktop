@@ -1,5 +1,4 @@
-import { Box, Icon, useToast } from "@chakra-ui/react";
-import { useDeletePlaylistMutation } from "../../../mutation/useDeletePlaylist";
+import { Box, Icon } from "@chakra-ui/react";
 import styles from "./styles.module.scss";
 import { FaPlay, FaRandom } from "react-icons/fa";
 import { RiAddCircleLine } from "react-icons/ri";
@@ -10,17 +9,7 @@ interface ActionBarProps {
     playlistId:string
   }
   
-const ActionBar:React.FC<ActionBarProps> = ({playlistId}) => {
-    // const deletePlaylistMutation = useDeletePlaylistMutation()
-    // const toast = useToast()
-    // console.log("hi")
-    // deletePlaylistMutation.mutate(playlistId, 
-    //     {
-    //         onSuccess(data, variables, context) {
-    //             console.log(data)
-    //         },
-    //     }
-    // )
+const ActionBar:React.FC<ActionBarProps> = () => {
   
     return (
       <Box className={styles["actionBar-container"]}>

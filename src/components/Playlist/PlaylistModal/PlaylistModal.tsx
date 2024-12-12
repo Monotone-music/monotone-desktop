@@ -47,7 +47,7 @@ const PlaylistModal: React.FC<PlaylistModal> = ({
     setRecordingId(recordingId!);
   };
 
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["profileUser"],
     queryFn: () => getProfile(token!),
     enabled: !!token,

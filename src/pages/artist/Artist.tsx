@@ -12,7 +12,7 @@ const Artist = () => {
     const { token } = useAuthStore();
     const {artistId} = useParams<{ artistId: string }>()
 
-    const { data, isLoading, error } = useQuery({
+    const { data, isLoading } = useQuery({
       queryKey: ["artist", token, artistId],
       queryFn: () => getArtistById(artistId!, token!),
       enabled: !!artistId,

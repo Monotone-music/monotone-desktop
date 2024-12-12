@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAuthStore } from '../../../../store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
 import { getAlbum, getTopAlbum } from '../../../../service/album.api';
@@ -12,7 +12,7 @@ const AlbumTab = () => {
     const [contentWidth, setContentWidth] = useState(0);
     const contentRef = useRef<HTMLDivElement>(null);
 
-      const {data: topAlbums, isPending, isError } = useQuery({
+      const {data: topAlbums} = useQuery({
         queryKey: ["cardTopAlbum", token],
         queryFn: () => getTopAlbum(token!, 10),
         enabled: !!token,

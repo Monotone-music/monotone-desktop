@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { Box, Icon, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Box, Icon, Spinner, Text } from "@chakra-ui/react";
 import { FaPlay } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getAlbumImageByFileName } from "../../../service/album.api";

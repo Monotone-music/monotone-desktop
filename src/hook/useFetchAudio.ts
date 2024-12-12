@@ -7,9 +7,9 @@ const useFetchAudio = (trackId: string) => {
 
     const { setAudioBuffer } = useAudioStore();
     const currentUrlRef = useRef<string | null>(null);
-    const [audioSrc, setAudioSrc] = useState<string | null>(null);
+    const [ audioSrc,setAudioSrc] = useState<string | null>(null);
   
-    const { data, isLoading, error } = useQuery({
+    const { data } = useQuery({
       queryKey: ['trackUrl', trackId],
       queryFn: () => getTrackStream(trackId),
       enabled: !!trackId,
@@ -27,7 +27,7 @@ const useFetchAudio = (trackId: string) => {
         currentUrlRef.current = url;
         setAudioSrc(url);
       } catch (error) {
-        console.error('Error processing audio:', error);
+        console.error('Error processing audio:', audioSrc);
       }
     };
   

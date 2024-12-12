@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import {ChakraProvider } from "@chakra-ui/react";
 
@@ -35,7 +35,6 @@ const AuthCheck = () => {
     token,
     refreshToken,
   } = useAuthStore();
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,8 +44,6 @@ const AuthCheck = () => {
         navigate("/auth/sign-in");
         return;
       }
-
-      setIsLoading(true);
       try {
         const response = await keepAlive(token);
         if (response.status === "ok") {
@@ -68,9 +65,7 @@ const AuthCheck = () => {
           clearAuthState();
           navigate("/auth/sign-in");
         }
-      } finally {
-        setIsLoading(false);
-      }
+      } 
     };
 
     checkToken();

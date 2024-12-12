@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { Box, Button, ListItem, UnorderedList } from "@chakra-ui/react";
-import { useUIPayment } from "../../../store/useUIStore";
 import { useNavigate } from "react-router-dom";
 
 export interface PlanCardProps {
@@ -22,7 +21,6 @@ const PlanCard:React.FC<PlanCardProps> = ({
     priceLater,priceMain,
     btnColor
 }) => {
-  const {toggleOpenPopup} = useUIPayment()
   const navigate = useNavigate()
   const handleTogglePopup = () => {
     // toggleOpenPopup(true)

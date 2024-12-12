@@ -14,7 +14,15 @@ import { usePlayerStore } from "../../../../store/usePlayerStore";
 import formatDuration from "../../../../util/formatDuration";
 
 const PlayBar = () => {
-  const { currentTrackId, playNextTrack } = usePlayerStore();
+  const {
+    currentTrackId,
+    playNextTrack,
+    playPreviousTrack,
+    isShuffle,
+    isRepeat,
+    toggleShuffle,
+    toggleRepeat,
+  } = usePlayerStore();
   const audioSrc = useFetchAudio(currentTrackId!);
   const audioRef = useRef<HTMLAudioElement>(null);
   const { isPlaying, togglePlayPause, setIsPlaying } = useAudioStore();
@@ -22,6 +30,7 @@ const PlayBar = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  // Sync audio play/pause state
   useEffect(() => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -34,21 +43,23 @@ const PlayBar = () => {
     }
   }, [isPlaying]);
 
-  // Automatically play the track when it is selected
+  // Handle audio source change
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.pause(); // Pause the current audio
-      audioRef.current.currentTime = 0; // Reset the current time
-      if (audioSrc) {
-        audioRef.current.src = audioSrc; // Set the new source
-      }
+    if (audioRef.current && audioSrc) {
+      audioRef.current.pause(); // Stop the current track
+      audioRef.current.src = audioSrc; // Set the new track
+      audioRef.current.load(); // Reload the audio element
+      audioRef.current.currentTime = 0; // Reset playback position
+
+      // Automatically play the track
       audioRef.current
         .play()
-        .then(() => setIsPlaying(true))
+        .then(() => setIsPlaying(true)) // Ensure the state reflects playback
         .catch((err) => console.error("Error auto-playing new track:", err));
     }
   }, [audioSrc, setIsPlaying]);
 
+  // Update progress and duration
   useEffect(() => {
     const audioElement = audioRef.current;
     if (audioElement) {
@@ -73,7 +84,14 @@ const PlayBar = () => {
   };
 
   const handleTrackEnd = () => {
-    playNextTrack();
+    if (isRepeat) {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
+      }
+    } else {
+      playNextTrack();
+    }
     setIsPlaying(true);
   };
 
@@ -91,16 +109,18 @@ const PlayBar = () => {
         <BtnPlayBar
           iconSize={5}
           icon={FaRandom}
-          onClick={() => {}}
+          onClick={toggleShuffle}
           type="normal"
-          iconColor="#595959"
+          iconColor={isShuffle ? "white" : "#595959"}
         />
         <BtnPlayBar
           iconSize={5}
           icon={IoIosSkipBackward}
-          onClick={() => {}}
+          onClick={() => {
+            playPreviousTrack();
+          }}
           type="normal"
-            iconColor="#595959"
+          iconColor="#595959"
         />
         <BtnPlayBar
           iconSize={4}
@@ -112,29 +132,30 @@ const PlayBar = () => {
         <BtnPlayBar
           iconSize={5}
           icon={IoIosSkipForward}
-          onClick={playNextTrack}
+          onClick={() => {
+            playNextTrack();
+          }}
           type="normal"
-            iconColor="#595959"
+          iconColor="#595959"
         />
         <BtnPlayBar
           iconSize={5}
           icon={IoMdRepeat}
-          onClick={() => {}}
+          onClick={toggleRepeat}
           type="normal"
-            iconColor="#595959"
+          iconColor={isRepeat ? "white" : "#595959"}
         />
       </Box>
 
       <Box className={styles["progress-bar-wrapper"]}>
         <Text className={styles["time"]}>{formatDuration(currentTime)}</Text>
         <Progress
-        width={200}
+          width={200}
           colorScheme="green"
           borderRadius={10}
           value={progress}
-          height={1}
+          height={2}
         />
-
         <Text className={styles["time"]}>{formatDuration(duration)}</Text>
       </Box>
     </Box>
@@ -142,3 +163,4 @@ const PlayBar = () => {
 };
 
 export default PlayBar;
+

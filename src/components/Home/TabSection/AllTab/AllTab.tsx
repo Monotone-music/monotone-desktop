@@ -12,7 +12,7 @@ const AllTab = () => {
   const [contentWidth, setContentWidth] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
  
-  const {data: topAlbums, isPending, isError } = useQuery({
+  const {data: topAlbums} = useQuery({
     queryKey: ["cardTopAlbum", token],
     queryFn: () => getTopAlbum(token!, 10),
     enabled: !!token,

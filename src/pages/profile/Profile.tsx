@@ -10,7 +10,7 @@ import PlaylistContainer from "../../components/Profile/PlaylistContainer/Playli
 
 const Profile = () => {
   const { token } = useAuthStore();
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["profile", token],
     queryFn: () => getProfile(token!),
     enabled: !!token,

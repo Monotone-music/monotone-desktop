@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { Box, Spinner } from "@chakra-ui/react";
 import { loadStripe } from "@stripe/stripe-js";

@@ -17,7 +17,7 @@ interface AlbumCardProps {
 const AlbumCard:React.FC<AlbumCardProps> = ({albumData, index, token}) => {
     const navigate = useNavigate()
     const {toggleOpenModal} = useUISearch()
-    const {data, isLoading, error} = useQuery({
+    const {data, isLoading} = useQuery({
         queryKey: ['trackImgSearch'],
         queryFn: () => getAlbumImageByFileName( albumData.source.info.image.filename ,token!),
         enabled: !!token

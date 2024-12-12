@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.module.scss'
-import { Box, Icon, Img, Text } from '@chakra-ui/react'
+import { Icon, Text } from '@chakra-ui/react'
 import { Link, useLocation } from 'react-router-dom'
 import {IconType} from 'react-icons'
 import { useUIStore } from '../../../../store/useUIStore'

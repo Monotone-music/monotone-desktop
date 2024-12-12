@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CardElement, useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
+import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { paymentStripe } from "../../../service/payment.api";
 import { Elements } from '@stripe/react-stripe-js';

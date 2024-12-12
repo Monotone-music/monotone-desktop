@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { getAlbum } from '../../../../service/album.api';
 import { Box, Skeleton, Stack } from '@chakra-ui/react';
 import RowCard from '../../../Shared/RowCard/RowCard';
@@ -9,14 +9,14 @@ import ErrorWarning from '../../../Error/ErrorWarning/ErrorWarning';
 
 const CompilationTab = () => {
     const {token} = useAuthStore()
-      const [contentWidth, setContentWidth] = useState(0);
+      const [contentWidth] = useState(0);
       const contentRef = useRef<HTMLDivElement>(null);
 
       const { data, isLoading, error } = useQuery({
         queryKey: ["card", token],
         queryFn: () => getAlbum(token!),
         enabled: !!token,
-      });      console.log(data)
+      });
       if (isLoading) {
         return (
           <Stack className={styles.container}>

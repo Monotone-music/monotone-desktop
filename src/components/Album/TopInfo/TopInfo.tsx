@@ -21,8 +21,6 @@ const TopInfo: React.FC<TopInfoProps> = ({
   title = "Unknown Title",
   albumArtist = "Unknown Artist",
   image,
-  duration = "Unknown Duration",
-  releaseType = "Unknown Type",
   release = [{ trackCount: 0 }],
 }) => {
   const {token} = useAuthStore()

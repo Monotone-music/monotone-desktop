@@ -20,7 +20,7 @@ const AboutCard: React.FC<AboutCardProp> = ({ dataAboutCard }) => {
 
   const { token } = useAuthStore();
 
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["artist", dataAboutCard.map((item) => item._id), token],
     queryFn: () =>
       Promise.all(dataAboutCard.map((item) => getArtistById(item._id, token!))),
@@ -29,8 +29,7 @@ const AboutCard: React.FC<AboutCardProp> = ({ dataAboutCard }) => {
 
   const {
     data: imageArtist,
-    isLoading: isImageLoading,
-    error: imageError,
+    isLoading: isImageLoading
   } = useQuery({
     queryKey: [
       "artistImages",

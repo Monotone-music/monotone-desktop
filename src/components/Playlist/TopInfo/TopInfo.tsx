@@ -17,7 +17,6 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
-  AlertDialogCloseButton,
 } from '@chakra-ui/react'
 
 interface TopInfoProps {

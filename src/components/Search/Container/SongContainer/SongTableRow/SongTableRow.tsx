@@ -15,7 +15,7 @@ const SongTableRow: React.FC<SongTableRowProps> = ({
   songData,
   token,
 }) => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["trackImgSearch"],
     queryFn: () =>
       getAlbumImageByFileName(

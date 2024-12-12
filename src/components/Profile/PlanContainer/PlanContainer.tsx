@@ -1,6 +1,5 @@
-import React from "react";
 import styles from "./styles.module.scss";
-import { Box, Divider } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 const PlanContainer = () => {
   return (

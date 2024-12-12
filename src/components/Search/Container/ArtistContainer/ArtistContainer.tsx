@@ -35,7 +35,7 @@ interface ArtistContainerProps {
     token: string;
 }
 
-const ArtistContainer:React.FC<ArtistContainerProps> = ({artist, token}) => {
+const ArtistContainer:React.FC<ArtistContainerProps> = ({artist}) => {
   return (
     <Box className={styles['artist-container']}>
         <Box className={styles.title}>

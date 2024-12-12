@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useSearchStore, useUISearch } from "../store/useUIStore";
+import { useSearchStore } from "../store/useUIStore";
 import { searchAPI } from "../service/search.api";
 import useDebouncedEffect from "../util/useDebouncedEffect";
 
