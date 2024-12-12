@@ -5,11 +5,18 @@ export interface createNewPlaylistProps {
     recordingId?:string;
 }
 
+export const addingTrackToPlaylist = async (playlistId: string, recordingId: string,token:string) => {
+  const response = await apiClient.put(`/playlist/${playlistId}`, {recordingId}, 
+    { headers: { Authorization: `Bearer ${token}` } }
+  )
+  return response.data.data;
+}
+
+
 export const createNewPlaylist = async (body: createNewPlaylistProps, token: string) => {
     const response = await apiClient.put(`/playlist`, body, 
       { headers: { Authorization: `Bearer ${token}` } }
     )
-
     return response.data.data;
   }
 
@@ -27,6 +34,16 @@ export const deleteTrackFromPlaylist = async (playlistId: string, token:string, 
     { 
       headers: { Authorization: `Bearer ${token}` },
       data: { index }
+    }
+  )
+
+  return response.data;
+}
+
+export const deletePlaylist = async (playlistId: string, token:string) => {
+  const response = await apiClient.delete(`/playlist/${playlistId}`, 
+    { 
+      headers: { Authorization: `Bearer ${token}` }
     }
   )
 

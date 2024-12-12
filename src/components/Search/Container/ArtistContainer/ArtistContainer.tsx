@@ -2,6 +2,8 @@ import styles from './styles.module.scss'
 import { Box } from '@chakra-ui/react'
 import exampleImg from '../../../../assets/img/musicCard.jpg'
 import {IArtistSearchRecord } from '../../../../interface/Music';
+import { useNavigate } from 'react-router-dom';
+import { useUISearch } from '../../../../store/useUIStore';
 
 
 interface ArtistCardProps {
@@ -9,8 +11,14 @@ interface ArtistCardProps {
     artistData: IArtistSearchRecord;
 }
 const ArtistCard:React.FC<ArtistCardProps> = ({index, artistData}) => {
+    const navigate = useNavigate()
+    const {toggleOpenModal} = useUISearch()
+    const redirectToArtistDetail = (albumId: string) => {
+        toggleOpenModal(false)
+        navigate(`/home/artist/${albumId}`)
+    }
     return (
-        <Box className={styles['card-container']} key={index}>
+        <Box className={styles['card-container']} key={index} onClick={() => redirectToArtistDetail(artistData.source.info.artist._id)}>
             <Box className={styles['img-wrapper']}>
                 <img src={exampleImg} alt="" />
             </Box>

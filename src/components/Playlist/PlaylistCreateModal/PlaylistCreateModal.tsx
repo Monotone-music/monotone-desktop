@@ -34,7 +34,7 @@ const PlaylistCreateModal: React.FC<PlaylistCreateModalProps> = ({
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<PlaylistValue>({ resolver: yupResolver(PlaylistSchema), mode: 'onChange' });
-  const { recordingId } = usePlaylistStore();
+  const { recordingId,  resetState } = usePlaylistStore();
   const createNewPlaylistMutation = useCreatePlaylistMutation();
 
   const onSubmit: SubmitHandler<any> = async (data) => {
@@ -47,7 +47,7 @@ const PlaylistCreateModal: React.FC<PlaylistCreateModalProps> = ({
           duration: 2000,
           position: "top-right",
         });
-
+        resetState()
         onClose();
       },
 

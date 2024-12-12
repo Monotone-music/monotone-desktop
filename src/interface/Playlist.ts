@@ -8,6 +8,7 @@ export type PlaylistValue = {
 export interface PlaylistState {
     recordingId: string | null;
     setRecordingId: (recordingId: string) => void;
+    resetState: () => void; // Add resetState function
 }
 
 export const PlaylistSchema = yup

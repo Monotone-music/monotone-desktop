@@ -49,11 +49,10 @@ const Playlist = () => {
         </Center>
       );
     }
-    console.log(data.data.playlist)
     return (
       <Box className={styles.container}>
-          <TopInfoPlaylist {...data.data.playlist} />
-          <ListRecord {...data.data.playlist} />
+          <TopInfoPlaylist playlistId={playlistId} {...data.data.playlist} />
+          <ListRecord playlistId={playlistId} {...data.data.playlist} />
       </Box>
     );
 }

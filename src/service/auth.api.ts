@@ -4,7 +4,7 @@ import apiClient from "./apiClient"
 // Authentication Related
 
 export const signIn = async (body: ISignInForm): Promise<any> => {
-    const response = await apiClient.post(`/auth/login`, body);
+    const response = await apiClient.post(`/auth/login?flag=listener`, body);
     return response.data;
 }
 

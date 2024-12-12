@@ -22,9 +22,9 @@ import PlaylistModal from "../../../Playlist/PlaylistModal/PlaylistModal";
 
 interface RowRecordProps {
   record: IRecord;
-  item: number;
-  albumImages: string[];
-  albumTrackIds: string[];
+  item?: number;
+  albumImages?: string[];
+  albumTrackIds?: string[];
 }
 
 const RowRecord: React.FC<RowRecordProps> = ({
@@ -39,14 +39,14 @@ const RowRecord: React.FC<RowRecordProps> = ({
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
 
   const handleSetCurrentTrack = (record: IRecord) => {
-    addAlbumToQueue(albumTrackIds, record._id);
+    addAlbumToQueue(albumTrackIds!, record._id);
     setCurrentTrack(record);
   };
 
  
 
   const handleMouseEnter = () => {
-    setHoveredIndex(item);
+    setHoveredIndex(item!);
   };
 
   const handleMouseLeave = () => {
@@ -73,13 +73,13 @@ const RowRecord: React.FC<RowRecordProps> = ({
         ) : hoveredIndex === item ? (
           <Icon as={FaPlay} boxSize={4} color="#FFFFFF" />
         ) : (
-          item + 1
+          item! + 1
         )}
       </Td>
       <Td className={styles["title-col"]}>
         <Box className={styles["img-album"]}>
           <img
-            src={albumImages ? albumImages[item] : ""}
+            src={albumImages ? albumImages[item!] : ""}
             alt={record.title}
             className={styles.albumImage}
           />

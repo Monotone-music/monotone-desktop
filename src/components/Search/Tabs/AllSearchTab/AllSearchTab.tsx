@@ -15,16 +15,15 @@ interface AllSearchTabProps {
 
 const AllSearchTab: React.FC<AllSearchTabProps> = ({ artist, recording, album, token }) => {
   const noData = !artist?.length && !recording?.length && !album?.length;
-
   return (
     <Box className={styles.container}>
       {noData ? (
         <Box className={styles.notFound}>No Results Found</Box>
       ) : (
         <>
-          {recording.length > 0 && <SongContainer token={token} songs={recording} />}
-          {artist.length > 0 && <ArtistContainer token={token} artist={artist} />}
-          {album.length > 0 && <AlbumContainer token={token} album={album} />}
+          {recording?.length > 0 && <SongContainer token={token} songs={recording} />}
+          {artist?.length > 0 && <ArtistContainer token={token} artist={artist} />}
+          {album?.length > 0 && <AlbumContainer token={token} album={album} />}
         </>
       )}
     </Box>

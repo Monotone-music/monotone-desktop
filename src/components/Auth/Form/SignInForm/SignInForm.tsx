@@ -28,6 +28,7 @@ const SignInForm = () => {
           status:'success',
           title: "Sign in successfully",
           description: "Have a nice day!",
+          position: "top-right",
           duration: 2000
         })
 
@@ -39,6 +40,7 @@ const SignInForm = () => {
           status: 'error',
           duration: 2000,
           title: "Invalid Credentials",
+          position: "top-right",
           description: "Please try again your email or password"
         })
       }

@@ -6,7 +6,6 @@ import { getAlbum, getTopAlbum } from "../../../../service/album.api";
 import { useQuery } from "@tanstack/react-query";
 import ErrorWarning from "../../../Error/ErrorWarning/ErrorWarning";
 import { useAuthStore } from "../../../../store/useAuthStore";
-import StripePaymentButton from "../../../Payment/StripePaymentButton/StripePaymentButton";
 
 const AllTab = () => {
   const {token} = useAuthStore()
@@ -86,7 +85,7 @@ const AllTab = () => {
         </Skeleton>
       )}
 
-      {albums && (
+      {albums.length > 0 && (
         <Skeleton isLoaded={!isLoading}>
           <RowCard
             rowTitle="Album"
@@ -96,7 +95,7 @@ const AllTab = () => {
         </Skeleton>
       )}
 
-      {compilations && (
+      {compilations.length > 0 && (
         <Skeleton isLoaded={!isLoading}>
           <RowCard
             rowTitle="Compilation"

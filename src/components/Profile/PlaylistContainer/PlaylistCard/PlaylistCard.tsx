@@ -11,11 +11,10 @@ interface PlaylistCardProps {
     dataCard: any
 }
 const PlaylistCard:React.FC<PlaylistCardProps> = ({dataCard}) => {
-    console.log(dataCard)
     const {token} = useAuthStore()
     const navigate = useNavigate()
     const {data, isLoading, error } = useQuery({
-        queryKey: ['cardImg', token],
+        queryKey: ['cardImg', token, dataCard.image],
         queryFn: () => getAlbumImageByFileName(dataCard.image.filename, token!),
         enabled: !!token
     })

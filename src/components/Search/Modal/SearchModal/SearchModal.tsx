@@ -5,8 +5,6 @@ import { useSearchStore, useUISearch } from '../../../../store/useUIStore';
 import SearchTab from '../../Tabs/SearchTab/SearchTab';
 import { ITabArr } from '../../../../interface/UI';
 import AllSearchTab from '../../Tabs/AllSearchTab/AllSearchTab';
-import SongSearchTab from '../../Tabs/SongSearchTab/SongSearchTab';
-import AlbumSearchTab from '../../Tabs/AlbumSearchTab/AlbumSearchTab';
 import { useAuthStore } from '../../../../store/useAuthStore';
 
 const SearchModal = () => {
@@ -14,11 +12,8 @@ const SearchModal = () => {
     const {token} = useAuthStore()
     const { results, loading, query } = useSearchStore()
     const { recording, artist, album } = results?.data || {};
-   
     const tabArr: ITabArr[] = [
-        { title: "All", component: <AllSearchTab token={token!} album={album} recording={recording} artist={artist} /> },
-        { title: "Songs", component: <SongSearchTab token={token!} recording={recording}/> },
-        { title: "Album", component: <AlbumSearchTab token={token!} album={album}/> }
+        { title: "All", component: <AllSearchTab token={token!} album={album} recording={recording} artist={artist} /> }
       ];
 
       useEffect(() => {

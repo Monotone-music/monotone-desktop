@@ -1,0 +1,39 @@
+.actionBar-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .playBtn {
+    border-radius: 9999px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(#45bf55, 1);
+    cursor: pointer;
+  }
+  
+  .sufferBtn {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  
+    svg {
+      fill: #595959;
+      transition: all 0.3s ease;
+    }
+  
+    &:hover {
+      svg {
+        fill: white;
+      }
+    }
+  }
+  
+  

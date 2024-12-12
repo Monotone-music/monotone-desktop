@@ -74,10 +74,10 @@
 .others-wrapper {
   width: 100%;
   max-width: 400px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px;
   .others {
     color: #757575;
     font-weight: 600;

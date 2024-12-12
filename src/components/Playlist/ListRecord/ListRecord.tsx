@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { Box, Icon, Skeleton, Stack } from "@chakra-ui/react";
+import { Box, Icon, Skeleton, slideFadeConfig, Stack, useToast } from "@chakra-ui/react";
 import { FaClock, FaPlay, FaRandom } from "react-icons/fa";
 import { RiAddCircleLine } from "react-icons/ri";
 import {
@@ -14,32 +14,16 @@ import { useQuery } from "@tanstack/react-query";
 import { getAlbumImageByFileName } from "../../../service/album.api";
 import { useAuthStore } from "../../../store/useAuthStore";
 import RowRecord from "./RowRecord/RowRecord";
+import ActionBar from "../ActionBar/ActionBar";
 
-// Action bar for the play buttons
-const ActionBar = () => {
-  return (
-    <Box className={styles["actionBar-container"]}>
-      <Box className={styles.playBtn}>
-        <Icon as={FaPlay} boxSize={5} color={"#000000"} />
-      </Box>
-
-      <Box className={styles.sufferBtn}>
-        <Icon as={FaRandom} boxSize={6} />
-      </Box>
-
-      <Box className={styles.sufferBtn}>
-        <Icon as={RiAddCircleLine} boxSize={7} />
-      </Box>
-    </Box>
-  );
-};
 
 // ListRecord component expecting an array of recording data
 interface ListRecordProps {
   recording: any[]; // Data you provided
+  playlistId: string;
 }
 
-const ListRecord: React.FC<ListRecordProps> = ({ recording }) => {
+const ListRecord: React.FC<ListRecordProps> = ({ recording, playlistId }) => {
   const { token } = useAuthStore();
   
   // Fetch album images
@@ -72,7 +56,7 @@ const ListRecord: React.FC<ListRecordProps> = ({ recording }) => {
 
   return (
     <Box className={styles.container}>
-      <ActionBar />
+      <ActionBar playlistId={playlistId}/>
 
       <TableContainer>
         <Table variant="unstyled">
@@ -89,6 +73,7 @@ const ListRecord: React.FC<ListRecordProps> = ({ recording }) => {
           <Tbody>
             {recording.map((record, index: number) => (
               <RowRecord
+              playlistId={playlistId}
               index={record}
                 albumTrackIds={recording.map((rec) => rec.recording._id)} // Pass the IDs of the tracks
                 record={record.recording} // Pass the full record object

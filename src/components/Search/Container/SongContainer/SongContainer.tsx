@@ -1,3 +1,4 @@
+
 import SongTableRow from "./SongTableRow/SongTableRow";
 import styles from "./styles.module.scss";
 import { Box, Table, TableContainer, Tbody } from "@chakra-ui/react";
@@ -14,9 +15,16 @@ const SongContainer: React.FC<SongContainerProps> = ({ songs, token }) => {
       <TableContainer>
         <Table variant="unstyled">
           <Tbody>
-            {songs.map((song, index) => (
-                <SongTableRow token={token} songData={song} index={index} key={index}/>
-            ))}
+            {songs.map((song, index) => {
+              return (
+                <SongTableRow
+                  token={token}
+                  songData={song}
+                  index={index}
+                  key={index}
+                />
+              );
+            })}
           </Tbody>
         </Table>
       </TableContainer>

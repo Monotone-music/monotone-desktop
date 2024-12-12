@@ -27,6 +27,7 @@ interface RowRecordProps {
   index: any;
   albumImages: string[];
   albumTrackIds: string[];
+  playlistId: string;
 }
 
 const RowRecord: React.FC<RowRecordProps> = ({
@@ -35,6 +36,7 @@ const RowRecord: React.FC<RowRecordProps> = ({
   item,
   albumImages,
   albumTrackIds,
+  playlistId
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -135,6 +137,7 @@ const RowRecord: React.FC<RowRecordProps> = ({
         isOpen={isOpen}
         onClose={onClose}
         recordingId={selectedRecordId}
+        playlistId={playlistId}
       />
 
       <DelelteDialog

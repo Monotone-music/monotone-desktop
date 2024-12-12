@@ -22,6 +22,7 @@ import Checkout from "./pages/checkout/Checkout";
 import Error from "./pages/error/Error";
 import Profile from "./pages/profile/Profile";
 import Playlist from "./pages/playlist/Playlist";
+import Artist from "./pages/artist/Artist";
 
 const queryClient = new QueryClient();
 
@@ -123,7 +124,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-            <AuthCheck /> {/* Add AuthCheck here to handle token checks */}
+            <AuthCheck />
             <Home />
           </>
         ),
@@ -142,6 +143,15 @@ const router = createBrowserRouter([
           <>
             <AuthCheck />
             <Playlist />
+          </>
+        ),
+      },
+      {
+        path: "artist/:artistId",
+        element: (
+          <>
+            <AuthCheck />
+            <Artist />
           </>
         ),
       },
