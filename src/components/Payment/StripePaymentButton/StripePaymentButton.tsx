@@ -59,7 +59,6 @@ const StripePaymentButton = () => {
     //     alert("Payment successful!");
     //   }
 
-console.log(clientSecret)
     } catch (error) {
       console.error("Error during payment process:", error);
     } finally {

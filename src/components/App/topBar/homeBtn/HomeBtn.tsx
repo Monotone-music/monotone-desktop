@@ -13,8 +13,7 @@ const HomeBtn = () => {
   const isActive = location.pathname === '/home';
   return (
     <Box className={`${styles.container} ${isActive ? styles.active : ''}`} onClick={redirectBackHome}>
-        <Icon as={PiHouse} boxSize={7}/>
-        {/* <Text className={styles.text}>Home</Text> */}
+        <Icon as={PiHouse} color={'white'} boxSize={7}/>
     </Box>
   )
 }

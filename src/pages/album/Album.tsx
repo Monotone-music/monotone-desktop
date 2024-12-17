@@ -45,7 +45,7 @@ const Album = () => {
   if (!data || !data.data) {
     return (
       <Center height="100vh">
-        <Text>No album data found.</Text>
+        <Text color={'white'}>No album data found.</Text>
       </Center>
     );
   }

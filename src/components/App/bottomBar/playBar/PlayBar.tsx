@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { Box, Progress, Text } from "@chakra-ui/react";
+import { Box, Progress, Skeleton, Text } from "@chakra-ui/react";
 import BtnPlayBar from "../btnPlayBar/BtnPlayBar";
 import { FaPause, FaPlay, FaRandom } from "react-icons/fa";
 import {
@@ -9,9 +9,9 @@ import {
 } from "react-icons/io";
 import useFetchAudio from "../../../../hook/useFetchAudio";
 import { useEffect, useRef, useState } from "react";
-import useAudioStore from "../../../../store/useAudioStore";
 import { usePlayerStore } from "../../../../store/usePlayerStore";
 import formatDuration from "../../../../util/formatDuration";
+
 
 const PlayBar = () => {
   const {
@@ -22,17 +22,22 @@ const PlayBar = () => {
     isRepeat,
     toggleShuffle,
     toggleRepeat,
+    setIsPlaying,
+    togglePlayPause,
+    isPlaying,
+    isLoading,
+    volume,
   } = usePlayerStore();
+
   const audioSrc = useFetchAudio(currentTrackId!);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const { isPlaying, togglePlayPause, setIsPlaying } = useAudioStore();
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  // Sync audio play/pause state
   useEffect(() => {
     if (audioRef.current) {
+      audioRef.current.volume = volume;
       if (isPlaying) {
         audioRef.current
           .play()
@@ -41,7 +46,7 @@ const PlayBar = () => {
         audioRef.current.pause();
       }
     }
-  }, [isPlaying]);
+  }, [isPlaying, volume]);
 
   // Handle audio source change
   useEffect(() => {
@@ -145,22 +150,37 @@ const PlayBar = () => {
           type="normal"
           iconColor={isRepeat ? "white" : "#595959"}
         />
+        
+
+
       </Box>
 
       <Box className={styles["progress-bar-wrapper"]}>
-        <Text className={styles["time"]}>{formatDuration(currentTime)}</Text>
-        <Progress
-          width={200}
-          colorScheme="green"
-          borderRadius={10}
-          value={progress}
-          height={2}
-        />
-        <Text className={styles["time"]}>{formatDuration(duration)}</Text>
+        <Text className={styles["time"]}>
+          {isNaN(currentTime) ? "0:00" : formatDuration(currentTime)}
+        </Text>
+        {isLoading ? (
+          <Skeleton
+            startColor="black.900"
+            endColor="green.400"
+            height={2}
+            width={200}
+          />
+        ) : (
+          <Progress
+            width={200}
+            colorScheme="green"
+            borderRadius={10}
+            value={progress}
+            height={2}
+          />
+        )}
+        <Text className={styles["time"]}>
+          {isNaN(duration) ? "0:00" : formatDuration(duration)}
+        </Text>
       </Box>
     </Box>
   );
 };
 
 export default PlayBar;
-

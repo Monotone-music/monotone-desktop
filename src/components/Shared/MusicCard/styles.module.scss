@@ -63,6 +63,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+    color: white !important;
   }
 
   .des {
@@ -70,7 +71,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
-    color: #989898;
+    color: #989898 !important;
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;

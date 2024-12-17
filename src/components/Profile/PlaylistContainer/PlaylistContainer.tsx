@@ -18,9 +18,9 @@ const PlaylistContainer:React.FC<PlaylistContainerProps> = ({playlists}) => {
   return (
     <Box className={styles.container}>
         <Box className={styles.title}>
-            <Text>Your Playlist</Text>
+            <Text color={'white'}>Your Playlist</Text>
             <Button variant="ghost" onClick={OnOpenCreateModal}>
-                <Icon as={FaPlus} boxSize={4}/>
+                <Icon color={'white'} as={FaPlus} boxSize={4}/>
             </Button>
         </Box>
         <Box className={styles['playlist-wrapper']}>

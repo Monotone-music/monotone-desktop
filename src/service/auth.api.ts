@@ -1,10 +1,15 @@
-import { ISignInForm } from "../interface/Auth";
+import { ISignInForm, ISignUpForm } from "../interface/Auth";
 import apiClient from "./apiClient"
 
 // Authentication Related
 
 export const signIn = async (body: ISignInForm): Promise<any> => {
     const response = await apiClient.post(`/auth/login?flag=listener`, body);
+    return response.data;
+}
+
+export const signUp = async (body: ISignUpForm): Promise<any> => {
+    const response = await apiClient.post(`/account/register?type=listener` , body);
     return response.data;
 }
 

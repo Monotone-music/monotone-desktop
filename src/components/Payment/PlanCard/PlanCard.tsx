@@ -41,7 +41,7 @@ const PlanCard:React.FC<PlanCardProps> = ({
       <Box className={styles["list-desc-wrapper"]}>
         <UnorderedList>
             {descPlan.map((desc, index) => (
-                  <ListItem key={index}>{desc}</ListItem>
+                  <ListItem key={index} color={'white'}>{desc}</ListItem>
             ))}
         
         </UnorderedList>

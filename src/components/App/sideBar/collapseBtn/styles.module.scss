@@ -11,10 +11,11 @@
     .text{
         font-size: 14px;
         font-weight: 600;
+        color: white !important;
     }
     
     &:hover{
-        background-color: gray;
+        background-color: gray !important;
     }
     
 }

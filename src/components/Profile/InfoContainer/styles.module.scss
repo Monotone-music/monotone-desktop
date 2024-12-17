@@ -3,9 +3,14 @@
     height: 400px;
 }
 
-.background{
+.background-profile{
     height: 70%;
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(48,89,181,1) 37%, rgba(0,54,65,1) 100%);
+}
+
+.background-artist{
+    height: 70%;
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 
 .info-wrapper{
@@ -59,13 +64,16 @@
 .name{
     font-size: 28px;
     font-weight: 600;
+    color: white !important;
 }
 
 .role{
     font-size: 18px;
     font-weight: 600;
+    color: white !important;
 }
 
 .created_at{
     font-size: 14px;
+    color: white !important;
 }

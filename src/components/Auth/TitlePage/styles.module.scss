@@ -1,12 +1,12 @@
 .container{
     width: 100%;
     text-align: center;
+    color: white !important;
 }
 
 .title{
     font-weight: 400;
     font-size: 28px;
-
     @media screen and (min-width: 1024px) {
         font-size: 36px;
     }
@@ -14,7 +14,7 @@
 
 .desc{
     font-size: 14px;
-    color: #616161;
+    color: #616161 !important;
     font-weight: 600;
 
     @media screen and (min-width: 1024px) {

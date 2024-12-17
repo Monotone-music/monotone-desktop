@@ -11,9 +11,10 @@ interface InfoContainerProps {
   displayName: string;
   createdAt: string;
   imageArtist?:string;
+  forPage?: string;
 }
 
-const InfoContainer:React.FC<InfoContainerProps> = ({displayName, createdAt, imageArtist}) => {
+const InfoContainer:React.FC<InfoContainerProps> = ({forPage="profile",displayName, createdAt, imageArtist}) => {
   const {token} = useAuthStore()
   const {data, isLoading } = useQuery({
     queryKey: ['artistImg', token!, imageArtist],
@@ -24,7 +25,7 @@ const InfoContainer:React.FC<InfoContainerProps> = ({displayName, createdAt, ima
 
   return (
     <Box className={styles.container}>
-      <Box className={styles.background}></Box>
+      <Box className={forPage === "artist" ?  styles['background-artist'] : styles['background-profile']}></Box>
 
       <Box className={styles["info-wrapper"]}>
         <Box className={styles["img-container"]}>

@@ -1,8 +1,10 @@
 .container{
     border-radius: 10px;
-    background-color: #090a0a;
+    background-color: #090a0a !important;
     height: 55px !important;
-
+    color: white !important;
+    border: solid 1px #595959 !important; 
+    
     @media screen and (min-width: 1024px) {
         height: 60px !important;
     }

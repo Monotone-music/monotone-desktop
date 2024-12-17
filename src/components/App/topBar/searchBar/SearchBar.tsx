@@ -24,7 +24,7 @@ const SearchBar = () => {
 
   return (
     <Box className={styles.container}>
-      <Icon as={IoSearchOutline} boxSize={7} />
+      <Icon as={IoSearchOutline} color={'white'} boxSize={7} />
       <input
         value={query!}
         onChange={handleInputChange}

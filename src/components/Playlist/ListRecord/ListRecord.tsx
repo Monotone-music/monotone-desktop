@@ -61,11 +61,11 @@ const ListRecord: React.FC<ListRecordProps> = ({ recording, playlistId }) => {
         <Table variant="unstyled">
           <Thead>
             <Tr>
-              <Th style={{ padding: 0, textAlign: "center" }}>#</Th>
-              <Th style={{ padding: "16px 0" }}>Title</Th>
-              <Th style={{ padding: 0 }}>Artist</Th>
-              <Th style={{ padding: 0 }}>
-                <Icon as={FaClock} />
+              <Th style={{ padding: 0, textAlign: "center", color: 'white' }}>#</Th>
+              <Th style={{ padding: "16px 0", color: 'white' }}>Title</Th>
+              <Th style={{ padding: 0, color: 'white' }}>Artist</Th>
+              <Th style={{ padding: 0, color: 'white' }}>
+                <Icon as={FaClock} color={'white'} />
               </Th>
             </Tr>
           </Thead>

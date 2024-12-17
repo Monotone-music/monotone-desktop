@@ -4,8 +4,10 @@ import { useAuthStore } from "../store/useAuthStore";
 import { ISignInForm } from "../interface/Auth";
 import { AxiosResponse } from "axios";
 
+
+
 export const useSignInMutation = () => {
-    const { setIsAuthenticated, setRefreshToken,setToken, setError } = useAuthStore();
+    const { setIsAuthenticated, setRefreshToken,setToken, setMessage } = useAuthStore();
   
     return useMutation({
     mutationFn: (data: ISignInForm) => signIn(data),
@@ -13,11 +15,10 @@ export const useSignInMutation = () => {
         setIsAuthenticated(true);
         setToken(data.data.accessToken);
         setRefreshToken(data.data.refreshToken)
-        localStorage.setItem('token', data.data.accessToken);
       },
       onError: (error: any) => {
         // Set error state in Zustand on failed login
-        setError(error?.response?.data?.message || 'Login failed');
+        setMessage(error?.response?.data?.message || 'Login failed');
         console.error('Login failed', error);
       },
     });

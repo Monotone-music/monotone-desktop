@@ -19,7 +19,7 @@ const AlbumActionBar:React.FC<AlbumActionBarProp> = ({title}) => {
   return (
     <Box className={styles.container}>
         <Box className={styles['text-wrapper']}>
-            <Text className={styles.text}>{title}</Text>
+            <Text className={styles.text} color={'white'}>{title}</Text>
         </Box>
         <Box className={styles['cta-wrapper']}>
             <Box className={styles['option-wrapper']}>

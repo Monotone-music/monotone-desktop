@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useAuthStore } from "../store/useAuthStore";
 import { refreshTokenAPI } from "./auth.api";
-import { useNavigate } from "react-router-dom";
+import { getEnv } from "../util/getEnv";
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_DEV_URL,
+  baseURL: getEnv("VITE_SERVER_DEV_URL"),
 });
 
 let isRefreshing = false;
@@ -23,7 +23,7 @@ const processQueue = (error: any, token: string | null) => {
 
 apiClient.interceptors.request.use(
   (config) => {
-    const { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState()
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -38,16 +38,12 @@ apiClient.interceptors.response.use(
   (response) => response, // Return successful response
   async (error) => {
     const { response } = error;
-    const { token, refreshToken, setToken, setRefreshToken, clearAuthState } = useAuthStore();
-    const navigate = useNavigate();
+    const { token, refreshToken, setToken, setRefreshToken, clearAuthState } = useAuthStore.getState();
 
     // Handle token expiry (401)
     if (response?.status === 401) {
       if (!token || !refreshToken) {
         clearAuthState();
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
-        navigate("/error", { state: { message: "Session expired. Please log in again." } });
         return Promise.reject(error);
       }
 
@@ -67,9 +63,6 @@ apiClient.interceptors.response.use(
         setToken(newAccessToken);
         setRefreshToken(newRefreshToken);
 
-        localStorage.setItem("token", newAccessToken);
-        localStorage.setItem("refreshToken", newRefreshToken);
-
         processQueue(null, newAccessToken);
 
         // Retry the original request with the new token
@@ -77,9 +70,6 @@ apiClient.interceptors.response.use(
         return axios(error.config);
       } catch (refreshError) {
         clearAuthState();
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
-        navigate("/error", { state: { message: "Unable to refresh your session. Please log in again." } });
 
         processQueue(refreshError, null);
         return Promise.reject(refreshError);
@@ -91,7 +81,4 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// todo: clone mot client rieng stream
-//chatgpt: https://chatgpt.com/c/6745a1f1-50b4-8000-81f6-c86fd88d32d3
 export default apiClient;

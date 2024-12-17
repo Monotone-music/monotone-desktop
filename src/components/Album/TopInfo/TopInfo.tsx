@@ -61,7 +61,7 @@ const TopInfo: React.FC<TopInfoProps> = ({
         </Box>
 
         <Box className={styles["others-wrapper"]}>
-          <Text className={styles.others}>{totalSong} songs, 2hr 47min</Text>
+          <Text className={styles.others}>{totalSong} songs</Text>
         </Box>
       </Box>
     </Box>

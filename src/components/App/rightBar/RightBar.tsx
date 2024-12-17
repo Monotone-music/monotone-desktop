@@ -59,7 +59,7 @@ const RightBar = () => {
         author={data.recording.displayedArtist}
         title={data.recording.title}
       />
-      <AboutArtist artistData={data.recording.artist} />
+      <AboutArtist artistData={data?.recording?.artist} />
     </section>
   );
 };

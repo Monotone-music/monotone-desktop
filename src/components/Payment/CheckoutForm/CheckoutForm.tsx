@@ -86,7 +86,7 @@ const CheckoutForm = () => {
     const LoadingScreen = useMemo(() => {
         return (
             <Box className={styles.loadingScreen}>
-                <Spinner size="lg" />
+                <Spinner size="lg" color="white"/>
             </Box>
         );
     }, []);
@@ -98,8 +98,8 @@ const CheckoutForm = () => {
 
     return (
         <Box className={styles.container}>
-            <Box className={styles.title}>Checkout</Box>
-            <Box className={styles.desc}>Choose your preferred payment method.</Box>
+            <Box className={styles.title} color={"white"}>Checkout</Box>
+            <Box className={styles.desc} color={"white"}>Choose your preferred payment method.</Box>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <PaymentElement className={styles["payment-element"]} options={{ layout: 'accordion'}} />
                 <Button

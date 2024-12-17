@@ -6,6 +6,7 @@ export const usePlayerStore = create<PlayerStore>()(
   persist(
     (set, get) => ({
       queue: [],
+      isPlaying: false,
       currentTrack: null,
       currentTrackId: null,
       currentTime: 0,
@@ -13,8 +14,17 @@ export const usePlayerStore = create<PlayerStore>()(
       duration: 0,
       isShuffle: false,
       isRepeat: false,
+      isLoading: false,
+      setLoading: (isLoading) => set({isLoading}),
+      setIsPlaying: (isPlaying) => set({isPlaying}),
+      togglePlayPause: (isPlaying) => set({isPlaying}),
       toggleShuffle: () => set((state) => ({ isShuffle: !state.isShuffle })),
       toggleRepeat: () => set((state) => ({ isRepeat: !state.isRepeat })),
+      setQueue: (trackIds) =>
+        set(() => ({
+          queue: trackIds,
+          currentTrackId: trackIds[0],
+        })),
       playNextTrack: () => {
         const { queue, currentTrackId, isShuffle } = get();
         const currentTrackIndex = currentTrackId ? queue.indexOf(currentTrackId) : -1;
@@ -59,6 +69,13 @@ export const usePlayerStore = create<PlayerStore>()(
       setDuration: (duration) => set({ duration }),
       setVolume: (volume) => set({ volume }),
       setCurrentTrack: (currentTrack) => set({ currentTrack }),
+      clearStatePlayer: () => set({
+          currentTrackId: null,
+          queue: [],
+          isPlaying: false,
+          isShuffle: false,
+          isRepeat: false
+        })
     }),
     { name: "current-track-id" }
   )

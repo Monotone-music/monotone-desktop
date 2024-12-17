@@ -26,10 +26,19 @@ const Artist = () => {
   
       <Box className={styles.container}>
         <InfoContainer
+        forPage='artist'
           displayName={data?.data?.artist.name}
           createdAt={data?.data?.artist.createdAt}
           imageArtist={data?.data?.artist.image.filename}
         />
+         
+          <Box className={styles.description}>
+            {data?.data?.artist.name} is a talented style artist recognized for their unique
+            approach techniques. Drawing inspiration from influences their work
+            has been showcased in exhibitions, leaving a lasting impression with
+            its distinctive qualities.
+          </Box>
+ 
         <Box className={styles.wrapper}>
         {data?.data?.artist.releaseGroup.length === 0 ? <></> : <AlbumContainer albums={data?.data?.artist?.releaseGroup}/>}
         {data?.data?.artist.featuredIn.length === 0 ? <></> : <FeaturedInContainer featuredIn={data?.data?.artist?.featuredIn}/>}

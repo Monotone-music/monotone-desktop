@@ -1,6 +1,6 @@
 
 import styles from "./styles.module.scss";
-import InputForm, { FormValues } from "../../Input/InputForm";
+import InputForm, {SignInFormValues } from "../../Input/InputForm";
 import { Box, Button, Spinner, useToast } from "@chakra-ui/react";
 import { FaArrowRight } from "react-icons/fa";
 import Notation from "../../Notation/Notation";
@@ -11,6 +11,7 @@ import { ISignInForm, SignInSchema } from "../../../../interface/Auth";
 import { useNavigate } from "react-router-dom";
 
 const SignInForm = () => {
+  
   const signInMutation = useSignInMutation()
   const navigate = useNavigate();
   const toast = useToast()
@@ -18,7 +19,7 @@ const SignInForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({ resolver: yupResolver(SignInSchema) });
+  } = useForm<SignInFormValues>({ resolver: yupResolver(SignInSchema) });
 
 
   const onSubmit:SubmitHandler<ISignInForm> = async (data) => {
@@ -58,7 +59,7 @@ const SignInForm = () => {
         </Button>
       </Box>
 
-      <Notation/>
+      <Notation text="Don't have account ?" btnText="Sign up" to="/auth/sign-up"/>
     </form>
   );
 };

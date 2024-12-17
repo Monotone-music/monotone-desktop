@@ -39,7 +39,7 @@ const NavigationBar = () => {
         className={`${styles['link-container']} ${!canGoBack ? styles.disabled : ''}`} 
         aria-disabled={!canGoBack}
       >
-        <Icon as={IoChevronBackOutline} boxSize={7} />
+        <Icon color={'#616161'} transition={"all 0.3s ease"} _hover={{color: 'white'}} as={IoChevronBackOutline} boxSize={7} />
       </Box>
 
       {/* Forward Button */}
@@ -48,7 +48,7 @@ const NavigationBar = () => {
         className={`${styles['link-container']} ${!canGoForward ? styles.disabled : ''}`} 
         aria-disabled={!canGoForward}
       >
-        <Icon as={IoChevronForwardOutline} boxSize={7} />
+        <Icon color={'#616161'} transition={"all 0.3s ease"} _hover={{color: 'white'}} as={IoChevronForwardOutline} boxSize={7} />
       </Box>
     </Box>
   );

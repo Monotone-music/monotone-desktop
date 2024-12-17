@@ -95,8 +95,8 @@ const RowRecord: React.FC<RowRecordProps> = ({
           <MenuButton boxSize={5} color="gray" _hover={{ color: "white" }}>
             <Icon as={SlOptions} />
           </MenuButton>
-          <MenuList p={0}>
-            <MenuItem bg="gray.700" _hover={{bg:"gray.500"}} p={4}   onClick={() => handleOpenModal(record._id)}>Adding to Playlist</MenuItem>
+          <MenuList p={0} border={"#616161 solid 1px"} borderRadius={2}>
+            <MenuItem bg="gray.900" _hover={{bg:"gray.700"}} p={4} color={'white'}  onClick={() => handleOpenModal(record._id)}>Adding to Playlist</MenuItem>
           </MenuList>
         </Menu>
       </Td>

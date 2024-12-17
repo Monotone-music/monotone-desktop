@@ -23,6 +23,7 @@ import Error from "./pages/error/Error";
 import Profile from "./pages/profile/Profile";
 import Playlist from "./pages/playlist/Playlist";
 import Artist from "./pages/artist/Artist";
+import SignUp from "./pages/auth/SignUp/SignUp";
 
 const queryClient = new QueryClient();
 
@@ -108,6 +109,9 @@ const router = createBrowserRouter([
       {
         path: "auth/sign-in",
         element: <SignIn />,
+      },  {
+        path: "auth/sign-up",
+        element: <SignUp />,
       },
     ],
   },

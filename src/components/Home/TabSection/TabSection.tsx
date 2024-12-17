@@ -1,5 +1,6 @@
 
 import { ITabArr } from "../../../interface/UI";
+import { useTabStore } from "../../../store/useTabStore";
 import styles from "./styles.module.scss";
 import {
   Tab,
@@ -31,10 +32,17 @@ const tabStyle = {
 };
 
 const TabSection:React.FC<TabSectionProps> = ({dataTab}) => {
+  const activeTab = useTabStore((state) => state.activeTab);
+  const setActiveTab = useTabStore((state) => state.setActiveTab);
+  const activeIndex = dataTab.findIndex((tab) => tab.title === activeTab);
 
+  const handleTabChange = (index: number) => {
+    setActiveTab(dataTab[index]?.title || "All"); // Update the active tab in the store
+  };
   return (
     <Tabs
       isLazy
+      index={activeIndex >= 0 ? activeIndex : 0} onChange={handleTabChange}
       defaultIndex={0}
       className={styles.container}
       variant="soft-rounded"

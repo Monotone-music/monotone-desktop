@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getTrackStream } from '../service/track.api';
-import useAudioStore from '../store/useAudioStore';
+import { usePlayerStore } from '../store/usePlayerStore';
 
 const useFetchAudio = (trackId: string) => {
-
-    const { setAudioBuffer } = useAudioStore();
+  const {setLoading } = usePlayerStore()
     const currentUrlRef = useRef<string | null>(null);
     const [ audioSrc,setAudioSrc] = useState<string | null>(null);
   
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
       queryKey: ['trackUrl', trackId],
       queryFn: () => getTrackStream(trackId),
       enabled: !!trackId,
     });
+
+    useEffect(() => {
+      setLoading(isLoading);
+    }, [isLoading, setLoading]);
 
     const processAudio = async () => {
       try {
@@ -42,8 +45,7 @@ const useFetchAudio = (trackId: string) => {
           currentUrlRef.current = null;
         }
       };
-    }, [data, trackId, setAudioBuffer]);
-  
+    }, [data, trackId]);
     return currentUrlRef.current;
   };
   

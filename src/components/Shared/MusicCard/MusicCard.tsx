@@ -65,7 +65,7 @@ const MusicCard: React.FC<MusicCardProps> = ({ itemData }) => {
 
           {isHover && (
             <Box className={`${styles.playBtn} ${styles.slideIn}`}>
-              <Icon as={FaPlay} boxSize={3} />
+              <Icon as={FaPlay} boxSize={3} color={'white'}/>
             </Box>
           )}
         </Box>

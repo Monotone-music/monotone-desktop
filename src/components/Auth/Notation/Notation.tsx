@@ -1,11 +1,24 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss'
 import { Box, Button, Text } from '@chakra-ui/react';
 
-const Notation = () => {
+interface NotationProps {
+  text: string;
+  btnText: string;
+  to: string
+}
+
+const Notation: React.FC<NotationProps> = ({text, btnText, to}) => {
+
+  const navigate = useNavigate()
+
+  const handleDirectToSignUp = () => {
+    navigate(to, {replace: true})
+  }
   return (
     <Box className={styles.container}>
-        <Text className={styles.text}>Don't have account ?</Text>
-        <Button size="xs" className={styles.btn}>Sign up</Button>
+        <Text className={styles.text}>{text}</Text>
+        <Button size="xs" onClick={handleDirectToSignUp} className={styles.btn}>{btnText}</Button>
     </Box>
   )
 }

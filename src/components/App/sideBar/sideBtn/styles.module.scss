@@ -13,10 +13,11 @@
     .text{
         font-size: 14px;
         font-weight: 400;
+        color: white !important;
     }
     
     &:hover{
-        background-color: gray;
+        background-color: gray !important;
     }
 
     .img-logo{
@@ -27,5 +28,5 @@
 }
 
 .active{
-    background-color: gray;
+    background-color: gray !important;
 }

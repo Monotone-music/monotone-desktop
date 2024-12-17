@@ -69,9 +69,10 @@ const AboutCard: React.FC<AboutCardProp> = ({ dataAboutCard }) => {
       <Box className={styles["info-wrapper"]}>
         <Box className={styles.top}>
           <Box className={styles.name}>
-            <Text>{item.name}</Text>
+            <Text color={'white'}>{item.name}</Text>
           </Box>
           <Box
+          color={'white'}
             className={styles["follow-btn"]}
             onClick={() => redirectToArtistPage(item._id)}
           >

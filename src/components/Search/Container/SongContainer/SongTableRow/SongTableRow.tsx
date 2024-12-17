@@ -4,6 +4,7 @@ import { ITrackSearchRecord } from "../../../../../interface/Music";
 import { Box, Spinner, Td, Tr } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { getAlbumImageByFileName } from "../../../../../service/album.api";
+import { usePlayerStore } from "../../../../../store/usePlayerStore";
 
 interface SongTableRowProps {
   index: number;
@@ -15,6 +16,11 @@ const SongTableRow: React.FC<SongTableRowProps> = ({
   songData,
   token,
 }) => {
+  const {setCurrentTrackId, setQueue} = usePlayerStore()
+  const handleClick = () => {
+    setQueue([songData.source.info.recording._id]); // Set the queue with the selected song
+    setCurrentTrackId(songData.source.info.recording._id);
+  };
   const { data, isLoading } = useQuery({
     queryKey: ["trackImgSearch"],
     queryFn: () =>
@@ -26,7 +32,7 @@ const SongTableRow: React.FC<SongTableRowProps> = ({
   });
 
   return (
-    <Tr key={index} className={styles.row}>
+    <Tr key={index} className={styles.row} onClick={handleClick}>
       <Td
         style={{ padding: "16px 8px", width: "90%" }}
         className={styles["song-img-wrapper"]}

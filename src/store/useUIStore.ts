@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { IPaymentUI, ISearchUI, IUI, SearchState } from "../interface/UI";
+import { IPaymentUI, ISearchUI, QueueState, SearchState, UIState } from "../interface/UI";
 
-export const useUIStore = create<IUI>((set) => ({
+export const useUIStore = create<UIState>((set) => ({
   isSidebarOpen: false,
   isRightBarOpen: false,
   toggleRightBar: (isRightBarOpen) => set({ isRightBarOpen }),
@@ -29,4 +29,9 @@ export const useSearchStore = create<SearchState>((set) => ({
   setResults: (results) => set({ results }),
   loading: false,
   setLoading: (loading) => set({ loading }),
+}));
+
+export const useQueueStore = create<QueueState>((set) => ({
+  isOpenQueue: false,
+  toggleOpenQueue: (isOpenQueue) => set({isOpenQueue})
 }));

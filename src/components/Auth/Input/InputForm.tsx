@@ -3,9 +3,16 @@ import styles from './styles.module.scss'
 import { Input } from '@chakra-ui/react'
 import {UseFormRegister } from "react-hook-form";
 
-export type FormValues = {
+export type SignInFormValues = {
   username: string;
   password: string;
+};
+
+export type SignUpFormValues = {
+  username: string;
+  password: string;
+  displayName: string;
+  email: string;
 };
 
 

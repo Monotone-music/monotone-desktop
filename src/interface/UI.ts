@@ -1,15 +1,9 @@
-export interface IUI {
-    isSidebarOpen: boolean; 
-    isRightBarOpen: boolean;
-    isModalOpen?: boolean; 
-    currentView?: string; 
-  
-    toggleSidebar: (isSidebarOpen:boolean) => void;
-    toggleRightBar: (isRightBarOpen: boolean) => void;
-    toggleModal?: () => void; 
-    setView?: (view: string) => void; 
+export interface UIState {
+  isSidebarOpen: boolean;
+  isRightBarOpen: boolean;
+  toggleRightBar: (isRightBarOpen:boolean) => void;
+  toggleSidebar: (isSidebarOpen:boolean) => void;
 }
-
 
 export interface ITabArr {
   title: string;
@@ -51,4 +45,9 @@ export interface SearchState {
   setResults: (results: any) => void
   loading: boolean
   setLoading: (loading: boolean) => void
+}
+
+export interface QueueState {
+  isOpenQueue: boolean;
+  toggleOpenQueue: (isOpenQueue: boolean) => void;
 }

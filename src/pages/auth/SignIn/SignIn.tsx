@@ -5,10 +5,12 @@ import SignInForm from "../../../components/Auth/Form/SignInForm/SignInForm";
 import signInImage from "../../../assets/img/signIn-image.jpg";
 
 const SignIn = () => {
+
+
   return (
     <Box className={styles.container}>
       <Box className={styles["content-wrapper"]}>
-        <TitlePage />
+        <TitlePage title="Sign in" desc="Welcome back to Monotone!"/>
         <SignInForm />
       </Box>
 

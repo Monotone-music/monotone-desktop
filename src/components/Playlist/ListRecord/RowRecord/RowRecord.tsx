@@ -35,7 +35,7 @@ const RowRecord: React.FC<RowRecordProps> = ({
   item,
   albumImages,
   albumTrackIds,
-  playlistId
+  playlistId,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -113,16 +113,18 @@ const RowRecord: React.FC<RowRecordProps> = ({
           </MenuButton>
           <MenuList p={0}>
             <MenuItem
-              bg="gray.700"
-              _hover={{ bg: "gray.500" }}
+              bg="gray.900"
+              _hover={{ bg: "gray.700" }}
               p={4}
+              color={"white"}
               onClick={() => handleOpenModal(record._id)}
             >
               Adding to Playlist
             </MenuItem>
             <MenuItem
-              bg="gray.700"
-              _hover={{ bg: "gray.500" }}
+              bg="gray.900"
+              _hover={{ bg: "gray.700" }}
+              color={"white"}
               p={4}
               onClick={() => handleOpenDeleteModal(index)}
             >

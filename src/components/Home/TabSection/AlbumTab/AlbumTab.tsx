@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useAuthStore } from '../../../../store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
-import { getAlbum, getTopAlbum } from '../../../../service/album.api';
+import { getAlbum } from '../../../../service/album.api';
 import { Box, Skeleton, Stack } from '@chakra-ui/react';
 import ErrorWarning from '../../../Error/ErrorWarning/ErrorWarning';
 import styles from "./styles.module.scss";
@@ -11,12 +11,6 @@ const AlbumTab = () => {
     const {token} = useAuthStore()
     const [contentWidth, setContentWidth] = useState(0);
     const contentRef = useRef<HTMLDivElement>(null);
-
-      const {data: topAlbums} = useQuery({
-        queryKey: ["cardTopAlbum", token],
-        queryFn: () => getTopAlbum(token!, 10),
-        enabled: !!token,
-      })
 
     const { data, isLoading, error } = useQuery({
       queryKey: ["card", token],
@@ -70,22 +64,14 @@ const AlbumTab = () => {
   return (
     <Box className={styles.container} ref={contentRef}>
 
-    {topAlbums && (
-      <Skeleton isLoaded={!isLoading}>
-        <RowCard
-          rowTitle="Top Album"
-          contentWidth={contentWidth}
-          cardData={topAlbums.data.releaseGroup}
-        />
-      </Skeleton>
-    )}
-
     {albums && (
       <Skeleton isLoaded={!isLoading}>
         <RowCard
           rowTitle="Album"
           contentWidth={contentWidth}
           cardData={albums}
+          showMore={false}
+          isWrap={true}
         />
       </Skeleton>
     )}

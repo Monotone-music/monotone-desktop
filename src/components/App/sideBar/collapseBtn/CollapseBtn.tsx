@@ -12,7 +12,7 @@ const CollapseBtn = () => {
 
   return (
         <Box className={styles.container} onClick={handleToggleSidebar}>
-            {isSidebarOpen ? <Icon as={IoChevronForwardOutline } boxSize={7}/> : <Icon as={IoChevronDownOutline } boxSize={7}/>}
+            {isSidebarOpen ? <Icon as={IoChevronForwardOutline } color={'white'} boxSize={7}/> : <Icon color={'white'} as={IoChevronDownOutline } boxSize={7}/>}
             {isSidebarOpen && <Text className={styles.text}>Your Library</Text>}
         </Box>
   )

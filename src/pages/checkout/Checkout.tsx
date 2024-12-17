@@ -6,8 +6,10 @@ import { paymentStripe } from "../../service/payment.api";
 import { useAuthStore } from "../../store/useAuthStore";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../../components/Payment/CheckoutForm/CheckoutForm";
+import { getEnv } from "../../util/getEnv";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
+const STRIPE_PUBLISH_KEY = getEnv('VITE_STRIPE_PUBLISH_KEY')
+const stripePromise = loadStripe(STRIPE_PUBLISH_KEY);
 const Checkout = () => {
   const { token } = useAuthStore();
 

@@ -52,7 +52,7 @@ const CompilationTab = () => {
           cardData={compilations}
         />
       </Skeleton>
-    ) : <Box fontSize={20} p={4} fontWeight={600}>There is no any Compilation albums.. </Box>}
+    ) : <Box fontSize={20} color={'white'} p={4} fontWeight={600}>There is no any Compilation albums.. </Box>}
   </Box>
   )
 }

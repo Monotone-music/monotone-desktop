@@ -20,7 +20,7 @@ const SideBtn:React.FC<SideBtnProps> = ({icon, toUrl, title, imgIcon}) => {
   const isActive = location.pathname === toUrl;
   return (
     <Link to={toUrl} className={`${styles.container} ${isActive ? styles.active : ''}`}>
-      {icon ? <Icon as={icon} boxSize={6} /> : <img src={imgIcon} className={styles['img-logo']} />}
+      {icon ? <Icon as={icon} color={'white'} boxSize={6} /> : <img src={imgIcon} className={styles['img-logo']} />}
       {isSidebarOpen && <Text className={styles.text}>{title}</Text>}
     </Link>
   )
