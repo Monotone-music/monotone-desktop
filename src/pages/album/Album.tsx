@@ -29,7 +29,7 @@ const Album = () => {
   if (isLoading) {
     return (
       <Box className={styles.loadingContainer}>
-        <Spinner size='xl' />
+        <Spinner size='xl' thickness="4px"/>
       </Box>
     );
   }

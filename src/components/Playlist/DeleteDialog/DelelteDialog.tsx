@@ -58,10 +58,10 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({ isOpen, onClose, recordInde
       <AlertDialogOverlay />
 
       <AlertDialogContent>
-        <AlertDialogHeader>Discard Changes?</AlertDialogHeader>
+        <AlertDialogHeader>Remove track out of playlist</AlertDialogHeader>
         <AlertDialogCloseButton />
         <AlertDialogBody>
-          Are you sure you want to discard all of your notes? 44 words will be deleted.
+          Are you sure you want to remove track from your playlist ?
         </AlertDialogBody>
         <AlertDialogFooter>
           <Button ref={cancelRef} onClick={onClose}>

@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss";
 import { Box, Spinner } from "@chakra-ui/react";
 import InfoContainer from "../../components/Profile/InfoContainer/InfoContainer";
-import FollowContainer from "../../components/Profile/FollowContainer/FollowContainer";
 import PlanContainer from "../../components/Profile/PlanContainer/PlanContainer";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useQuery } from "@tanstack/react-query";
@@ -10,7 +9,7 @@ import PlaylistContainer from "../../components/Profile/PlaylistContainer/Playli
 
 const Profile = () => {
   const { token } = useAuthStore();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading , refetch} = useQuery({
     queryKey: ["profile", token],
     queryFn: () => getProfile(token!),
     enabled: !!token,
@@ -28,9 +27,10 @@ const Profile = () => {
         createdAt={data.data.createdAt}
       />
       <Box className={styles.wrapper}>
-        <FollowContainer />
-        <PlanContainer />
-        <PlaylistContainer playlists={data.data.playlist}/>
+        {/* <FollowContainer /> */}
+        <PlanContainer membershipData={data.data.membership}/>
+        <PlaylistContainer playlists={data.data.playlist} refetchProfile={refetch}/>
+
       </Box>
 
     </Box>

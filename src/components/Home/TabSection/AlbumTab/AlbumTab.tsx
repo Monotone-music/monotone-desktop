@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useAuthStore } from '../../../../store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
 import { getAlbum } from '../../../../service/album.api';
-import { Box, Skeleton, Stack } from '@chakra-ui/react';
+import { Box, Skeleton, Spinner, Stack } from '@chakra-ui/react';
 import ErrorWarning from '../../../Error/ErrorWarning/ErrorWarning';
 import styles from "./styles.module.scss";
 import RowCard from '../../../Shared/RowCard/RowCard';
@@ -37,16 +37,14 @@ const AlbumTab = () => {
         }
       }, []);
   
+
       if (isLoading) {
         return (
-          <Stack className={styles.container}>
-            <Skeleton height={20}></Skeleton>
-            <Skeleton height={20}></Skeleton>
-            <Skeleton height={20}></Skeleton>
-          </Stack>
+          <Box className={styles.loadingContainer}>
+              <Spinner size="xl" thickness='4px'/>
+          </Box>
         );
       }
-
       if (error) {
         return (
           <Box className={styles.container}>

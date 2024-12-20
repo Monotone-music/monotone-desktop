@@ -1,6 +1,13 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { Box, Button, Icon, Skeleton, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Icon,
+  Skeleton,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import noImage from "../../../assets/img/no-image-1.png";
 import { IImageAlbum } from "../../../interface/UI";
 import { useQuery } from "@tanstack/react-query";
@@ -17,14 +24,15 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
+import ErrorWarning from "../../Error/ErrorWarning/ErrorWarning";
 
 interface TopInfoProps {
   name?: string;
   image: IImageAlbum;
   recording?: IRelease[];
   createdAt?: string;
-  playlistId: string
+  playlistId: string;
 }
 
 const TopInfoPlaylist: React.FC<TopInfoProps> = ({
@@ -32,72 +40,71 @@ const TopInfoPlaylist: React.FC<TopInfoProps> = ({
   image,
   recording = [{ trackCount: 0 }],
   createdAt,
-  playlistId
+  playlistId,
 }) => {
-  const {token} = useAuthStore()
-  const totalSong = recording.length || 0
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef(null)
+  const { token } = useAuthStore();
+  const totalSong = recording.length || 0;
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef(null);
   const { data, isLoading, error } = useQuery({
     queryKey: ["playlistDetailImg"],
     queryFn: () => getAlbumImageByFileName(image?.filename, token!),
-    enabled: !!image?.filename && !!token
+    enabled: !!image?.filename && !!token,
   });
 
   const { mutate: deletePlaylist } = useDeletePlaylistMutation();
 
   const handleDelete = () => {
     deletePlaylist(playlistId);
-    onClose()
+    onClose();
   };
 
-  if (isLoading) {
-    return (
-      <Stack>
-        <Skeleton height="40px" />
-        <Skeleton height="40px" />
-        <Skeleton height="40px" />
-      </Stack>
-    );
-  }
-
   if (error) {
-    return <Box className={styles.container}>Error Loading Detail Page</Box>;
+    return <Box className={styles.errorContainer}>
+          <ErrorWarning title="Error" description="Album Info is error, please try again"/>
+
+    </Box>;
   }
 
   return (
     <>
-    <Box className={styles.container}>
-      <Box className={styles["img-wrapper"]}>
-        <img src={data || noImage} alt="" loading="lazy" />
-      </Box>
-
-      <Box className={styles["info-wrapper"]}>
-        <Box className={styles["title-wrapper"]}>
-          <Text className={styles.title}>{name}</Text>
-        </Box>
-        <Box className={styles["artists-wrapper"]}>
-          <Text className={styles.artists}>Created at {formatMonthYear(createdAt!) }</Text>
+      <Box className={styles.container}>
+        <Box className={styles["img-wrapper"]}>
+          {isLoading ? (
+            <Skeleton height="100%" borderRadius="10px" />
+          ) : (
+            <img src={data || noImage} alt="" loading="lazy" />
+          )}
         </Box>
 
-        <Box className={styles["others-wrapper"]}>
-          <Text className={styles.others}>{totalSong} songs</Text>
-          <Button className={styles.others} variant="ghost" onClick={onOpen}>
-            <Icon as={FaTrash}/>
-          </Button>
+        <Box className={styles["info-wrapper"]}>
+          <Box className={styles["title-wrapper"]}>
+            <Text className={styles.title}>{name}</Text>
+          </Box>
+          <Box className={styles["artists-wrapper"]}>
+            <Text className={styles.artists}>
+              Created at {formatMonthYear(createdAt!)}
+            </Text>
+          </Box>
+
+          <Box className={styles["others-wrapper"]}>
+            <Text className={styles.others}>{totalSong} songs</Text>
+            <Button className={styles.others} variant="ghost" onClick={onOpen}>
+              <Icon as={FaTrash} />
+            </Button>
+          </Box>
         </Box>
       </Box>
-    </Box>
-    
-    <AlertDialog
-    isCentered
+
+      <AlertDialog
+        isCentered
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
         onClose={onClose}
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
               Delete Playlist
             </AlertDialogHeader>
 
@@ -109,7 +116,7 @@ const TopInfoPlaylist: React.FC<TopInfoProps> = ({
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme='red' onClick={handleDelete} ml={3}>
+              <Button colorScheme="red" onClick={handleDelete} ml={3}>
                 Delete
               </Button>
             </AlertDialogFooter>

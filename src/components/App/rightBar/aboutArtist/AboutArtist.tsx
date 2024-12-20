@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 import AboutCard from '../aboutCard/AboutCard'
 
 interface AboutArtistProp{
-  artistData: any;
+  artistData?: any;
 }
 
 

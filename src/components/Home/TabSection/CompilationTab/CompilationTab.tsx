@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useRef, useState } from 'react'
 import { getAlbum } from '../../../../service/album.api';
-import { Box, Skeleton, Stack } from '@chakra-ui/react';
+import { Box, Skeleton, Spinner, Stack } from '@chakra-ui/react';
 import RowCard from '../../../Shared/RowCard/RowCard';
 import { useAuthStore } from '../../../../store/useAuthStore';
 import styles from "./styles.module.scss";
@@ -17,13 +17,12 @@ const CompilationTab = () => {
         queryFn: () => getAlbum(token!),
         enabled: !!token,
       });
+ 
       if (isLoading) {
         return (
-          <Stack className={styles.container}>
-            <Skeleton height={20}></Skeleton>
-            <Skeleton height={20}></Skeleton>
-            <Skeleton height={20}></Skeleton>
-          </Stack>
+          <Box className={styles.loadingContainer}>
+              <Spinner size="xl" thickness='4px'/>
+          </Box>
         );
       }
 
@@ -50,6 +49,7 @@ const CompilationTab = () => {
           rowTitle="Compilation"
           contentWidth={contentWidth}
           cardData={compilations}
+          showMore={false}
         />
       </Skeleton>
     ) : <Box fontSize={20} color={'white'} p={4} fontWeight={600}>There is no any Compilation albums.. </Box>}

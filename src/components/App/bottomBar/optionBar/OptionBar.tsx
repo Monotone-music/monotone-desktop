@@ -13,7 +13,7 @@ const OptionBar = () => {
   }
   return (
     <div className={styles.container}>
-        <Icon as={HiMiniQueueList} boxSize={5} onClick={handleToggleQueue} color='gray.700' _hover={{color: 'white'}} cursor={'pointer'} transition={"all ease 0.3s"}/>
+        <Icon as={HiMiniQueueList} boxSize={5} onClick={handleToggleQueue} color='gray.500' _hover={{color: 'white'}} cursor={'pointer'} transition={"all ease 0.3s"}/>
         <VolumeBar/>
     </div>
   )

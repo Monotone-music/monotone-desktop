@@ -5,11 +5,15 @@ export interface AuthState {
   refreshToken: string | null;
   isAuthenticated: boolean;
   message: string | null;
+  bitrate: string | null;
+  isPremium: boolean
   setToken: (token: string) => void;
   setRefreshToken: (refreshToken: string) => void;
   setIsAuthenticated: (authStatus: boolean) => void;
   setMessage: (message: string) => void;
   clearAuthState: () => void;
+  setBitrate: (bitrate: string) => void;
+  setIsPremium: (isPremium: boolean) => void;
 }
 
 export interface ISignInForm {

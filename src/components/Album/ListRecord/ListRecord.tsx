@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { Box, Icon, Skeleton, Stack } from "@chakra-ui/react";
+import { Box, Icon, Skeleton, Stack, Text } from "@chakra-ui/react";
 import { FaClock, FaPlay, FaRandom } from "react-icons/fa";
 import { RiAddCircleLine } from "react-icons/ri";
 import {
@@ -16,21 +16,30 @@ import { getAlbumImageByFileName } from "../../../service/album.api";
 import RowRecord from "./RowRecord/RowRecord";
 import { IRelease } from "../../../interface/Music";
 import { useAuthStore } from "../../../store/useAuthStore";
+import { usePlayerStore } from "../../../store/usePlayerStore";
+import ErrorWarning from "../../Error/ErrorWarning/ErrorWarning";
 
-const ActionBar = () => {
+interface ActionBarProps {
+  recordings: any[]
+}
+const ActionBar: React.FC<ActionBarProps> = ({recordings}) => {
+  const { setQueue, setCurrentTrackId, setIsPlaying } = usePlayerStore();
+
+  const handlePlayAll = () => {
+    if (!recordings.length) return;
+    
+    const sortedIds = recordings.map(recording => recording._id);
+    setQueue(sortedIds);
+    setCurrentTrackId(sortedIds[0]);
+    setIsPlaying(true);
+  };
   return (
     <Box className={styles["actionBar-container"]}>
-      <Box className={styles.playBtn}>
+      <Box className={styles.playBtn}  onClick={handlePlayAll}>
         <Icon as={FaPlay} boxSize={5} color={"#000000"} />
+   
       </Box>
-
-      <Box className={styles.sufferBtn}>
-        <Icon as={FaRandom} boxSize={6} />
-      </Box>
-
-      <Box className={styles.sufferBtn}>
-        <Icon as={RiAddCircleLine} boxSize={7} />
-      </Box>
+      <Text color={"white"} fontWeight={600}>Play All</Text>
     </Box>
   );
 };
@@ -68,21 +77,21 @@ const ListRecord: React.FC<ListRecordProps> = ({ release }) => {
   if (isLoading) {
     return (
       <Stack pt={10}>
-        <Skeleton height="20px" />
-        <Skeleton height="20px" />
-        <Skeleton height="20px" />
+        <Skeleton height="200px" />
       </Stack>
     );
   }
 
   if (error) {
-    return  <Box className={styles.container}>Error loading images</Box>;
+    return  <Box className={styles.container}>
+       <ErrorWarning title="Error" description="Album List Track is error, please try again"/>
+    </Box>;
   }
 
 
   return (
     <Box className={styles.container}>
-      <ActionBar />
+      <ActionBar recordings={sortedRecordings}/>
 
       <TableContainer>
         <Table variant="unstyled">

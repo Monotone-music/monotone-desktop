@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAlbumImageByFileName } from "../../../service/album.api";
 import { IRelease } from "../../../interface/Music";
 import { useAuthStore } from "../../../store/useAuthStore";
+import ErrorWarning from "../../Error/ErrorWarning/ErrorWarning";
 
 interface TopInfoProps {
   title?: string;
@@ -35,15 +36,15 @@ const TopInfo: React.FC<TopInfoProps> = ({
   if (isLoading) {
     return (
       <Stack>
-        <Skeleton height="40px" />
-        <Skeleton height="40px" />
-        <Skeleton height="40px" />
+        <Skeleton height="280px" />
       </Stack>
     );
   }
 
   if (error) {
-    return <Box className={styles.container}>Error Loading Detail Page</Box>;
+    return <Box className={styles.container}>
+       <ErrorWarning title="Error" description="Album Detail Info is error, please try again"/>
+    </Box>;
   }
 
   return (

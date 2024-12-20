@@ -11,55 +11,70 @@ import { getTrackInfoById } from "../../../service/track.api";
 import { Spinner, Box, Text } from "@chakra-ui/react";
 
 const RightBar = () => {
-  const { isRightBarOpen } = useUIStore();
+  const { isRightBarOpen, toggleRightBar } = useUIStore();
   const { currentTrackId } = usePlayerStore();
   const { token } = useAuthStore();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["trackInfo", currentTrackId, token], // Include currentTrackId in queryKey
+    queryKey: ["track", currentTrackId],
     queryFn: () => getTrackInfoById(currentTrackId!, token!),
-    enabled: !!currentTrackId && !!token, // Only run query if both are valid
+    enabled: !!currentTrackId && !!token,
   });
 
   const { data: imgTrack, isLoading: isImgLoading } = useQuery({
-    queryKey: ["imgTrack", data?.recording?.image?.filename, token], // Include image filename in queryKey
-    queryFn: () =>
-      getAlbumImageByFileName(data!.recording.image.filename, token!),
-    enabled: !!data?.recording?.image?.filename && !!token, // Only run query if both are valid
+    queryKey: ["imgTrack", data?.recording?.image?.filename, token],
+    queryFn: () => data?.recording?.image?.filename 
+      ? getAlbumImageByFileName(data.recording.image.filename, token!)
+      : null,
+    enabled: !!data?.recording?.image?.filename && !!token,
   });
 
+  const containerStyle = {
+    display: isRightBarOpen ? "block" : "none"
+  };
 
-  if (isError && !data?.recording) {
+  if (!currentTrackId) {
+        toggleRightBar(false)
     return (
-      <Box
-        className={styles.container}
-        style={isRightBarOpen ? { display: "block" } : { display: "none" }}
-      >
-        <Text color="red.500">Error loading track information.</Text>
+      <Box className={styles.container} style={containerStyle}>
+        <Text color="gray.500">No track selected</Text>
       </Box>
     );
   }
 
-  return isLoading || isImgLoading ? (
-    <section
-    className={styles.container} 
-    style={isRightBarOpen ? { display: "block" } : { display: "none" }}
+  if (isError) {
+    return (
+      <Box className={styles.container} style={containerStyle}>
+        <Text color="red.500">Error loading track information</Text>
+      </Box>
+    );
+  }
 
-    >
-      <Spinner />
-    </section>
-  ) : (
-    <section
-      className={styles.container}
-      style={isRightBarOpen ? { display: "block" } : { display: "none" }}
-    >
+  if (isLoading || isImgLoading) {
+    return (
+      <section className={styles.loadingContainer}>
+        <Spinner size="lg" thickness="4px" />
+      </section>
+    );
+  }
+
+  if (!data?.recording) {
+    return (
+      <Box className={styles.container} style={containerStyle}>
+        <Text color="gray.500">No track data available</Text>
+      </Box>
+    );
+  }
+
+  return (
+    <section className={styles.container} style={containerStyle}>
       <AlbumActionBar title={data.recording.title} />
       <ThumbnailTrack
-        imgUrl={imgTrack}
+        imgUrl={imgTrack!}
         author={data.recording.displayedArtist}
         title={data.recording.title}
       />
-      <AboutArtist artistData={data?.recording?.artist} />
+      <AboutArtist artistData={data.recording.artist} />
     </section>
   );
 };

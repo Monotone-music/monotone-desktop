@@ -9,12 +9,17 @@ export const usePlayerStore = create<PlayerStore>()(
       isPlaying: false,
       currentTrack: null,
       currentTrackId: null,
+      adId: null,
       currentTime: 0,
       volume: 0.5,
       duration: 0,
       isShuffle: false,
       isRepeat: false,
       isLoading: false,
+      trackCounter: 0,
+      isAdPlaying: false,
+      setAdId: (adId) => set({adId}),
+      setIsAdPlaying: (isAdPlaying) => set({isAdPlaying}),
       setLoading: (isLoading) => set({isLoading}),
       setIsPlaying: (isPlaying) => set({isPlaying}),
       togglePlayPause: (isPlaying) => set({isPlaying}),
@@ -35,7 +40,7 @@ export const usePlayerStore = create<PlayerStore>()(
         } else {
           nextTrackIndex = (currentTrackIndex + 1) % queue.length;
         }
-
+        // get().incrementTrackCounter();
         set({ currentTrackId: queue[nextTrackIndex] });
       },
       playPreviousTrack: () => {
@@ -64,19 +69,33 @@ export const usePlayerStore = create<PlayerStore>()(
             currentTrackId: trackId,
           };
         }),
+        incrementTrackCounter: () =>
+          set((state) => ({
+            trackCounter: state.trackCounter + 1,
+          })),
       setCurrentTrackId: (trackId) => set({ currentTrackId: trackId }),
       setCurrentTime: (time) => set({ currentTime: time }),
       setDuration: (duration) => set({ duration }),
       setVolume: (volume) => set({ volume }),
       setCurrentTrack: (currentTrack) => set({ currentTrack }),
+      clearStateCounter: () => set({
+          trackCounter: 0,
+           isAdPlaying: false
+      }),
       clearStatePlayer: () => set({
           currentTrackId: null,
           queue: [],
           isPlaying: false,
           isShuffle: false,
-          isRepeat: false
-        })
+          isRepeat: false,
+          trackCounter: 0,
+          isAdPlaying: false,
+          adId: null,
+        }),
+        
     }),
+    
     { name: "current-track-id" }
   )
 );
+

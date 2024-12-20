@@ -2,16 +2,12 @@ import styles from "./styles.module.scss";
 import { Box, Progress, Skeleton, Text } from "@chakra-ui/react";
 import BtnPlayBar from "../btnPlayBar/BtnPlayBar";
 import { FaPause, FaPlay, FaRandom } from "react-icons/fa";
-import {
-  IoIosSkipBackward,
-  IoIosSkipForward,
-  IoMdRepeat,
-} from "react-icons/io";
-import useFetchAudio from "../../../../hook/useFetchAudio";
+import { IoIosSkipBackward, IoIosSkipForward, IoMdRepeat } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import { usePlayerStore } from "../../../../store/usePlayerStore";
 import formatDuration from "../../../../util/formatDuration";
-
+import { useAuthStore } from "../../../../store/useAuthStore";
+import { getRandomAds } from "../../../../service/ads.api";
 
 const PlayBar = () => {
   const {
@@ -23,17 +19,34 @@ const PlayBar = () => {
     toggleShuffle,
     toggleRepeat,
     setIsPlaying,
-    togglePlayPause,
     isPlaying,
     isLoading,
     volume,
+    incrementTrackCounter,
+    trackCounter,
+    clearStateCounter,
+    isAdPlaying,
+    setIsAdPlaying,
+    adId,
+    setAdId,
+    setLoading,
   } = usePlayerStore();
 
-  const audioSrc = useFetchAudio(currentTrackId!);
+  const { bitrate, isPremium, token } = useAuthStore();
   const audioRef = useRef<HTMLAudioElement>(null);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+
+  const updateAudioProgress = () => {
+    if (audioRef.current) {
+      const current = audioRef.current.currentTime;
+      const total = audioRef.current.duration;
+      setProgress((current / total) * 100 || 0);
+      setCurrentTime(current || 0);
+      setDuration(total || 0);
+    }
+  };
 
   useEffect(() => {
     if (audioRef.current) {
@@ -41,75 +54,126 @@ const PlayBar = () => {
       if (isPlaying) {
         audioRef.current
           .play()
-          .catch((err) => console.error("Error playing audio:", err));
+          .catch((error) => console.error("Error playing audio:", error));
       } else {
         audioRef.current.pause();
       }
     }
   }, [isPlaying, volume]);
 
-  // Handle audio source change
   useEffect(() => {
-    if (audioRef.current && audioSrc) {
-      audioRef.current.pause(); // Stop the current track
-      audioRef.current.src = audioSrc; // Set the new track
-      audioRef.current.load(); // Reload the audio element
-      audioRef.current.currentTime = 0; // Reset playback position
-
-      // Automatically play the track
-      audioRef.current
-        .play()
-        .then(() => setIsPlaying(true)) // Ensure the state reflects playback
-        .catch((err) => console.error("Error auto-playing new track:", err));
+    const audio = audioRef.current;
+    if (audio) {
+      audio.addEventListener("timeupdate", updateAudioProgress);
+      return () => audio.removeEventListener("timeupdate", updateAudioProgress);
     }
-  }, [audioSrc, setIsPlaying]);
+  }, []);
 
-  // Update progress and duration
   useEffect(() => {
-    const audioElement = audioRef.current;
-    if (audioElement) {
-      const updateProgress = () => {
-        const progress =
-          (audioElement.currentTime / audioElement.duration) * 100;
-        setProgress(progress);
-        setCurrentTime(audioElement.currentTime);
-        setDuration(audioElement.duration);
+    if (audioRef.current) {
+      const handleLoadStart = () => setLoading(true);
+      const handleCanPlay = () => {
+        setLoading(false);
+        if (isPlaying) {
+          audioRef.current?.play().catch(console.error);
+        } else {
+          setIsPlaying(true);
+          audioRef.current?.play().catch(console.error);
+        }
       };
 
-      audioElement.addEventListener("timeupdate", updateProgress);
+      audioRef.current.addEventListener("loadstart", handleLoadStart);
+      audioRef.current.addEventListener("canplay", handleCanPlay);
 
       return () => {
-        audioElement.removeEventListener("timeupdate", updateProgress);
+        audioRef.current?.removeEventListener("loadstart", handleLoadStart);
+        audioRef.current?.removeEventListener("canplay", handleCanPlay);
       };
     }
-  }, [audioSrc]);
+  }, [currentTrackId, setLoading, isPlaying, setIsPlaying]);
 
   const handlePlayPause = () => {
-    togglePlayPause(!isPlaying);
+    setIsPlaying(!isPlaying);
   };
 
   const handleTrackEnd = () => {
     if (isRepeat) {
+      // Reset current track
       if (audioRef.current) {
         audioRef.current.currentTime = 0;
         audioRef.current.play();
       }
+      return;
+    }
+
+    if (!isPremium && trackCounter + 1 >= 5) {
+      setIsAdPlaying(true); // Trigger ad playback
     } else {
+      incrementTrackCounter();
       playNextTrack();
     }
-    setIsPlaying(true);
   };
+
+  useEffect(() => {
+    const fetchAd = async () => {
+      if (!isAdPlaying || !token) return;
+
+      try {
+        const adResponse = await getRandomAds(token, "player");
+        setAdId(adResponse.data._id);
+      } catch (error) {
+        console.error("Error fetching ad:", error);
+        playNextTrack();
+      }
+    };
+
+    if (isAdPlaying) {
+      fetchAd();
+    }
+  }, [isAdPlaying, token, playNextTrack]);
+
+  useEffect(() => {
+    if (!audioRef.current || !adId || !isAdPlaying) return;
+
+    audioRef.current.src = `https://api2.ibarakoi.online/advertisement/stream/${adId}`;
+    audioRef.current.load();
+
+    const playAd = async () => {
+      try {
+        await audioRef.current?.play();
+      } catch (error) {
+        console.error("Error playing ad audio:", error);
+      }
+    };
+
+    audioRef.current.oncanplay = playAd;
+    audioRef.current.onended = () => {
+      setIsAdPlaying(false);
+      setAdId(null);
+      clearStateCounter();
+      playNextTrack();
+      setIsPlaying(true);
+    };
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.oncanplay = null;
+        audioRef.current.onended = null;
+      }
+    };
+  }, [adId, isAdPlaying, clearStateCounter, playNextTrack, setIsPlaying, setIsAdPlaying, setAdId]);
 
   return (
     <Box className={styles.container}>
-      {audioSrc && (
-        <audio
-          ref={audioRef}
-          src={audioSrc}
-          preload="auto"
-          onEnded={handleTrackEnd}
-        />
-      )}
+      <audio
+        ref={audioRef}
+        onEnded={handleTrackEnd}
+        controls={true}
+        onLoadedMetadata={updateAudioProgress}
+        style={{ display: "none" }}
+        src={`https://api2.ibarakoi.online/tracks/stream/${currentTrackId}?bitrate=${bitrate}`}
+      />
+
       <Box className={styles["btn-wrapper"]}>
         <BtnPlayBar
           iconSize={5}
@@ -117,15 +181,15 @@ const PlayBar = () => {
           onClick={toggleShuffle}
           type="normal"
           iconColor={isShuffle ? "white" : "#595959"}
+          disabled={isAdPlaying}
         />
         <BtnPlayBar
           iconSize={5}
           icon={IoIosSkipBackward}
-          onClick={() => {
-            playPreviousTrack();
-          }}
+          onClick={playPreviousTrack}
           type="normal"
           iconColor="#595959"
+          disabled={isAdPlaying}
         />
         <BtnPlayBar
           iconSize={4}
@@ -137,11 +201,10 @@ const PlayBar = () => {
         <BtnPlayBar
           iconSize={5}
           icon={IoIosSkipForward}
-          onClick={() => {
-            playNextTrack();
-          }}
+          onClick={handleTrackEnd}
           type="normal"
           iconColor="#595959"
+          disabled={isAdPlaying}
         />
         <BtnPlayBar
           iconSize={5}
@@ -149,23 +212,14 @@ const PlayBar = () => {
           onClick={toggleRepeat}
           type="normal"
           iconColor={isRepeat ? "white" : "#595959"}
+          disabled={isAdPlaying}
         />
-        
-
-
       </Box>
 
       <Box className={styles["progress-bar-wrapper"]}>
-        <Text className={styles["time"]}>
-          {isNaN(currentTime) ? "0:00" : formatDuration(currentTime)}
-        </Text>
+        <Text className={styles["time"]}>{formatDuration(currentTime)}</Text>
         {isLoading ? (
-          <Skeleton
-            startColor="black.900"
-            endColor="green.400"
-            height={2}
-            width={200}
-          />
+          <Skeleton height={2} width={200} />
         ) : (
           <Progress
             width={200}
@@ -175,9 +229,7 @@ const PlayBar = () => {
             height={2}
           />
         )}
-        <Text className={styles["time"]}>
-          {isNaN(duration) ? "0:00" : formatDuration(duration)}
-        </Text>
+        <Text className={styles["time"]}>{formatDuration(duration)}</Text>
       </Box>
     </Box>
   );

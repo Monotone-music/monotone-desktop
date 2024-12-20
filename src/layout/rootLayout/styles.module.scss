@@ -3,9 +3,10 @@
   grid-template-areas:
     "topBar topBar topBar"
     "sideBar main rightBar"
+    "sideBar advertiseBar rightBar"
     "bottomBar bottomBar bottomBar";
 grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto;
   height: 100vh;
   overflow: hidden;
   background-color: black;

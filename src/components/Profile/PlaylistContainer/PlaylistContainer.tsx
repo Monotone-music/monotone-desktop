@@ -6,15 +6,21 @@ import PlaylistCreateModal from '../../Playlist/PlaylistCreateModal/PlaylistCrea
 import { FaPlus } from 'react-icons/fa'
 
 interface PlaylistContainerProps {
-    playlists: any[]
+    playlists: any[];
+    refetchProfile: () => void;
 }
 
-const PlaylistContainer:React.FC<PlaylistContainerProps> = ({playlists}) => {
+const PlaylistContainer:React.FC<PlaylistContainerProps> = ({playlists, refetchProfile}) => {
       const {
         isOpen: isOpenCreateModal,
         onOpen: OnOpenCreateModal,
         onClose: OnCloseCreateModal,
       } = useDisclosure();
+
+      const handleCreateSuccess = () => {
+        refetchProfile(); // Re-fetch profile data after successfully creating a new playlist
+        OnCloseCreateModal();
+      };
   return (
     <Box className={styles.container}>
         <Box className={styles.title}>
@@ -32,7 +38,7 @@ const PlaylistContainer:React.FC<PlaylistContainerProps> = ({playlists}) => {
 
         <PlaylistCreateModal
           isOpen={isOpenCreateModal}
-          onClose={OnCloseCreateModal}/>
+          onClose={handleCreateSuccess}/>
     </Box>
   )
 }

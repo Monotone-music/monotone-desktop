@@ -18,6 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { PlaylistSchema, PlaylistValue } from "../../../interface/Playlist";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useCreatePlaylistMutation } from "../../../mutation/useCreateNewPlaylist";
+import { AxiosError } from "axios";
 
 interface PlaylistCreateModalProps {
   isOpen: boolean;
@@ -51,11 +52,13 @@ const PlaylistCreateModal: React.FC<PlaylistCreateModalProps> = ({
         onClose();
       },
 
-      onError: () => {
+      onError: (e: any) => {
+        const axiosError = e as AxiosError;
+        const errorMessage = (axiosError.response?.data as { message: string })?.message || "Failed to create playlist!";
         toast({
           status: "error",
           duration: 2000,
-          title: "Failed create playlist!",
+          title: errorMessage,
           position: "top-right",
         });
       },

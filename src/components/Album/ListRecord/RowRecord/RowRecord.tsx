@@ -34,10 +34,11 @@ const RowRecord: React.FC<RowRecordProps> = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const { setCurrentTrack, addAlbumToQueue, currentTrackId } = usePlayerStore();
+  const { setCurrentTrack, addAlbumToQueue, currentTrackId, incrementTrackCounter } = usePlayerStore();
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
 
   const handleSetCurrentTrack = (record: IRecord) => {
+    incrementTrackCounter()
     addAlbumToQueue(albumTrackIds!, record._id);
     setCurrentTrack(record);
   };

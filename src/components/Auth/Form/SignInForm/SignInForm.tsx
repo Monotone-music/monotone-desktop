@@ -51,7 +51,7 @@ const SignInForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
       <InputForm id="username" type="text" register={register}  placeholder="Email or Username" error={errors.username?.message}/>
-      <InputForm id="password" type="text" register={register} placeholder="Password" error={errors.password?.message}/>
+      <InputForm id="password" type="password" register={register} placeholder="Password" error={errors.password?.message}/>
 
       <Box className={styles["submit-wrapper"]}>
         <Button type="submit" className={styles.submitBtn}  rightIcon={signInMutation.isPending ? <></> : <FaArrowRight /> } isDisabled={signInMutation.isPending} size="md" w="full" borderRadius="10px">

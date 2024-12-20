@@ -3,7 +3,7 @@
     background-color: #232323;
     width: 350px;
     max-width: 350px;
-    height: 600px;
+    height: auto;
     padding: 52px 16px;
     display: flex;
     flex-direction: column;
@@ -71,9 +71,21 @@
     border-radius: 9999px !important;
     cursor: pointer;
     color: white !important;
+    
 
     &:hover{
         background-color: white !important;
         color: black !important;
     }
+}
+
+.btn-paid{
+    width: 100%;
+    padding: 24px 12px !important;
+    border-radius: 9999px !important;
+    cursor: pointer;
+    color: white !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

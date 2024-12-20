@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss";
-import { Box, Icon } from "@chakra-ui/react";
-import { IoSearchOutline } from "react-icons/io5";
+import { Box, Button, Icon } from "@chakra-ui/react";
+import { IoCloseOutline, IoSearchOutline } from "react-icons/io5";
 import { useAuthStore } from "../../../../store/useAuthStore";
 import { useSearchStore, useUISearch } from "../../../../store/useUIStore";
 import useSearchResults from "../../../../hook/useSearchResults";
@@ -22,6 +22,11 @@ const SearchBar = () => {
     }
   };
 
+  const handleClearInput = () => {
+    setQuery("");
+    toggleOpenModal(false);
+  };
+
   return (
     <Box className={styles.container}>
       <Icon as={IoSearchOutline} color={'white'} boxSize={7} />
@@ -31,6 +36,10 @@ const SearchBar = () => {
         className={styles["search-bar"]}
         placeholder="Search"
       />
+        {query && (
+          <Icon as={IoCloseOutline} onClick={handleClearInput} cursor={'pointer'} color={'white'} boxSize={5} />
+      
+      )}
     </Box>
   );
 };

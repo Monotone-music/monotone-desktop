@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
-import { Box, Skeleton, Stack } from "@chakra-ui/react";
+import { Box, Skeleton, Spinner, Stack } from "@chakra-ui/react";
 import RowCard from "../../../Shared/RowCard/RowCard";
 import { getAlbum, getTopAlbum } from "../../../../service/album.api";
 import { useQuery } from "@tanstack/react-query";
@@ -8,12 +8,11 @@ import ErrorWarning from "../../../Error/ErrorWarning/ErrorWarning";
 import { useAuthStore } from "../../../../store/useAuthStore";
 
 const AllTab = () => {
-  const {token} = useAuthStore()
+  const { token } = useAuthStore();
   const [contentWidth, setContentWidth] = useState(1200);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [albumShow,  setAlbumShow] = useState(8);
+  const [albumShow, setAlbumShow] = useState(10);
 
-  
   useEffect(() => {
     const getAlbumsToShow = () => {
       if (contentWidth < 750) return 4;
@@ -29,12 +28,12 @@ const AllTab = () => {
 
     setAlbumShow(newAlbumsToShow);
   }, [contentWidth]);
- 
-  const {data: topAlbums} = useQuery({
+
+  const { data: topAlbums } = useQuery({
     queryKey: ["cardTopAlbum", token],
     queryFn: () => getTopAlbum(token!, 5),
     enabled: !!token,
-  })
+  });
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["card", token],
@@ -64,16 +63,11 @@ const AllTab = () => {
 
   if (isLoading) {
     return (
-      <Stack className={styles.container}>
-        <Skeleton height={20}></Skeleton>
-        <Skeleton height={20}></Skeleton>
-        <Skeleton height={20}></Skeleton>
-      </Stack>
+      <Box className={styles.loadingContainer}>
+          <Spinner size="xl" thickness='4px'/>
+      </Box>
     );
   }
-
- 
- 
 
   if (error) {
     return (
@@ -93,41 +87,33 @@ const AllTab = () => {
     .slice(0, albumShow)
     .filter((item: any) => item.releaseType === "compilation");
 
-    const topAlbum = topAlbums?.data.releaseGroup
-    .slice(0, albumShow)
+  const topAlbum = topAlbums?.data.releaseGroup.slice(0, albumShow);
 
   return (
     <Box className={styles.container} ref={contentRef}>
-
       {topAlbums && (
-        <Skeleton isLoaded={!isLoading}>
-          <RowCard
-            rowTitle="Top Album"
-            contentWidth={contentWidth}
-            cardData={topAlbum}
-            showMore={false}
-          />
-        </Skeleton>
+        <RowCard
+          rowTitle="Top Album"
+          contentWidth={contentWidth}
+          cardData={topAlbum}
+          showMore={false}
+        />
       )}
 
-      {albums.length > 0 && (
-        <Skeleton isLoaded={!isLoading}>
+      {albums?.length > 0 && (
           <RowCard
             rowTitle="Album"
             contentWidth={contentWidth}
             cardData={albums}
           />
-        </Skeleton>
       )}
 
-      {compilations.length > 0 && (
-        <Skeleton isLoaded={!isLoading}>
+      {compilations?.length > 0 && (
           <RowCard
             rowTitle="Compilation"
             contentWidth={contentWidth}
             cardData={compilations}
           />
-        </Skeleton>
       )}
     </Box>
   );

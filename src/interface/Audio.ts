@@ -16,8 +16,14 @@ export interface PlayerStore {
   currentTime: number;
   volume: number;
   duration: number;
+  adId: string | null;
   isShuffle: boolean; // Indicates if shuffle mode is enabled
   isRepeat: boolean;  // Indicates if repeat mode is enabled
+  trackCounter: number;
+  isAdPlaying: boolean;
+  setAdId: (adId: string | null) => void;
+  setIsAdPlaying: (isAdsPlaying: boolean) =>  void;
+  incrementTrackCounter: () => void;
   addAlbumToQueue: (albumTrackIds: string[], trackId: string) => void;
   setIsPlaying: (isPlaying: boolean) => void;
   setCurrentTrackId: (currentTrackId: string | null) => void;
@@ -33,4 +39,5 @@ export interface PlayerStore {
   toggleRepeat: () => void;      // Toggles repeat mode
   setCurrentTrack: (currentTrack: any) => void;
   clearStatePlayer: () => void;
+  clearStateCounter: () => void;
 }

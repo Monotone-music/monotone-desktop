@@ -5,6 +5,7 @@ import plans from '../../../data/planCard';
 
 
 const PlanInfo = () => {
+
   return (
     <Box className={styles.container}>
         <Box className={styles.title}>Our Plans</Box>

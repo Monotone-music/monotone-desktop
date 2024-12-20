@@ -7,41 +7,51 @@ import { getAlbumImageByFileName } from "../../../service/album.api";
 import { Text } from "@chakra-ui/react";
 
 const QueueList = () => {
-  const { currentTrackId, queue} = usePlayerStore();
+  const { currentTrackId, queue, setCurrentTrackId } = usePlayerStore();
   const { token } = useAuthStore();
-  if (!queue.length) {
-    return <Text color={'white'}>No songs in the queue</Text>; // Early return if the queue is empty
-  }
-  const queries = queue.map((trackId) => ({
+
+  const trackQueries = queue.map((trackId) => ({
     queryKey: ["trackInfo", trackId, token],
     queryFn: () => getTrackInfoById(trackId, token!),
     enabled: !!token,
   }));
 
-  const results = useQueries({ queries });
+  const trackResults = useQueries({ queries: trackQueries });
 
-  const imageQueries = results.map((result) => ({
-    queryKey: ["trackImage", result.data?.recording?.image.filename, token],
+  const imageQueries = trackResults.map((result) => ({
+    queryKey: ["trackImage", result.data?.recording?.image?.filename, token],
     queryFn: () =>
-      getAlbumImageByFileName(result.data?.recording?.image.filename, token!),
-    enabled: !!token && !!result.data?.recording?.image.filename,
+      result.data?.recording?.image?.filename
+        ? getAlbumImageByFileName(result.data.recording.image.filename, token!)
+        : Promise.resolve(null),
+    enabled: !!token,
   }));
 
   const imageResults = useQueries({ queries: imageQueries });
+
+  if (!queue.length) {
+    return <Text color={"white"}>No songs in the queue</Text>; // Early return if the queue is empty
+  }
+
   return (
     <div className={styles.container}>
-      {results.map((results, index) => {
-        const trackInfo = results?.data?.recording;
+      {queue.map((trackId, index) => {
+        const trackInfo = trackResults[index]?.data?.recording;
         const trackImage = imageResults[index]?.data;
+
         return (
           <div
+            onClick={() => setCurrentTrackId(trackId)}
             className={`${styles["queue-row"]} ${
-              currentTrackId === trackInfo?._id ? styles.active : ""
+              currentTrackId === trackId ? styles.active : ""
             }`}
-            key={index}
+            key={trackId}
           >
             <div className={styles["img-wrapper"]}>
-              <img src={trackImage} alt={trackInfo?.title || "Track Image"} />
+              <img
+                src={trackImage || ""}
+                alt={trackInfo?.title || "Track Image"}
+              />
             </div>
             <div className={styles.title}>{trackInfo?.title}</div>
           </div>

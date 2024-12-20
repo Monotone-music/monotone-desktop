@@ -8,6 +8,7 @@ const BottomBar = () => {
   return (
     <section className={styles.container}>
       <BottomTrack/>
+      {/* <AdvertistBar/> */}
       <PlayBar/>
       <OptionBar/>
     </section>

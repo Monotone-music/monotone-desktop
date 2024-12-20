@@ -18,9 +18,11 @@ const Artist = () => {
       enabled: !!artistId,
     });
 
+    console.log(data)
+
     return isLoading ? (
       <Box className={styles.loadingContainer}>
-        <Spinner size="lg" />
+        <Spinner size="lg" thickness='4px'/>
       </Box>
     ) : (
   
