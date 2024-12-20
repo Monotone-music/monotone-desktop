@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
-import { Box, Skeleton, Spinner, Stack } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import RowCard from "../../../Shared/RowCard/RowCard";
 import { getAlbum, getTopAlbum } from "../../../../service/album.api";
 import { useQuery } from "@tanstack/react-query";

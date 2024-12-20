@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { Box, Button, Icon } from "@chakra-ui/react";
+import { Box, Icon } from "@chakra-ui/react";
 import { IoCloseOutline, IoSearchOutline } from "react-icons/io5";
 import { useAuthStore } from "../../../../store/useAuthStore";
 import { useSearchStore, useUISearch } from "../../../../store/useUIStore";

@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { Box, Flex, Skeleton, Spinner, Text } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Text } from "@chakra-ui/react";
 import { usePlayerStore } from "../../../../store/usePlayerStore";
 import { useQuery } from "@tanstack/react-query";
 import { useAuthStore } from "../../../../store/useAuthStore";

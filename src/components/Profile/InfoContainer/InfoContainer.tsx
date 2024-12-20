@@ -5,7 +5,6 @@ import formatMonthYear from "../../../util/formatDate";
 import { useQuery } from "@tanstack/react-query";
 import { getAlbumImageByFileName } from "../../../service/album.api";
 import { useAuthStore } from "../../../store/useAuthStore";
-import EditModal from "../EditModal/EditModal";
 
 interface InfoContainerProps {
   displayName: string;

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useAuthStore } from '../../../../store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
 import { getAlbum } from '../../../../service/album.api';
-import { Box, Skeleton, Spinner, Stack } from '@chakra-ui/react';
+import { Box, Skeleton, Spinner } from '@chakra-ui/react';
 import ErrorWarning from '../../../Error/ErrorWarning/ErrorWarning';
 import styles from "./styles.module.scss";
 import RowCard from '../../../Shared/RowCard/RowCard';

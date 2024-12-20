@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss";
 import { Box, Icon, Skeleton, Stack, Text } from "@chakra-ui/react";
-import { FaClock, FaPlay, FaRandom } from "react-icons/fa";
-import { RiAddCircleLine } from "react-icons/ri";
+import { FaClock, FaPlay } from "react-icons/fa";
 import {
   Table,
   Thead,
