@@ -25,7 +25,7 @@ const Root = () => {
       </section>
       {isRightBarOpen && <RightBar />}
       {isOpenQueue && <QueueBar />}
-      {!isPremium ? <></>: (<AdvertistBar/>)}
+      {isPremium ? <></>: (<AdvertistBar/>)}
       <BottomBar />
     </section>
   );

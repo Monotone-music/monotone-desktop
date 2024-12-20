@@ -50,11 +50,13 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
         <Box className={styles["content-container"]}>
           <Box className={styles["name"]}>
             {displayName}
-            {!isPremium ? (
-              <></>
+            {isPremium ? (
+                  <Badge marginLeft={10} fontSize="0.7rem" colorScheme="green">
+                  Basic
+                </Badge>
             ) : (
-              <Badge marginLeft={10} fontSize="0.7rem" colorScheme="green">
-                Basic
+              <Badge marginLeft={10} fontSize="0.7rem" colorScheme="gray">
+                Free
               </Badge>
             )}
           </Box>

@@ -8,6 +8,7 @@ import InputForm, { SignUpFormValues } from "../../Input/InputForm";
 import Notation from "../../Notation/Notation";
 import { FaArrowRight } from "react-icons/fa";
 import { useSignUpMutation } from "../../../../mutation/useSignUpMutation";
+import { AxiosError } from "axios";
 
 const SignUpForm = () => {
   const signUpMutation = useSignUpMutation();
@@ -33,13 +34,15 @@ const SignUpForm = () => {
         navigate("/auth/sign-in", { replace: true });
       },
 
-      onError: () => {
+      onError: (e: Error) => {
+        const error = e as AxiosError
+        const errorMessage = (error?.response?.data as { message: string })?.message;
         toast({
           status: "error",
           duration: 2000,
           title: "Sign Up Failed !",
           position: "top-right",
-          description: "Please try again with your information!",
+          description: errorMessage || "Please try again with your information!",
         });
       },
     });

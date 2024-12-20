@@ -15,7 +15,6 @@ const CheckoutForm = () => {
     const navigate = useNavigate();
     const [isProcessing, setIsProcessing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
     const handleSubmit = useCallback(async (e: any) => {
         e.preventDefault();
         setIsProcessing(true);
@@ -55,11 +54,10 @@ const CheckoutForm = () => {
             });
 
             setIsLoading(true);
+
             setTimeout(() => {
-                navigate('/home');
-                setTimeout(() => {
-                    setIsLoading(false);
-                }, 2000);
+                navigate('/profile');
+                setIsLoading(false);
             }, 2000);
 
         } else if (paymentIntent?.status === "canceled") {

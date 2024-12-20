@@ -5,7 +5,6 @@ import PlanInfo from "../../components/Payment/PlanInfo/PlanInfo";
 
 
 const Payment = () => {
-
   return (
     <Box className={styles.container}>
           <TopInfo />

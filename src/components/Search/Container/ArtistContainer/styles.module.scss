@@ -10,6 +10,7 @@
 .title{
     font-weight: 600;
     font-size: 18px;
+        color: white;
 }
 
 
@@ -44,7 +45,9 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     height: auto;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img{
         width: 100%;
         height: 100%;
@@ -68,12 +71,14 @@
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
+            color: white;
     }
 
     .role{
         font-size: 14px;
         font-weight: 500;
         color: #757575;
+        
     }
 }
 

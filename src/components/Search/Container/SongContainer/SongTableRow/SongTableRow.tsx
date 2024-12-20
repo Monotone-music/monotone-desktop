@@ -55,6 +55,7 @@ const SongTableRow: React.FC<SongTableRowProps> = ({
           width: "10%",
           textAlign: "right",
           fontSize: "12px",
+          color: 'white'
         }}
       >
         4:30

@@ -76,6 +76,7 @@ export interface IArtistSearchRecord{
         name: string;
         releaseGroup: IReleaseGroup[];
         _id: string;
+        image: IImageAlbum
       }
     }
   }

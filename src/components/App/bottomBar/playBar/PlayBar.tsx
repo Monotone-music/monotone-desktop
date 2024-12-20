@@ -1,13 +1,26 @@
 import styles from "./styles.module.scss";
-import { Box, Progress, Skeleton, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Skeleton,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+  Text,
+} from "@chakra-ui/react";
 import BtnPlayBar from "../btnPlayBar/BtnPlayBar";
 import { FaPause, FaPlay, FaRandom } from "react-icons/fa";
-import { IoIosSkipBackward, IoIosSkipForward, IoMdRepeat } from "react-icons/io";
+import {
+  IoIosSkipBackward,
+  IoIosSkipForward,
+  IoMdRepeat,
+} from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import { usePlayerStore } from "../../../../store/usePlayerStore";
 import formatDuration from "../../../../util/formatDuration";
 import { useAuthStore } from "../../../../store/useAuthStore";
 import { getRandomAds } from "../../../../service/ads.api";
+import { MdGraphicEq } from "react-icons/md";
 
 const PlayBar = () => {
   const {
@@ -161,7 +174,15 @@ const PlayBar = () => {
         audioRef.current.onended = null;
       }
     };
-  }, [adId, isAdPlaying, clearStateCounter, playNextTrack, setIsPlaying, setIsAdPlaying, setAdId]);
+  }, [
+    adId,
+    isAdPlaying,
+    clearStateCounter,
+    playNextTrack,
+    setIsPlaying,
+    setIsAdPlaying,
+    setAdId,
+  ]);
 
   return (
     <Box className={styles.container}>
@@ -217,19 +238,34 @@ const PlayBar = () => {
       </Box>
 
       <Box className={styles["progress-bar-wrapper"]}>
-        <Text className={styles["time"]}>{formatDuration(currentTime)}</Text>
+        <Text className={styles["time"]} color="white">
+          {formatDuration(currentTime)}
+        </Text>
         {isLoading ? (
           <Skeleton height={2} width={200} />
         ) : (
-          <Progress
+          <Slider
             width={200}
-            colorScheme="green"
-            borderRadius={10}
+            aria-label="slider-ex-4"
             value={progress}
-            height={2}
-          />
+            onChange={(val) => {
+              if (audioRef.current) {
+                audioRef.current.currentTime = (val / 100) * duration;
+                setProgress(val);
+              }
+            }}
+          >
+            <SliderTrack bg="green.100">
+              <SliderFilledTrack bg="green" />
+            </SliderTrack>
+            <SliderThumb boxSize={5}>
+              <Box color="tomato" as={MdGraphicEq} />
+            </SliderThumb>
+          </Slider>
         )}
-        <Text className={styles["time"]}>{formatDuration(duration)}</Text>
+        <Text className={styles["time"]} color="white">
+          {formatDuration(duration)}
+        </Text>
       </Box>
     </Box>
   );
