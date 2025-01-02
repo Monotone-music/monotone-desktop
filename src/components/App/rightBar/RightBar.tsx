@@ -53,7 +53,7 @@ const RightBar = () => {
   if (isLoading || isImgLoading) {
     return (
       <section className={styles.loadingContainer}>
-        <Spinner size="lg" thickness="4px" />
+        <Spinner size="lg" thickness="4px" color="white"/>
       </section>
     );
   }

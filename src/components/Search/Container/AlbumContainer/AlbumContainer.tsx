@@ -31,7 +31,7 @@ const AlbumCard:React.FC<AlbumCardProps> = ({albumData, index, token}) => {
     return (
         <Box className={styles['card-container']} key={index} onClick={() => redirectToAlbumDetail(albumData.source.info._id)}>
             <Box className={styles['img-wrapper']}>
-            {isLoading ? <Spinner /> : <img src={data} alt="" />}
+            {isLoading ? <Spinner color="white"/> : <img src={data} alt="" />}
             </Box>
             <Box className={styles['info-wrapper']}>
                 <Box className={styles.name}>{albumData.source.value}</Box>

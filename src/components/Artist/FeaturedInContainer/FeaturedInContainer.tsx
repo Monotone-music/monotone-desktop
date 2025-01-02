@@ -12,7 +12,7 @@ const FeaturedInContainer:React.FC<FeaturedInContainerProps> = ({featuredIn}) =>
     return (
         <Box className={styles.container}>
             <Box className={styles.title}>
-                <Text>
+                <Text color="white">
                     Featured in
                 </Text>
             </Box>

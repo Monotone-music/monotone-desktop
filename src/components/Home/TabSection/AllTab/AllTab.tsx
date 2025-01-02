@@ -64,7 +64,7 @@ const AllTab = () => {
   if (isLoading) {
     return (
       <Box className={styles.loadingContainer}>
-          <Spinner size="xl" thickness='4px'/>
+          <Spinner size="xl" thickness='4px' color="white"/>
       </Box>
     );
   }

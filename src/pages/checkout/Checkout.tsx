@@ -36,7 +36,7 @@ const Checkout = () => {
   const LoadingScreen = () => {
     return (
         <Box className={styles.loadingScreen}>
-            <Spinner size="lg" />
+            <Spinner size="lg" color="white"/>
         </Box>
     );
 };

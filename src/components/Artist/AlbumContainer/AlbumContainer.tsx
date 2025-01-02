@@ -12,7 +12,7 @@ const AlbumContainer:React.FC<AlbumContainerProps> = ({albums}) => {
 
   return (
     <Box className={styles.container}>
-        <Box className={styles.title}>
+        <Box className={styles.title} color="white">
             <Text>
                 Albums
             </Text>

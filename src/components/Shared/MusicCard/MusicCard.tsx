@@ -57,7 +57,7 @@ const MusicCard: React.FC<MusicCardProps> = ({ itemData }) => {
     >
       {isLoading ? (
         <Box className={styles.loadingContainer}>
-          <Spinner />
+          <Spinner color="white"/>
         </Box>
       ) : (
         <Box className={styles["img-wrapper"]} border="none">

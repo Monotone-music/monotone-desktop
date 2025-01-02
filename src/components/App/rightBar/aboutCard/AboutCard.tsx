@@ -51,7 +51,7 @@ const AboutCard: React.FC<AboutCardProp> = ({ dataAboutCard }) => {
     <Box className={styles.container} key={index}>
       <Box className={styles["img-wrapper"]}>
         {isImageLoading ? (
-          <Spinner />
+          <Spinner color="white"/>
         ) : (
           <img
             src={

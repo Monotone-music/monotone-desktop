@@ -38,7 +38,7 @@ const SongTableRow: React.FC<SongTableRowProps> = ({
         className={styles["song-img-wrapper"]}
       >
         <Box className={styles["img-wrapper"]}>
-          {isLoading ? <Spinner /> : <img src={data} alt="" />}
+          {isLoading ? <Spinner color="white"/> : <img src={data} alt="" />}
         </Box>
         <Box className={styles["song-info"]}>
           <Box className={styles["song-title"]}>

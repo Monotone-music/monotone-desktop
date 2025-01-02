@@ -89,7 +89,7 @@ const SignUpForm = () => {
           w="full"
           borderRadius="10px"
         >
-          {signUpMutation.isPending ? <Spinner /> : "Sign up"}
+          {signUpMutation.isPending ? <Spinner color="white"/> : "Sign up"}
         </Button>
       </Box>
 

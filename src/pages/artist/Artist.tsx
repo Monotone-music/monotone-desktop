@@ -20,7 +20,7 @@ const Artist = () => {
 
     return isLoading ? (
       <Box className={styles.loadingContainer}>
-        <Spinner size="lg" thickness='4px'/>
+        <Spinner size="lg" thickness='4px' color="white"/>
       </Box>
     ) : (
   
@@ -32,7 +32,7 @@ const Artist = () => {
           imageArtist={data?.data?.artist.image.filename}
         />
          
-          <Box className={styles.description}>
+          <Box className={styles.description} color="white">
             {data?.data?.artist.name} is a talented style artist recognized for their unique
             approach techniques. Drawing inspiration from influences their work
             has been showcased in exhibitions, leaving a lasting impression with

@@ -41,7 +41,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
         <Box className={styles["img-container"]}>
           <Box className={styles["img-wrapper"]}>
             {isLoading ? (
-              <Spinner />
+              <Spinner color="white"/>
             ) : (
               <img src={data || "https://bit.ly/code-beast"} alt="" />
             )}

@@ -26,7 +26,7 @@ const Profile = () => {
 
   return isLoading ? (
     <Box className={styles.loadingContainer}>
-      <Spinner size="lg" />
+      <Spinner size="lg" color="white"/>
     </Box>
   ) : (
     <Box className={styles.container}>

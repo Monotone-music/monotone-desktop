@@ -40,7 +40,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ index, artistData }) => {
     >
       <Box className={styles["img-wrapper"]}>
         {isLoading ? (
-          <Spinner size="xl" thickness="2px" />
+          <Spinner size="xl" thickness="2px" color="white"/>
         ) : (
           <img src={data || exampleImg} alt="" />
         )}
