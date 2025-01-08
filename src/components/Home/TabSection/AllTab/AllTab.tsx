@@ -6,6 +6,7 @@ import { getAlbum, getTopAlbum } from "../../../../service/album.api";
 import { useQuery } from "@tanstack/react-query";
 import ErrorWarning from "../../../Error/ErrorWarning/ErrorWarning";
 import { useAuthStore } from "../../../../store/useAuthStore";
+import HorizontalRow from "../../../Shared/HorizontalRow/HorizontalRow";
 
 const AllTab = () => {
   const { token } = useAuthStore();
@@ -43,22 +44,19 @@ const AllTab = () => {
 
   // Tracking Width of Content
   useEffect(() => {
-    const contentElement = contentRef.current;
+    const handleResize = () => {
+      if (contentRef.current) {
+        setContentWidth(contentRef.current.clientWidth);
+      }
+    };
 
-    if (contentElement) {
-      const resizeObserver = new ResizeObserver((entries) => {
-        for (let entry of entries) {
-          setContentWidth(entry.contentRect.width);
-        }
-      });
+    handleResize(); // Set initial width
+    window.addEventListener("resize", handleResize);
 
-      resizeObserver.observe(contentElement);
-
-      // Cleanup observer on unmount
-      return () => {
-        resizeObserver.disconnect();
-      };
-    }
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   if (isLoading) {
@@ -91,14 +89,15 @@ const AllTab = () => {
 
   return (
     <Box className={styles.container} ref={contentRef}>
-      {topAlbums && (
+      <HorizontalRow cardData={topAlbum}/>
+      {/* {topAlbums && (
         <RowCard
           rowTitle="Top Album"
           contentWidth={contentWidth}
           cardData={topAlbum}
           showMore={false}
         />
-      )}
+      )} */}
 
       {albums?.length > 0 && (
           <RowCard

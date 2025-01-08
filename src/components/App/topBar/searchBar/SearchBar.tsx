@@ -4,11 +4,13 @@ import { IoCloseOutline, IoSearchOutline } from "react-icons/io5";
 import { useAuthStore } from "../../../../store/useAuthStore";
 import { useSearchStore, useUISearch } from "../../../../store/useUIStore";
 import useSearchResults from "../../../../hook/useSearchResults";
+import { useEffect, useRef } from "react";
 const SearchBar = () => {
   const { query, setQuery } = useSearchStore();
   const { token } = useAuthStore();
-  const {toggleOpenModal} = useUISearch()
-
+  const { toggleOpenModal } = useUISearch();
+  const inputRef = useRef<HTMLInputElement>(null);
+  
   useSearchResults(query!, token!);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +18,7 @@ const SearchBar = () => {
     setQuery(value);
 
     if (value) {
-      toggleOpenModal(true); 
+      toggleOpenModal(true);
     } else {
       toggleOpenModal(false);
     }
@@ -25,23 +27,35 @@ const SearchBar = () => {
   const handleClearInput = () => {
     setQuery("");
     toggleOpenModal(false);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [query]);
+
+  
 
   return (
     <Box className={styles.container}>
       <Icon as={IoSearchOutline} color={'white'} boxSize={7} />
       <input
+        ref={inputRef}
         value={query!}
         onChange={handleInputChange}
         className={styles["search-bar"]}
         placeholder="Search"
       />
-        {query && (
-          <Icon as={IoCloseOutline} onClick={handleClearInput} cursor={'pointer'} color={'white'} boxSize={5} />
-      
+      {query && (
+        <Icon as={IoCloseOutline} onClick={handleClearInput} cursor={'pointer'} color={'white'} boxSize={5} />
       )}
     </Box>
   );
 };
+
 
 export default SearchBar;

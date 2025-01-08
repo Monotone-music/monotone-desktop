@@ -8,4 +8,19 @@
     @media screen and (min-width: 1024px) {
         height: 60px !important;
     }
+
+
 }
+
+.container::placeholder {
+    color: white;
+    opacity: 1; /* Firefox */
+  }
+  
+  .container::-ms-input-placeholder { /* Edge 12-18 */
+    color: white;
+  }
+
+  .error-text{
+    color: red;
+  }

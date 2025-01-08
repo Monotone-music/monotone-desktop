@@ -21,7 +21,15 @@ const SignUpForm = () => {
   } = useForm<SignUpFormValues>({ resolver: yupResolver(SignUpSchema) });
 
   const onSubmit: SubmitHandler<ISignUpForm> = async (data) => {
-    signUpMutation.mutate(data, {
+    const trimmedData = {
+      username: data.username.trim(),
+      password: data.password.trim(),
+      displayName: data.displayName.trim(),
+      email: data.email.trim()
+    }
+
+
+    signUpMutation.mutate(trimmedData, {
       onSuccess: () => {
         toast({
           status: "success",

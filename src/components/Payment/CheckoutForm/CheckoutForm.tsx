@@ -7,8 +7,10 @@ import {
 } from "@stripe/react-stripe-js";
 import styles from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 const CheckoutForm = () => {
+    const {setIsPremium} = useAuthStore()
     const toast = useToast();
     const stripe = useStripe();
     const elements = useElements();
@@ -56,6 +58,7 @@ const CheckoutForm = () => {
             setIsLoading(true);
 
             setTimeout(() => {
+                setIsPremium(true)
                 navigate('/profile');
                 setIsLoading(false);
             }, 2000);

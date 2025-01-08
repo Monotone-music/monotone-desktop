@@ -21,8 +21,8 @@ const tabStyle = {
     width: "fit-content",
     bg: "rgba(255, 255, 255, 0.15)",
     color: "white",
-    fontWeight: "500",
-    fontSize: "12px",
+    fontWeight: "600",
+    fontSize: "14px",
     _selected: {
         bg: "rgba(255, 255, 255, 1)",
         color: "black",

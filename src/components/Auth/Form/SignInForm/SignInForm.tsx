@@ -23,7 +23,13 @@ const SignInForm = () => {
 
 
   const onSubmit:SubmitHandler<ISignInForm> = async (data) => {
-    signInMutation.mutate(data, {
+
+    const trimmedData = {
+      username: data.username.trim(),
+      password: data.password.trim(),
+    };
+
+    signInMutation.mutate(trimmedData, {
       onSuccess: () => {
         toast({
           status:'success',

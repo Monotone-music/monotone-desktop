@@ -24,7 +24,7 @@ const RowCard: React.FC<RowCardProps> = ({rowTitle, cardData, showMore = true, i
     <Box className={styles.container}>
       <Box className={styles.top}>
         <Text className={styles.title}>{rowTitle}</Text>
-        {showMore &&     <Text className={styles.seeMore}    onClick={handleSeeMoreClick}>See More</Text>}
+        {showMore &&     <Text className={styles.seeMore} onClick={handleSeeMoreClick}>See More</Text>}
     
       </Box>
       <Box className={isWrap ? styles['row-wrap'] : styles.row}>
