@@ -22,8 +22,7 @@ interface ActionBarProps {
   recordings: any[]
 }
 const ActionBar: React.FC<ActionBarProps> = ({recordings}) => {
-  const { setQueue, setCurrentTrackId, setIsPlaying } = usePlayerStore();
-
+  const { queue, setQueue, setCurrentTrackId, setIsPlaying } = usePlayerStore();
   const handlePlayAll = () => {
     if (!recordings.length) return;
     

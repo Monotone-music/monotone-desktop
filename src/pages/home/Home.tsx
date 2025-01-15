@@ -10,7 +10,6 @@ import { useAuthStore } from "../../store/useAuthStore";
 
 const Home = () => {
   const {isPremium} = useAuthStore()
-  console.log(isPremium)
   const tabArr: ITabArr[] = [
     { title: "All", component: <AllTab /> },
     { title: "Album", component: <AlbumTab /> },

@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Input, Spinner } from "@chakra-ui/react";
 import InfoContainer from "../../components/Profile/InfoContainer/InfoContainer";
 import PlanContainer from "../../components/Profile/PlanContainer/PlanContainer";
 import { useAuthStore } from "../../store/useAuthStore";

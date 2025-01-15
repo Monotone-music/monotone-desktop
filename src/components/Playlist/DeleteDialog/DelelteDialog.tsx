@@ -32,6 +32,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({ isOpen, onClose, recordInde
         toast({
           status: 'success',
           title: 'Remove successfully',
+          position: 'top-right',
           duration: 2000,
         });
         queryClient.invalidateQueries({ queryKey: ['playlistDetail'] }); // Invalidate the playlist query to refresh the list
@@ -41,6 +42,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({ isOpen, onClose, recordInde
         toast({
           status: 'error',
           duration: 2000,
+          position: 'top-right',
           title: 'Remove failed',
         });
       },

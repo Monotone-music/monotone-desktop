@@ -2,10 +2,6 @@ import styles from "./styles.module.scss";
 import {
   Box,
   Skeleton,
-  Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
   Text,
 } from "@chakra-ui/react";
 import BtnPlayBar from "../btnPlayBar/BtnPlayBar";
@@ -20,7 +16,6 @@ import { usePlayerStore } from "../../../../store/usePlayerStore";
 import formatDuration from "../../../../util/formatDuration";
 import { useAuthStore } from "../../../../store/useAuthStore";
 import { getRandomAds } from "../../../../service/ads.api";
-import { MdGraphicEq } from "react-icons/md";
 
 const PlayBar = () => {
   const {
@@ -47,9 +42,11 @@ const PlayBar = () => {
 
   const { bitrate, isPremium, token } = useAuthStore();
   const audioRef = useRef<HTMLAudioElement>(null);
+
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+
 
   const updateAudioProgress = () => {
     if (audioRef.current) {
@@ -61,13 +58,16 @@ const PlayBar = () => {
     }
   };
 
+
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
       if (isPlaying) {
-        audioRef.current
-          .play()
-          .catch((error) => console.error("Error playing audio:", error));
+        audioRef.current.play()
+          .catch((error) => {
+            // Only log error, don't block UI
+            console.error("Error playing audio:", error);
+          });
       } else {
         audioRef.current.pause();
       }
@@ -187,7 +187,7 @@ const PlayBar = () => {
   return (
     <Box className={styles.container}>
       <audio
-        ref={audioRef}
+      ref={audioRef}
         onEnded={handleTrackEnd}
         controls={true}
         onLoadedMetadata={updateAudioProgress}
@@ -244,24 +244,17 @@ const PlayBar = () => {
         {isLoading ? (
           <Skeleton height={2} width={200} />
         ) : (
-          <Slider
-            width={200}
-            aria-label="slider-ex-4"
-            value={progress}
-            onChange={(val) => {
-              if (audioRef.current) {
-                audioRef.current.currentTime = (val / 100) * duration;
-                setProgress(val);
-              }
-            }}
-          >
-            <SliderTrack bg="green.100">
-              <SliderFilledTrack bg="green" />
-            </SliderTrack>
-            <SliderThumb boxSize={5}>
-              <Box color="tomato" as={MdGraphicEq} />
-            </SliderThumb>
-          </Slider>
+          <input 
+          
+          onChange={(e) => {
+            const val = parseFloat(e.target.value);
+            if (audioRef.current && !isNaN(val)) {
+              audioRef.current.currentTime = (val / 100) * duration;
+              setProgress(val);
+            }
+          }}
+
+          className={styles['progress-bar']} value={progress} type="range" />
         )}
         <Text className={styles["time"]} color="white">
           {formatDuration(duration)}

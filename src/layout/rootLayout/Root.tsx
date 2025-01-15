@@ -21,7 +21,8 @@ const Root = () => {
       <SideBar />
       <TopBar />
       <section className={styles.main}>
-        {isOpenModal ? <SearchModal /> : <Outlet />}
+      {isOpenModal ? <SearchModal /> : <Outlet/>}
+    
       </section>
       {isRightBarOpen && <RightBar />}
       {isOpenQueue && <QueueBar />}

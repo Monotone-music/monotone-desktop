@@ -26,11 +26,97 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 16px;
 }
 
 .time{
     font-size: 12px;
     font-weight: 600;
-
+    width: 40px;
+    text-align: center;
 }
+
+.progress-bar {
+    --bar-bg: orange; /* Phần đã phát */
+    --remaining-bg: grey; /* Phần chưa phát */
+    --seek-before-width: 0;
+    --seek-before-color: orange;
+    --knobby: white;
+    --selected-knobby: grey;
+  
+    appearance: none;
+    background: var(--remaining-bg);
+    border-radius: 10px;
+    position: relative;
+    width: 200px;
+    height: 4px;
+    outline: none;
+  
+    // Chrome & Safari
+    &::-webkit-slider-runnable-track {
+      background: var(--remaining-bg); /* Màu xám cho phần chưa phát */
+      border-radius: 10px;
+      position: relative;
+      width: 100%;
+      height: 4px;
+      outline: none;
+    }
+  
+    &::before {
+      content: '';
+      height: 4px;
+      width: var(--seek-before-width);
+      background-color: var(--seek-before-color); /* Màu cam cho phần đã phát */
+      border-radius: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+  
+    &::-webkit-slider-thumb {
+      appearance: none;
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      border: none;
+      background-color: var(--knobby);
+      cursor: pointer;
+      position: relative;
+      margin: -4px 0 0 0;
+      z-index: 3;
+      box-sizing: border-box;
+  
+      &:active {
+        transform: scale(1.2);
+        background: var(--selected-knobby);
+      }
+    }
+  
+    &::-moz-range-track {
+      background: var(--remaining-bg);
+      border-radius: 10px;
+      position: relative;
+      width: 100%;
+      height: 4px;
+      outline: none;
+    }
+  
+    &::-moz-range-thumb {
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      border: transparent;
+      background-color: var(--knobby);
+      cursor: pointer;
+      position: relative;
+      z-index: 3;
+      box-sizing: border-box;
+  
+      &:active {
+        transform: scale(1.2);
+        background: var(--selected-knobby);
+      }
+    }
+  }
+  

@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss";
-import { Box, Icon, Skeleton, Stack } from "@chakra-ui/react";
-import { FaClock } from "react-icons/fa";
+import { Box, Icon, Skeleton, Stack, Text } from "@chakra-ui/react";
+import { FaClock, FaPlay } from "react-icons/fa";
 import {
   Table,
   Thead,
@@ -13,7 +13,32 @@ import { useQuery } from "@tanstack/react-query";
 import { getAlbumImageByFileName } from "../../../service/album.api";
 import { useAuthStore } from "../../../store/useAuthStore";
 import RowRecord from "./RowRecord/RowRecord";
-import ActionBar from "../ActionBar/ActionBar";
+import { usePlayerStore } from "../../../store/usePlayerStore";
+
+
+interface ActionBarProps {
+  recordings: any[]
+}
+const ActionBar: React.FC<ActionBarProps> = ({recordings}) => {
+  const { queue,setQueue, setCurrentTrackId, setIsPlaying } = usePlayerStore();
+  const handlePlayAll = () => {
+    if (!recordings.length) return;
+    
+    const sortedIds = recordings.map(recording => recording.recording._id);
+    setQueue(sortedIds);
+    setCurrentTrackId(sortedIds[0]);
+    setIsPlaying(true);
+  };
+  return (
+    <Box className={styles["actionBar-container"]}>
+      <Box className={styles.playBtn}  onClick={handlePlayAll}>
+        <Icon as={FaPlay} boxSize={5} color={"#000000"} />
+   
+      </Box>
+      <Text color={"white"} fontWeight={600}>Play All</Text>
+    </Box>
+  );
+};
 
 
 // ListRecord component expecting an array of recording data
@@ -55,7 +80,7 @@ const ListRecord: React.FC<ListRecordProps> = ({ recording, playlistId }) => {
 
   return (
     <Box className={styles.container}>
-      <ActionBar playlistId={playlistId}/>
+          <ActionBar recordings={recording}/>
 
       <TableContainer>
         <Table variant="unstyled">

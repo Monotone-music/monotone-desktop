@@ -89,7 +89,7 @@ const AllTab = () => {
 
   return (
     <Box className={styles.container} ref={contentRef}>
-      <HorizontalRow cardData={topAlbum}/>
+      {/* <HorizontalRow cardData={topAlbum}/> */}
       {/* {topAlbums && (
         <RowCard
           rowTitle="Top Album"

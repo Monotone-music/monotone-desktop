@@ -39,8 +39,8 @@ export interface ISearchUI{
 }
 
 export interface SearchState {
-  query: string | null;
-  setQuery: (query: string) => void
+  query: string | undefined;
+  setQuery: (query: string | undefined) => void
   results: any | null
   setResults: (results: any) => void
   loading: boolean

@@ -61,7 +61,7 @@ const SignInForm = () => {
 
       <Box className={styles["submit-wrapper"]}>
         <Button type="submit" className={styles.submitBtn}  rightIcon={signInMutation.isPending ? <></> : <FaArrowRight /> } isDisabled={signInMutation.isPending} size="md" w="full" borderRadius="10px">
-          {signInMutation.isPending ? <Spinner color="white"/> : "Sign in"}
+          {signInMutation.isPending ? <Spinner color="black"/> : "Sign in"}
         </Button>
       </Box>
 

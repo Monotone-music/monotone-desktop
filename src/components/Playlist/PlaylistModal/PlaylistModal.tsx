@@ -16,7 +16,7 @@ import {
 import { FaPlus } from "react-icons/fa";
 import PlaylistCreateModal from "../PlaylistCreateModal/PlaylistCreateModal";
 import usePlaylistStore from "../../../store/usePlaylistStore";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProfile } from "../../../service/profile.api";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { useAddTrackToPlaylistMutation } from "../../../mutation/useAddTrackToPlaylist";
@@ -38,6 +38,7 @@ const PlaylistModal: React.FC<PlaylistModal> = ({
     onClose: OnCloseCreateModal,
   } = useDisclosure();
   const { token } = useAuthStore();
+  const queryClient = useQueryClient();
   const toast = useToast();
   const { setRecordingId } = usePlaylistStore();
   const addTrackToPlaylistMutation = useAddTrackToPlaylistMutation();
@@ -57,13 +58,36 @@ const PlaylistModal: React.FC<PlaylistModal> = ({
     playlistId: string,
     recordingId: string
   ) => {
+    const playlistData = queryClient.getQueryData<{ data: { playlist: any[] } }>(['profileUser']);
+    // console.log(playlistData??.)
+    const selectedPlaylist = playlistData?.data?.playlist.find(
+      (playlist: any) => playlist._id === playlistId
+    );
+  
+    console.log(selectedPlaylist)
+
+    // Check if the recordingId is already in the playlist
+    const isRecordingInPlaylist = selectedPlaylist?.recording?.includes(recordingId);
+    console.log(selectedPlaylist?.recording)
+    if (isRecordingInPlaylist) {
+      toast({
+        status: 'info',
+        title: 'Track already in playlist',
+        position: 'top-right',
+        duration: 2000,
+      });
+      return; // Stop further execution
+    }
+
     const dataSubmit = {
       playlistId: playlistId,
       recordingId: recordingId,
     };
 
     addTrackToPlaylistMutation.mutate(dataSubmit, {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['profileUser'] });
+        await queryClient.refetchQueries({ queryKey: ['profileUser'] });
         toast({
           status: "success",
           title: "Adding track to playlist successfully",

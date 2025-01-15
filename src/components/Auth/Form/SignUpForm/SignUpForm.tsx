@@ -34,9 +34,9 @@ const SignUpForm = () => {
         toast({
           status: "success",
           title: "Sign Up Successfully",
-          description: "Please sign in with the account you have created!",
+          description: "Please check your email and verify account before signing in!",
           position: "top-right",
-          duration: 2000,
+          duration: 2500,
         });
 
         navigate("/auth/sign-in", { replace: true });
@@ -97,7 +97,7 @@ const SignUpForm = () => {
           w="full"
           borderRadius="10px"
         >
-          {signUpMutation.isPending ? <Spinner color="white"/> : "Sign up"}
+          {signUpMutation.isPending ? <Spinner color="black"/> : "Sign up"}
         </Button>
       </Box>
 

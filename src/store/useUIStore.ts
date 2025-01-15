@@ -23,7 +23,7 @@ export const useUISearch = create<ISearchUI>((set) => ({
 }));
 
 export const useSearchStore = create<SearchState>((set) => ({
-  query: null,
+  query: undefined,
   setQuery: (query) => set({ query }),
   results: null,
   setResults: (results) => set({ results }),
