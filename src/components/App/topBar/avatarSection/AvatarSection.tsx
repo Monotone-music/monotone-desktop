@@ -10,11 +10,31 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../../../store/useAuthStore";
 import { usePlayerStore } from "../../../../store/usePlayerStore";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "../../../../service/profile.api";
+import { getAlbumImageByFileName } from "../../../../service/album.api";
+import unknownimg from '../../../../assets/img/unknownimg.jpg'
 
 const AvatarSection = () => {
-  const {clearAuthState} = useAuthStore()
+  const {clearAuthState, token} = useAuthStore()
   const {clearStatePlayer} = usePlayerStore()
   const navigate = useNavigate();
+
+  const { data: profileData } = useQuery({
+    queryKey: ['profile', token],
+    queryFn: () => getProfile(token!),
+    enabled: !!token,
+    refetchOnWindowFocus: true,
+    staleTime: 1000 * 60, // 1 minute
+  });
+
+  const { data: imgData } = useQuery({
+    queryKey: ['imgProfile', profileData?.data?.image?.filename],
+    queryFn: () => getAlbumImageByFileName(profileData?.data?.image?.filename!, token!),
+    enabled: !!token && !!profileData?.data?.image?.filename,
+    refetchOnWindowFocus: true,
+    staleTime: 1000 * 60, // 1 minute
+  });
 
   const redirectToProfile = () => {
     navigate('/profile', { replace: true });
@@ -33,7 +53,7 @@ const AvatarSection = () => {
           <Avatar
             name="Dan Abrahmov"
             size="sm"
-            src="https://bit.ly/code-beast"
+            src={imgData || unknownimg}
           />
         </MenuButton>
         <MenuList bg="black" p={2} border="gray solid 1px" borderRadius={10}>

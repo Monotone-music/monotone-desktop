@@ -12,7 +12,6 @@ export const useSignInMutation = () => {
     return useMutation({
     mutationFn: (data: ISignInForm) => signIn(data),
       onSuccess: (data:AxiosResponse) => {
-        console.log(data.data)
         setIsAuthenticated(true);
         setToken(data.data.accessToken);
         setRefreshToken(data.data.refreshToken)

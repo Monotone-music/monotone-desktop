@@ -29,7 +29,7 @@ const Artist = () => {
         forPage='artist'
           displayName={data?.data?.artist.name}
           createdAt={data?.data?.artist.createdAt}
-          imageArtist={data?.data?.artist.image.filename}
+          imageFileName={data?.data?.artist.image.filename}
         />
          
           <Box className={styles.description} color="white">

@@ -59,16 +59,13 @@ const PlaylistModal: React.FC<PlaylistModal> = ({
     recordingId: string
   ) => {
     const playlistData = queryClient.getQueryData<{ data: { playlist: any[] } }>(['profileUser']);
-    // console.log(playlistData??.)
     const selectedPlaylist = playlistData?.data?.playlist.find(
       (playlist: any) => playlist._id === playlistId
     );
-  
-    console.log(selectedPlaylist)
+
 
     // Check if the recordingId is already in the playlist
     const isRecordingInPlaylist = selectedPlaylist?.recording?.includes(recordingId);
-    console.log(selectedPlaylist?.recording)
     if (isRecordingInPlaylist) {
       toast({
         status: 'info',

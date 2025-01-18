@@ -18,6 +18,7 @@ import { usePlayerStore } from "../../../../store/usePlayerStore";
 import playingGif from "../../../../assets/img/disc-unscreen.gif";
 import { SlOptions } from "react-icons/sl";
 import PlaylistModal from "../../../Playlist/PlaylistModal/PlaylistModal";
+import ReportModal from "../../../Report/ReportModal/ReportModal";
 
 interface RowRecordProps {
   record: IRecord;
@@ -33,6 +34,7 @@ const RowRecord: React.FC<RowRecordProps> = ({
   albumTrackIds,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen:isOpenReport, onOpen: onOpenReport, onClose: onCloseReport } = useDisclosure();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { setCurrentTrack, addAlbumToQueue, currentTrackId, incrementTrackCounter } = usePlayerStore();
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
@@ -57,6 +59,12 @@ const RowRecord: React.FC<RowRecordProps> = ({
     setSelectedRecordId(recordId);
     onOpen();
   };
+
+  const handleOpenReportModal = (recordId: string) => {
+    setSelectedRecordId(recordId);
+    onOpenReport();
+  };
+
 
   return (
     <Tr
@@ -98,11 +106,13 @@ const RowRecord: React.FC<RowRecordProps> = ({
           </MenuButton>
           <MenuList p={0} border={"#616161 solid 1px"} borderRadius={2}>
             <MenuItem bg="gray.900" _hover={{bg:"gray.700"}} p={4} color={'white'}  onClick={() => handleOpenModal(record._id)}>Adding to Playlist</MenuItem>
+            <MenuItem bg="gray.900" _hover={{bg:"gray.700"}} p={4} color={'white'}  onClick={() => handleOpenReportModal(record._id)}>Report</MenuItem>
           </MenuList>
         </Menu>
       </Td>
 
       <PlaylistModal isOpen={isOpen} onClose={onClose} recordingId={selectedRecordId}/>
+      <ReportModal isOpen={isOpenReport} onClose={onCloseReport} recordingId={selectedRecordId}/>
     </Tr>
   );
 };

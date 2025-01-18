@@ -31,6 +31,7 @@ const Profile = () => {
   ) : (
     <Box className={styles.container}>
       <InfoContainer
+        imageFileName={data.data.image.filename}
         displayName={data.data.displayName}
         createdAt={data.data.createdAt}
       />
